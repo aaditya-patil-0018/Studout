@@ -1,0 +1,89 @@
+{% extends "seller_layout.html" %}
+
+{% block head %}
+<title>StudOut | Add New Listing</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/add_listing.css') }}">
+{% endblock %}
+
+{% block body %}
+<body class="bg-gray-100">
+    <div id="spacer"></div>
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8 text-[#1f1f1f]">Add New Listing</h1>
+        <form id="addListingForm" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="form-group">
+                <label for="listingType" class="block mb-2 font-bold text-[#1f1f1f]">Listing Type</label>
+                <select id="listingType" name="listingType" class="form-control border-[#1f1f1f] focus:ring-[#1f1f1f] focus:border-[#1f1f1f]" required>
+                    <option value="">Select a listing type</option>
+                    <option value="flat_pg">Flat/PG</option>
+                    <option value="tiffin">Tiffin Service</option>
+                    <option value="library">Library</option>
+                    <option value="vehicle">Second Hand Vehicle</option>
+                    <option value="book">Book</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="title" class="block mb-2 font-bold text-[#1f1f1f]">Title</label>
+                <input type="text" id="title" name="title" class="form-control border-[#1f1f1f] focus:ring-[#1f1f1f] focus:border-[#1f1f1f]" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description" class="block mb-2 font-bold text-[#1f1f1f]">Description</label>
+                <textarea id="description" name="description" class="form-control border-[#1f1f1f] focus:ring-[#1f1f1f] focus:border-[#1f1f1f]" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="location" class="block mb-2 font-bold text-[#1f1f1f]">Location</label>
+                <input type="text" id="location" name="location" class="form-control border-[#1f1f1f] focus:ring-[#1f1f1f] focus:border-[#1f1f1f]" required>
+            </div>
+
+            <div class="form-group">
+                <label for="landmark" class="block mb-2 font-bold text-[#1f1f1f]">Nearby Landmark</label>
+                <input type="text" id="landmark" name="landmark" class="form-control border-[#1f1f1f] focus:ring-[#1f1f1f] focus:border-[#1f1f1f]">
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="block mb-2 font-bold text-[#1f1f1f]">Contact Email</label>
+                <input type="email" id="email" name="email" class="form-control border-[#1f1f1f] focus:ring-[#1f1f1f] focus:border-[#1f1f1f]" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone" class="block mb-2 font-bold text-[#1f1f1f]">Contact Phone</label>
+                <input type="tel" id="phone" name="phone" class="form-control border-[#1f1f1f] focus:ring-[#1f1f1f] focus:border-[#1f1f1f]" required>
+            </div>
+
+            <div class="form-group">
+                <label for="price" class="block mb-2 font-bold text-[#1f1f1f]">Price/Rent</label>
+                <input type="number" id="price" name="price" class="form-control border-[#1f1f1f] focus:ring-[#1f1f1f] focus:border-[#1f1f1f]" required>
+            </div>
+
+            <div class="form-group">
+                <label for="amenities" class="block mb-2 font-bold text-[#1f1f1f]">Amenities/Features</label>
+                <input type="text" id="amenities" name="amenities" class="form-control border-[#1f1f1f] focus:ring-[#1f1f1f] focus:border-[#1f1f1f]">
+            </div>
+
+            <div class="form-group">
+                <label for="displayPicture" class="block mb-2 font-bold text-[#1f1f1f]">Display Picture</label>
+                <input type="file" id="displayPicture" name="displayPicture" class="form-control border-[#1f1f1f] focus:ring-[#1f1f1f] focus:border-[#1f1f1f]" accept="image/*">
+                <img id="displayPicturePreview" class="image-preview hidden" alt="Display Picture Preview">
+            </div>
+
+            <div class="form-group">
+                <label for="galleryImages" class="block mb-2 font-bold text-[#1f1f1f]">Gallery Images (Max 10)</label>
+                <input type="file" id="galleryImages" name="galleryImages" class="form-control border-[#1f1f1f] focus:ring-[#1f1f1f] focus:border-[#1f1f1f]" accept="image/*" multiple>
+                <p id="galleryImagesError" class="text-red-500 text-sm mt-1 hidden">You can only select up to 10 images for now. You will be able to add more later.</p>
+                <div id="galleryPreview" class="gallery-preview"></div>
+            </div>
+
+            <div class="mt-6">
+                <button type="submit" class="btn-primary w-full font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Add Listing
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/add_listing.js') }}"></script>
+</body>
+{% endblock %}

@@ -1,0 +1,305 @@
+{% extends "seller_layout.html" %}
+
+{% block head %}
+<title>StudOut | Seller Profile</title>
+<style>
+    .text-overflow-custom {
+        text-overflow: ellipsis;
+    }
+
+    .title-bar {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid white;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<body class="">
+    <div class="container mx-auto px-4">
+        <div id="spacer"></div>
+        <!-- Title Bar -->
+        <div class="relative w-full h-[25vh] flex flex-col justify-center items-center">
+            <img src="{{url_for('static', filename='images/title_background.png')}}" alt="title_background"
+                class="h-3/5 object-cover">
+            <div class="absolute inset-0 top-[calc(100%-150px)] flex items-center justify-center">
+                <div class="w-1/2 h-2/5 gap-3 bg-white rounded-xl shadow-md flex items-center justify-between px-6">
+                    <p class="text-xl playfair-black w-full text-center"><i class="fa-solid fa-user mr-2"></i>My
+                        Profile</p>
+                    <button id="editButton" class="btn btn-circle btn-outline">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="contents"
+            class="flex flex-col justify-center items-center max-w-full lg:max-w-[1140px] h-auto p-3 mx-auto">
+
+            <!-- Account Verification Section -->
+            <div class="w-full max-w-full bg-white border border-gray-200 rounded-lg shadow-md p-6 mt-2">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <i class="fa-solid fa-clock text-2xl" style="color: #FFD43B;"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-semibold text-gray-900">Your account verification is under process...
+                        </h2>
+                        <p class="text-sm text-gray-600">Hold tight while StudOut team is verifying your account!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Picture Section -->
+            <section class="w-full mt-8 px-4">
+                <h2 class="text-xl font-bold mb-4 pb-2"><i class="fa-solid fa-store"></i> Business Logo</h2>
+                <div class="divider h-0"></div>
+                <div class="flex flex-row items-center gap-4">
+                    <div class="w-24 h-24 rounded-lg overflow-hidden mb-4">
+                        <img id="business-logo" src="{{url_for('static', filename='images/default_business_logo.png')}}"
+                            alt="Business Logo" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex space-x-4">
+                        <label for="change-logo" class="btn btn-primary">
+                            Change Logo
+                        </label>
+                        <input type="file" id="change-logo" class="hidden" accept="image/*">
+                        <button class="btn btn-outline btn-error" id="delete-logo">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 mt-2">Upload a high-quality logo to represent your business. Recommended
+                    size: 500x500 pixels.</p>
+            </section>
+
+            <!-- Seller Information Section -->
+            <section class="w-full mt-8 px-4">
+                <h2 class="text-xl font-bold mb-4 pb-2"><i class="fa-solid fa-user-tie"></i> Seller Information</h2>
+                <div class="divider h-0"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="mb-4">
+                        <label for="full-name"
+                            class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                            <input type="text" id="full-name" name="full-name"
+                                class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                placeholder="Full Name" required />
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                Full Name
+                            </span>
+                        </label>
+                    </div>
+                    <div class="mb-4">
+                        <label for="seller-type"
+                            class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                            <select id="seller-type" name="seller-type"
+                                class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                required>
+                                <option value="">Select Seller Type</option>
+                                <option value="individual">Individual</option>
+                                <option value="business">Business</option>
+                            </select>
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                Seller Type
+                            </span>
+                        </label>
+                    </div>
+                    <div class="mb-4">
+                        <label for="date-of-birth"
+                            class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                            <input type="date" id="date-of-birth" name="date-of-birth"
+                                class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                required />
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                Date of Birth
+                            </span>
+                        </label>
+                    </div>
+                    <div class="mb-4">
+                        <label for="business-name"
+                            class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                            <input type="text" id="business-name" name="business-name"
+                                class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                placeholder="Business Name" required />
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                Business Name
+                            </span>
+                        </label>
+                    </div>
+                    <div class="mb-4 col-span-2">
+                        <label for="business-description"
+                            class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                            <textarea id="business-description" name="business-description"
+                                class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                placeholder="Business Description" required></textarea>
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                Business Description
+                            </span>
+                        </label>
+                    </div>
+                    <div class="mb-4">
+                        <label for="email"
+                            class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                            <input type="email" id="email" name="email"
+                                class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                placeholder="Email" required />
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                Email
+                            </span>
+                        </label>
+                    </div>
+                    <div class="mb-4">
+                        <label for="phone-number"
+                            class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                            <input type="tel" id="phone-number" name="phone-number"
+                                class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                placeholder="Phone Number" required />
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                Phone Number
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Personal Location Section -->
+            <section class="w-full mt-8 px-4">
+                <h2 class="text-xl font-bold mb-4 pb-2"><i class="fa-solid fa-location-dot"></i> Personal Location</h2>
+                <div class="divider h-0"></div>
+                <div class="space-y-4">
+                    <button type="button" class="btn btn-outline btn-primary" id="select-current-location">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-5 h-5 mr-2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                        </svg>
+                        Select current location
+                    </button>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="mb-4 col-span-1 md:col-span-2">
+                            <label for="address"
+                                class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                                <input type="text" id="address" name="address"
+                                    class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                    placeholder="Address"
+                                    value="83, Hans Street, 19, Ganesh Society, Chinchwad, Odisha, Udaipur, 538662"
+                                    required />
+                                <span
+                                    class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                    Address
+                                </span>
+                            </label>
+                        </div>
+                        <div class="mb-4">
+                            <label for="city"
+                                class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                                <input type="text" id="city" name="city"
+                                    class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                    placeholder="City" value="Odisha" required />
+                                <span
+                                    class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                    City
+                                </span>
+                            </label>
+                        </div>
+                        <div class="mb-4">
+                            <label for="region"
+                                class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                                <input type="text" id="region" name="region"
+                                    class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                    placeholder="Region" value="Chinchwad" required />
+                                <span
+                                    class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                    Region
+                                </span>
+                            </label>
+                        </div>
+                        <div class="mb-4">
+                            <label for="pincode"
+                                class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                                <input type="text" id="pincode" name="pincode"
+                                    class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                    placeholder="Pin code" value="538662" required />
+                                <span
+                                    class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                    Pin code
+                                </span>
+                            </label>
+                        </div>
+                        <div class="mb-4">
+                            <label for="country"
+                                class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                                <input type="text" id="country" name="country"
+                                    class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                    placeholder="Country" value="India" required />
+                                <span
+                                    class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                    Country
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Account Verification Section -->
+            <section class="w-full mt-8 px-4">
+                <h2 class="text-xl font-bold mb-4 pb-2"><i class="fa-solid fa-check-circle"></i> Account Verification
+                </h2>
+                <div class="divider h-0"></div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold mb-4">Government ID proof</h3>
+                    <div class="flex flex-col space-y-4">
+                        <div class="relative flex flex-row gap-4">
+                            <select id="seller-id-proof" name="seller-id-proof"
+                                class="select select-bordered w-full max-w-xs">
+                                <option disabled selected>Select ID Proof</option>
+                                <option value="aadhaar">Aadhaar Card</option>
+                                <option value="gst">GST Certificate</option>
+                                <option value="business-license">Business License</option>
+                            </select>
+                            <div class="flex items-center space-x-4">
+                                <label for="seller-document-upload" class="btn btn-primary">
+                                    Upload Document
+                                    <input type="file" id="seller-document-upload" name="seller-document-upload"
+                                        class="hidden" accept=".pdf,.png,.jpg,.jpeg">
+                                </label>
+                                <span id="seller-document-name" class="text-gray-600">No file chosen</span>
+                            </div>
+                        </div>
+                        <button id="seller-submit-verification" class="btn btn-neutral w-32">Submit for Review</button>
+                    </div>
+                </div>
+            </section>
+
+
+            <div class="fixed bottom-4 left-0 right-0 flex justify-center items-center z-100 px-4">
+                <button id="saveButton" class="btn btn-primary w-full max-w-md shadow-lg">Save Changes</button>
+            </div>
+            <div class="h-16"></div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/seller_profile.js') }}"></script>
+
+</body>
+{% endblock %}

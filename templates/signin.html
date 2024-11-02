@@ -1,0 +1,125 @@
+{% extends 'layout.html' %}
+{% block head %}
+<title>StudOut | Sign In</title>
+<style>
+    .clip-background {
+        width: 400px;
+        height: 250px;
+        background-color: #4169e1;
+        clip-path: inset(0% 0% 0% 0% round 5%);
+    }
+
+    .clipped-div {
+        clip-path: inset(0px 0px 50px 10px round 10%);
+    }
+</style>
+{% endblock %}
+{% block body %}
+
+<body>
+    <section class="flex flex-col lg:flex-row overflow-hidden bg-white">
+        <!-- Background image -->
+        <img loading="lazy" src="../static/images/l4.jpg" alt=""
+            class="object-cover absolute inset-0 w-full h-full lg:object-cover" />
+        <div class="absolute w-screen h-screen bg-gradient-to-br from-[#000000a7]"></div>
+        <!-- Logo Text -->
+        <div class="hidden lg:flex relative w-1/2">
+            <h1 class="m-10 absolute top-0 left-0 text-5xl font-bold text-white lg:text-4xl">
+                StudOut
+            </h1>
+        </div>
+
+        <!-- Form Container -->
+        <div
+            class="lg:flex gruop overflow-hidden relative lg:px-32 flex-col items-center justify-center w-full lg:w-1/2 h-screen px-5 py-16 text-lg lg:text-2xl font-semibold bg-white bg-opacity-100 shadow-lg rounded-none lg:rounded-l-3xl hover:duration-700 duration-700">
+
+            <h2 class="text-3xl lg:text-4xl font-roboto text-center text-primary roboto-bold">
+                Welcome Back!
+            </h2>
+            <div class="flex text-base lg:text-xl mt-4 mb-4 w-full justify-center lg:justify-center lg:gap-2">
+                <p class="text-[#1f1f1f] text-opacity-80 roboto-med">New to StudOut?</p>
+                <a href="/signup"
+                    class="text-[#F09D00] font-bold hover:text-opacity-50 ml-2 lg:ml-0 transform transition-transform duration-200 ease-in-out active:scale-90">Register</a>
+            </div>
+            <form id="loginForm" class="flex flex-col items-end w-full" method="post" action="#">
+                <!-- Email Input -->
+                <div
+                    class="flex flex-col h-12 lg:h-12 mt-7 w-full text-sm font-medium text-primary overflow-hidden whitespace-nowrap rounded-xl">
+                    <label for="email" class="sr-only">Email</label>
+                    <input id="email" type="email" required placeholder="Enter your email"
+                        class="w-full h-full px-4 py-3 lg:px-8 placeholder:text-sm placeholder:font-normal bg-[#F4F4F4] border border-[#F4F4F4] hover:outline-none hover:bg-opacity-50 focus:border focus:bg-transparent focus:border-[#1f1f1f] focus:outline-none rounded-xl" />
+                </div>
+
+                <!-- Password Input -->
+                <div
+                    class="flex flex-col h-12 lg:h-12 mt-3 w-full text-sm font-medium text-primary overflow-hidden whitespace-nowrap rounded-xl relative">
+                    <label for="password" class="sr-only">Password</label>
+                    <input id="password" type="password" required placeholder="Enter your password"
+                        class="w-full h-full px-4 py-3 lg:px-8 placeholder:text-sm placeholder:font-normal bg-[#F4F4F4] border border-[#F4F4F4] hover:outline-none hover:bg-opacity-50 focus:border focus:bg-transparent focus:border-[#1f1f1f] focus:outline-none rounded-xl" />
+                </div>
+
+                <!-- Forgot Password  -->
+                <a href="/forgetPassword"
+                    class="text-left text-sm mt-3 active:text-[#1f1f1f49] hover:text-[#1f1f1f9d] roboto-med">
+                    Forgot your password?</a>
+                <!-- Login Button -->
+                <button type="submit" id="loginBtn" data-ripple-light="true" disabled
+                    class="flex items-center justify-center mt-7 w-full h-12 lg:h-12 lg:text-lg text-center whitespace-nowrap rounded-xl bg-[#1F1F1F] opacity-50 text-white transform transition-transform duration-200 ease-in-out hover:shadow-gray-900/20 roboto-reg">
+                    <span>Login</span>
+                </button>
+            </form>
+            <div class="flex items-center mt-7 w-full text-base text-primary whitespace-nowrap">
+                <div class="h-px w-full bg-[#1F1F1F]"></div>
+                <p class="px-4">Or login with</p>
+                <div class="h-px w-full bg-[#1F1F1F]"></div>
+            </div>
+            <div
+                class="flex flex-row w-full gap-3 lg:gap-5 justify-center mt-5 text-center whitespace-nowrap rounded-xl text-stone-900">
+                <!-- Google Login  -->
+                <a href="#"
+                    class="group flex flex-auto h-12 lg:h-14 items-center justify-center border border-[#1F1F1F] gap-2.5 bg-white rounded-xl transform transition-transform duration-200 ease-in-out hover:-translate-y-1 active:scale-95 active:translate-y-0">
+                    <img loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/3ad7ec13def20b2f40e015088f5e176c1b29fb16f5f8f3ed254c68720c732729?placeholderIfAbsent=true&apiKey=9bd219f68dfc444683de1063449c1f1e"
+                        alt="Google logo"
+                        class="object-contain w-6 lg:w-7 transform transition-transform duration-200 ease-in-out group-hover:scale-110" />
+                    <p class="text-lg">Google</p>
+                </a>
+                <!-- Facebook Login  -->
+                <a href="#"
+                    class="group flex flex-auto h-12 lg:h-14 items-center justify-center border border-[#1F1F1F] gap-2.5 bg-white rounded-xl transform transition-transform duration-200 ease-in-out hover:-translate-y-1 active:scale-95 active:translate-y-0">
+                    <img loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/0a8f47a26f6b9ca64ac558e1fc04415ad20b168a78a7ff1a3e57cf75172c90f7?placeholderIfAbsent=true&apiKey=9bd219f68dfc444683de1063449c1f1e"
+                        alt="Facebook logo"
+                        class="object-contain w-6 lg:w-7 transform transition-transform duration-200 ease-in-out group-hover:scale-110" />
+                    <p class="text-lg ">Facebook</p>
+                </a>
+            </div>
+
+
+        </div>
+    </section>
+    <script src="../static/js/auth.js"></script>
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
+
+    <script>
+        // Password visibility toggle
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.478 0-8.268-2.943-9.542-7z" />
+                `;
+            } else {
+                passwordField.type = 'password';
+                eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 011.517-3.275m5.825-5.825A9.978 9.978 0 0112 5c4.478 0 8.268 2.943 9.542 7-.272 1.39-.834 2.69-1.615 3.795M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />
+                `;
+            }
+        }
+    </script>
+</body>
+{% endblock %}

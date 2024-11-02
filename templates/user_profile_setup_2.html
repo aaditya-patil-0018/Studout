@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>StudOut | User Profile Setup 3</title>
+<style>
+    .text-overflow-custom {
+        text-overflow: ellipsis;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<body class="h-screen">
+    <div class="flex h-full">
+        <!-- Left Section -->
+        <div class="w-1/2 h-full overflow-y-auto flex flex-col items-center justify-start px-8">
+            <h1 class="text-2xl playfair-black mb-8 mt-8">StudOut</h1>
+            <form id="profileSetupForm" class="relative flex flex-col flex-1 w-full max-w-full">
+                
+                <div class="max-w-2xl mx-auto p-6">
+                    <h2 class="text-2xl font-bold mb-2">Personalized Recommendations</h2>
+                    <p class="text-gray-600 mb-6">What services are you interested in? (select all that apply)</p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                      <!-- Rental Flats Checkbox -->
+                      <label class="relative cursor-pointer">
+                        <input type="checkbox" class="peer sr-only" name="service" value="rental_flats">
+                        <div class="rounded-lg border-2 border-gray-200 peer-checked:border-gray-700 p-4 flex flex-col items-center">
+                          <div class="absolute top-2 right-2 w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center peer-checked:border-gray-700 peer-checked:bg-gray-700">
+                            <i class="fa-regular fa-circle"></i>
+                          </div>
+                          <img src="{{ url_for('static', filename='images/Rental_service.png') }}" alt="Rental Flats" class="w-24 h-24 object-cover rounded-full mb-2">
+                          <p class="text-center font-medium">Rental Flats</p>
+                        </div>
+                      </label>
+                  
+                      <!-- Tiffin Service Checkbox -->
+                      <label class="relative cursor-pointer">
+                        <input type="checkbox" class="peer sr-only" name="service" value="tiffin_service">
+                        <div class="rounded-lg border-2 border-gray-200 peer-checked:border-gray-700 p-4 flex flex-col items-center">
+                          <div class="absolute top-2 right-2 w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center peer-checked:border-gray-700 peer-checked:bg-gray-700">
+                            <i class="fa-regular fa-circle"></i>
+                          </div>
+                          <img src="{{ url_for('static', filename='images/Tiffin_service.png') }}" alt="Tiffin Service" class="w-24 h-24 object-cover rounded-full mb-2">
+                          <p class="text-center font-medium">Tiffin Service</p>
+                        </div>
+                      </label>
+
+                      <!-- Second-hand Vehicles Checkbox -->
+                      <label class="relative cursor-pointer">
+                        <input type="checkbox" class="peer sr-only" name="service" value="second_hand_vehicles">
+                        <div class="rounded-lg border-2 border-gray-200 peer-checked:border-gray-700 p-4 flex flex-col items-center">
+                          <div class="absolute top-2 right-2 w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center peer-checked:border-gray-700 peer-checked:bg-gray-700">
+                            <i class="fa-regular fa-circle"></i>
+                          </div>
+                          <img src="{{ url_for('static', filename='images/Second_h_v_service.png') }}" alt="Second-hand Vehicles" class="w-24 h-24 object-cover rounded-full mb-2">
+                          <p class="text-center font-medium">Second-hand Vehicles</p>
+                        </div>
+                      </label>
+
+                      <!-- Used Books Checkbox -->
+                      <label class="relative cursor-pointer">
+                        <input type="checkbox" class="peer sr-only" name="service" value="used_books">
+                        <div class="rounded-lg border-2 border-gray-200 peer-checked:border-gray-700 p-4 flex flex-col items-center">
+                          <div class="absolute top-2 right-2 w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center peer-checked:border-gray-700 peer-checked:bg-gray-700">
+                            <i class="fa-regular fa-circle"></i>
+                          </div>
+                          <img src="{{ url_for('static', filename='images/Used_books_service.png') }}" alt="Used Books" class="w-24 h-24 object-cover rounded-full mb-2">
+                          <p class="text-center font-medium">Used Books</p>
+                        </div>
+                      </label>
+
+                      <!-- Library Checkbox -->
+                      <label class="relative cursor-pointer">
+                        <input type="checkbox" class="peer sr-only" name="service" value="library">
+                        <div class="rounded-lg border-2 border-gray-200 peer-checked:border-gray-700 p-4 flex flex-col items-center">
+                          <div class="absolute top-2 right-2 w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center peer-checked:border-gray-700 peer-checked:bg-gray-700">
+                            <i class="fa-regular fa-circle"></i>
+                          </div>
+                          <img src="{{ url_for('static', filename='images/Library_service.png') }}" alt="Library" class="w-24 h-24 object-cover rounded-full mb-2">
+                          <p class="text-center font-medium">Library</p>
+                        </div>
+                      </label>
+
+                      <!-- Others Checkbox -->
+                      <label class="relative cursor-pointer">
+                        <input type="checkbox" class="peer sr-only" name="service" value="others">
+                        <div class="rounded-lg border-2 border-gray-200 peer-checked:border-gray-700 p-4 flex flex-col items-center">
+                          <div class="absolute top-2 right-2 w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center peer-checked:border-gray-700 peer-checked:bg-gray-700">
+                            <i class="fa-regular fa-circle"></i>
+                          </div>
+                          <div class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center mb-2">
+                            <i class="fas fa-ellipsis-h text-4xl text-gray-600"></i>
+                          </div>
+                          <p class="text-center font-medium">Others</p>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                <div class="mt-auto mb-3">
+                    <button type="submit" class="btn btn-primary w-full">
+                        Save and Next
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Right Section -->
+        <div class="w-1/2 h-full fixed top-0 right-0">
+            <img src="{{ url_for('static', filename='images/user_account_setup_back.png') }}" alt="StudOut" class="w-full h-full object-cover">
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/152ebb6ef8.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/user_profile_setup_2.js') }}"></script>
+</body>
+{% endblock %}

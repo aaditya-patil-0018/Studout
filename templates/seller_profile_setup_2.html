@@ -1,0 +1,114 @@
+{% extends "seller_layout.html" %}
+
+{% block head %}
+<title>StudOut | Seller Profile Setup 2</title>
+<style>
+    .text-overflow-custom {
+        text-overflow: ellipsis;
+    }
+
+    /* General Styles */
+    .radio-group {
+        display: flex;
+        gap: 10px;
+    }
+
+    .radio-chip {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        background: transparent;
+        color: rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 16px;
+        user-select: none;
+        overflow: hidden;
+        height: 40px;
+    }
+
+    .radio-chip input[type="radio"] {
+        display: none;
+    }
+
+    .radio-chip input[type="radio"]:not(:checked)+span {
+        background: transparent;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+        color: rgba(0, 0, 0, 0.25);
+    }
+
+    .radio-chip input[type="radio"]:checked+span {
+        background: #1F1F1F;
+        box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<body class="h-screen">
+    <div class="flex h-full">
+        <!-- Left Section -->
+        <div class="w-1/2 h-full overflow-y-auto flex flex-col items-center justify-start px-8">
+            <h1 class="text-2xl playfair-black mb-8">StudOut</h1>
+            <form id="sellerProfileSetupForm2" class="relative flex flex-col flex-1 w-full">
+                <!-- Government ID proof -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold mb-4">Verification Details</h2>
+                    <label for="government-id" class="block text-black text-md nunito-bold mb-2">Government ID proof</label>
+                    <select id="government-id" name="government-id" class="w-full p-2 border border-gray-300 rounded-md" required>
+                        <option value="" disabled selected>Select government proof type</option>
+                        <option value="passport">Passport</option>
+                        <option value="drivers-license">Driver's License</option>
+                        <option value="national-id">Aadhaar Card</option>
+                    </select>
+                </div>
+
+                <!-- Upload Image -->
+                <div class="mb-8">
+                    <label for="id-upload" class="block text-black text-md nunito-bold mb-2">Upload Image</label>
+                    <div class="flex items-center border border-gray-300 rounded-md p-2 w-full cursor-pointer">
+                        <label for="id-file-upload" class="cursor-pointer flex items-center space-x-2 text-gray-400">
+                            <i class="fa-solid fa-cloud-arrow-up p-2"></i>
+                            <span id="id-file-name">Upload Image</span>
+                        </label>
+                        <input id="id-file-upload" type="file" accept="image/*" class="hidden" required />
+                    </div>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="mb-8">
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" id="terms-conditions" name="terms-conditions" required>
+                        <span>
+                            Agree to 
+                            <a href="#" class="text-orange-500">Terms & Conditions</a> 
+                            and 
+                            <a href="#" class="text-orange-500">Privacy Policy</a>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="mt-auto mb-3">
+                    <button type="submit" class="btn btn-primary w-full">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Right Section -->
+        <div class="w-1/2 h-full fixed top-0 right-0">
+            <img src="{{ url_for('static', filename='images/user_account_setup_back.png') }}" alt="StudOut"
+                class="w-full h-full object-cover">
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/152ebb6ef8.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/seller_profile_setup_2.js') }}"></script>
+</body>
+{% endblock %}

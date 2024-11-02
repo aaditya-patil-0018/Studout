@@ -1,0 +1,722 @@
+{% extends "layout.html" %}
+{% block head %}
+<title>Welcome to StudOut</title>
+<style>
+    .text-overflow-custom {
+        text-overflow: ellipsis;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<body class="!nunito-reg relative scroll-smooth !overflow-x-hidden">
+    {% if is_landing_page %}
+    <!-- Navigation bar with logo, menu items, and sign-in/register buttons -->
+    <div
+        class="navbar bg-[#ffffff] backdrop-blur-md backdrop-saturate-100 fixed top-0 left-0 w-full z-20 transition-transform duration-500 ease-in-out">
+        <div class="navbar-start">
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h8m-8 6h16" />
+                    </svg>
+                </div>
+                <ul tabindex="0"
+                    class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                    <li><a href="/signup">Flats & PGs</a></li>
+                    <li><a href="/signup">Tiffin Services</a></li>
+                    <li><a href="/signup">Second Hand</a></li>
+                    <li><a href="/signup">Libraries</a></li>
+                    <li></li>
+                </ul>
+            </div>
+            <a href="/" class="btn btn-ghost text-xl !playfair-black ">StudOut</a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1">
+                <li><a href="/signup">Flats & PGs</a></li>
+                <li><a href="/signup">Tiffin Services</a></li>
+                <li><a href="/signup">Second Hand</a></li>
+                <li><a href="/signup">Libraries</a></li>
+            </ul>
+        </div>
+
+        <div class="navbar-end gap-2">
+            <a href="/signin"
+                class="btn btn-xs sm:btn-sm md:btn-md sm:btn-outline md:btn-outline lg:btn-outline lg:hover:bg-primary md:hover:bg-primary sm:hover:bg-primary">
+                Sign In
+            </a>
+            <a href="/signup"
+                class="btn btn-xs sm:btn-sm md:btn-md sm:btn-primary md:btn-primary  lg:btn-primary hover:shadow-2xl lg:hover:bg-primary md:hover:bg-primary sm:hover:bg-primary">
+                Register
+            </a>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Hero Section -->
+    <div class="flex p-32 items-start justify-start relative top-0 left-0 w-[100vw] h-[100vh]">
+        <img src="{{ url_for('static', filename='images/landing_backgound.png') }}" alt=""
+            class="object-cover absolute inset-0 w-full h-full lg:object-cover" />
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+            <h1 class="text-5xl playfair-semibold text-white lg:text-4xl text-center">Find your way effortlessly</h1>
+            <p class="text-2xl nunito-extralight text-white lg:text-lg">Let StudOut lead you effortlessly to where you
+                need to be.</p>
+        </div>
+
+        <div
+            class="flex flex-row justify-center items-center absolute bottom-0 right-0 w-screen bg-transparent p-5 h-auto z-10">
+            <!-- Main white container -->
+            <div class=" flex-row justify-center items-center p-3 hidden lg:flex bg-[#fff] w-full h-fit   rounded-3xl">
+
+                <!-- Location component -->
+                <div
+                    class="flex flex-col justify-center items-center gap-2 p-5 bg-transparent w-full h-auto rounded-lg">
+                    <div class="flex flex-row justify-center items-center gap-2">
+                        <span class="fa-solid fa-location-dot text-primary"></span>
+                        <span class="text-primary nunito-semibold">Location</span>
+                    </div>
+                    <input type="text" placeholder="Type location" class="input input-bordered input-lg w-full" />
+                </div>
+
+                <!-- Person component -->
+                <div
+                    class="flex flex-col justify-center items-center gap-2 p-5 bg-transparent w-full h-auto rounded-lg">
+                    <div class="flex flex-row justify-center items-center gap-2">
+                        <span class="fa-solid fa-user text-primary"></span>
+                        <span class="text-primary nunito-semibold">Person</span>
+                    </div>
+                    <select class="select select-bordered w-full input-lg">
+                        <option disabled selected class="text-overflow-custom">Select no of person</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                    </select>
+                </div>
+
+                <!-- Services component -->
+                <div
+                    class="flex flex-col justify-center items-center gap-2 p-5 bg-transparent w-full h-auto rounded-lg">
+                    <div class="flex flex-row justify-center items-center gap-2">
+                        <span class="fa-solid fa-layer-group text-primary"></span>
+                        <span class="text-primary nunito-semibold">Services</span>
+                    </div>
+                    <select class="select select-bordered w-full input-lg">
+                        <option disabled selected>Select service</option>
+                        <option>Flats & PGs</option>
+                        <option>Tiffin Services</option>
+                        <option>Second Hand</option>
+                        <option>Libraries</option>
+                    </select>
+                </div>
+
+                <!-- Dates component -->
+                <div
+                    class="flex flex-col justify-center items-center gap-2 p-5 bg-transparent w-full h-auto rounded-lg">
+                    <div class="flex flex-row justify-center items-center gap-2">
+                        <span class="fa-solid fa-calendar-check text-primary"></span>
+                        <span class="text-primary nunito-semibold">Check-in Date</span>
+                    </div>
+                    <input type="date" placeholder="Select date" class="input input-bordered input-lg w-full" />
+
+                </div>
+
+                <!-- Search Button -->
+                <div
+                    class="flex flex-col justify-center items-center gap-2 p-5 bg-transparent w-full h-auto rounded-lg">
+                    <button onclick="login_prompt.showModal()"
+                        class="btn btn-wide btn-primary btn-lg border-none bg-gradient-to-r from-[#353535] to-[#1F1F1F] hover:shadow-2xl"
+                        data-ripple-light="true">
+                        Search
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {%block recommendation%}
+    {%endblock%}
+
+    <!-- Top Visited -->
+    <div class="  flex flex-col justify-center items-center gap-2 p-5 bg-transparent w-full h-auto rounded-lg">
+        <div class="flex flex-col justify-center items-center gap-1 p-5 bg-transparent w-full h-auto rounded-lg">
+            <h1 class="text-center sm:text-[6vw] md:text-[4vw] lg:text-[3.5vw] playfair-black">Our Top Visited</h1>
+            <h1 class="text-center sm:text-[6vw] md:text-[4vw] lg:text-[3.5vw] playfair-black">Flats & PGs</h1>
+            <p class="text-center nunito-extralight text-overflow-custom">Take a look at our best choice of the flats
+                and PGs, valued by our</p>
+            <p class="text-center nunito-extralight text-overflow-custom">valuable customers on this platform</p>
+        </div>
+        <section class="">
+            <div class="  py-4 px-2 mx-auto max-w-screen w-screen h-screen sm:py-4 lg:px-6">
+                <div class="  border-black grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 h-full">
+                    <div
+                        class="   col-span-2 sm:col-span-1 md:col-span-2 bg-transparent h-full md:h-full flex flex-col">
+                        <a href=""
+                            class="group relative flex flex-col overflow-hidden justify-end rounded-[30px] px-4 pb-7 pt-40 flex-grow">
+                            <img src="{{ url_for('static', filename='images/las.jpg') }}" alt=""
+                                class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[#00000000]"></div>
+                            <h1
+                                class="z-10 text-white text-[4.5vw] playfair-black font-bold max-md:max-w-full max-md:text-4xl">
+                                Green Valley <br /> Apartments
+                            </h1>
+                            <div
+                                class="z-10 text-white text-[1.2vw] nunito-med flex flex-wrap gap-10 justify-between items-center mt-5 w-full text-start h-[21px] ">
+                                <div
+                                    class="flex gap-2.5 justify-center items-center self-stretch my-auto min-w-[240px]">
+                                    <p class="self-stretch my-auto">Pune, Maharashtra</p>
+                                    <span class="self-stretch my-auto text-white" aria-hidden="true">•</span>
+                                    <p class="self-stretch my-auto">
+                                        <span class="sr-only">Rating: 4 out of 5 stars</span>
+                                        <span aria-hidden="true">★★★★★</span>
+                                        <span>(530 Visitors)</span>
+                                    </p>
+                                </div>
+                                <span class="fa-solid fa-arrow-right fa-xl"></span>
+
+                            </div>
+                        </a>
+                    </div>
+                    <div
+                        class="col-span-2 sm:col-span-1 md:col-span-1 bg-sky-50 h-auto md:h-full flex flex-col shadow-2xl rounded-[30px]">
+                        <a href=""
+                            class="group relative flex flex-col overflow-hidden justify-start rounded-[30px] px-4 pt-[20px] flex-grow">
+                            <img src="{{ url_for('static', filename='images/lka.jpg') }}" alt=""
+                                class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out">
+                            <div class="absolute  inset-0 bg-gradient-to-b from-[rgba(0,0,0,0.5)] to-[#00000000]"></div>
+                            <h1
+                                class="z-10 text-white text-[2vw] playfair-black font-bold text-center w-full py-5 max-md:text-4xl">
+                                Shanti Enclave
+                            </h1>
+                            <div
+                                class="z-10 text-white text-[1.2vw] nunito-med flex flex-col flex-wrap gap-10 justify-center items-center mt-5 w-auto h-auto">
+                                <div class="flex flex-col gap-2.5 justify-center items-center text-center my-auto">
+                                    <p class="text-center">Pune, Maharashtra</p>
+                                    <p class="text-center">
+                                        <span aria-hidden="true">★★★★★</span>
+                                        <span>(530 Visitors)</span>
+                                    </p>
+                                </div>
+                                <span class="fa-solid fa-arrow-right fa-xl"></span>
+                            </div>
+                        </a>
+                    </div>
+                    <div
+                        class=" flex flex-col justify-between col-span-2 sm:col-span-1 gap-4 md:col-span-2 bg-stone-50 h-full">
+                        <a href=""
+                            class="group h-1/2 relative flex flex-col overflow-hidden justify-end rounded-[30px] px-4 pb-7 pt-40 ">
+                            <img src="{{ url_for('static', filename='images/lasd.jpg') }}" alt=""
+                                class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[#00000000]"></div>
+                            <h1
+                                class="z-10 text-white text-[3vw] playfair-black font-bold text-start w-full py-5 max-md:text-4xl">
+                                Ocean Breeze Towers
+                            </h1>
+                            <div
+                                class="z-10 text-white text-[1.2vw] nunito-med flex flex-row flex-wrap gap-10 justify-betweem items-start mt-5 w-full h-auto">
+                                <div class="flex flex-row gap-2.5 justify-center items-start text-start my-auto">
+                                    <p class="text-start">Pune, Maharashtra</p>
+                                    <p class="text-start">
+                                        <span aria-hidden="true">★★★★★</span>
+                                        <span>(530 Visitors)</span>
+                                    </p>
+                                </div>
+                                <span class="fa-solid fa-arrow-right fa-2x"></span>
+                            </div>
+                        </a>
+                        <a href=""
+                            class="group h-1/2 relative flex flex-col overflow-hidden justify-end rounded-[30px] px-4 pb-7 pt-40 ">
+                            <img src="{{ url_for('static', filename='images/aslsf.jpg') }}" alt=""
+                                class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[#00000000]"></div>
+                            <h1
+                                class="z-10 text-white text-[3vw] playfair-black font-bold text-start w-full py-5 max-md:text-4xl">
+                                Hilltop Residency
+                            </h1>
+                            <div
+                                class="z-10 text-white text-[1.2vw] nunito-med flex flex-row flex-wrap gap-10 justify-betweem items-start mt-5 w-full h-auto">
+                                <div class="flex flex-row gap-2.5 justify-center items-start text-start my-auto">
+                                    <p class="text-start">Pune, Maharashtra</p>
+                                    <p class="text-start">
+                                        <span aria-hidden="true">★★★★★</span>
+                                        <span>(530 Visitors)</span>
+                                    </p>
+                                </div>
+                                <span class="fa-solid fa-arrow-right fa-2x"></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Explore Best services -->
+    <div class="  flex flex-col justify-center items-center gap-2 p-5 bg-transparent w-full h-auto rounded-lg">
+        <div class="flex flex-col justify-center items-center gap-1 p-5 bg-transparent w-full h-auto rounded-lg">
+            <h1 class="text-center sm:text-[6vw] md:text-[4vw] lg:text-[3.5vw] playfair-black">Explore Our</h1>
+            <h1 class="text-center sm:text-[6vw] md:text-[4vw] lg:text-[3.5vw] playfair-black">Best of the Best
+                Services!
+            </h1>
+            <p class="text-center nunito-extralight text-overflow-custom">Find personalized recommendations for housing,
+                tiffin services, and student essentials - all in one place </p>
+            <p class="text-center nunito-extralight text-overflow-custom">to make your life easier.</p>
+        </div>
+
+        <div class="  flex flex-col justify-center items-center gap-4 bg-transparent w-full h-auto rounded-lg">
+            <div
+                class="flex flex-row flex-wrap lg:flex-nowrap md:flex-nowrap justify-center items-center gap-4 p-5 bg-transparent w-full h-auto rounded-lg">
+                <section
+                    class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:shadow-xl transition-shadow duration-200 ease-in-out">
+                    <div
+                        class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl flex-auto">
+                        <img loading="lazy"
+                            src="{{ url_for('static', filename='images/lexp_1.png') }}"
+                            class="object-contain flex-1 w-full" alt="Lotus Residency property" />
+                        <div
+                            class="flex overflow-hidden opacity-0 absolute h-full w-full bg-[#ffffff00] backdrop-blur-sm top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 hover:opacity-100 duration-500 ease-in-out">
+                            <button type="submit" id="loginBtn" data-ripple-light="true"
+                                class="btn btn-xs sm:btn-sm md:btn-md lg:btn-primary px-20 rounded-full roboto-reg ">
+                                <span>Explore</span>
+                            </button>
+                        </div>
+                    </div>
+                    <header
+                        class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-center text-black">
+                        <h2 class="text2xl font-bold text-xl playfair-bold">Lotus Residency</h2>
+                        <p class="mt-1.5 text-md nunito-semibold">Bengaluru, Karnataka</p>
+                        <div class="mt-1.5 text-md font-medium text-stone-900">
+                            <span class="text-amber-500" aria-label="4.5 out of 5 stars">★★★★★</span>
+                            <span class="sr-only">Rating:</span>
+                            <span aria-hidden="true" class="nunito-semibold">(530 Visitors)</span>
+                        </div>
+                    </header>
+                </section>
+                <!-- Component 2 -->
+                <section
+                    class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:shadow-xl transition-shadow duration-200 ease-in-out">
+                    <div
+                        class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl flex-auto">
+                        <img loading="lazy"
+                            src="{{ url_for('static', filename='images/lexp_1.png') }}"
+                            class="object-contain flex-1 w-full" alt="Lotus Residency property" />
+                        <div
+                            class="flex overflow-hidden opacity-0 absolute h-full w-full bg-[#ffffff00] backdrop-blur-sm top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 hover:opacity-100 duration-500 ease-in-out">
+                            <button type="submit" id="loginBtn" data-ripple-light="true"
+                                class="btn btn-xs sm:btn-sm md:btn-md lg:btn-primary px-20 rounded-full roboto-reg ">
+                                <span>Explore</span>
+                            </button>
+                        </div>
+                    </div>
+                    <header
+                        class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-center text-black">
+                        <h2 class="text2xl font-bold text-xl playfair-bold">Lotus Residency</h2>
+                        <p class="mt-1.5 text-md nunito-semibold">Bengaluru, Karnataka</p>
+                        <div class="mt-1.5 text-md font-medium text-stone-900">
+                            <span class="text-amber-500" aria-label="4.5 out of 5 stars">★★★★★</span>
+                            <span class="sr-only">Rating:</span>
+                            <span aria-hidden="true" class="nunito-semibold">(530 Visitors)</span>
+                        </div>
+                    </header>
+                </section>
+                <!-- Component 3 -->
+                <section
+                    class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:shadow-xl transition-shadow duration-200 ease-in-out">
+                    <div
+                        class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl flex-auto">
+                        <img loading="lazy"
+                            src="{{ url_for('static', filename='images/lexp_1.png') }}"
+                            class="object-contain flex-1 w-full" alt="Lotus Residency property" />
+                        <div
+                            class="flex overflow-hidden opacity-0 absolute h-full w-full bg-[#ffffff00] backdrop-blur-sm top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 hover:opacity-100 duration-500 ease-in-out">
+                            <button type="submit" id="loginBtn" data-ripple-light="true"
+                                class="btn btn-xs sm:btn-sm md:btn-md lg:btn-primary px-20 rounded-full roboto-reg ">
+                                <span>Explore</span>
+                            </button>
+                        </div>
+                    </div>
+                    <header
+                        class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-center text-black">
+                        <h2 class="text2xl font-bold text-xl playfair-bold">Lotus Residency</h2>
+                        <p class="mt-1.5 text-md nunito-semibold">Bengaluru, Karnataka</p>
+                        <div class="mt-1.5 text-md font-medium text-stone-900">
+                            <span class="text-amber-500" aria-label="4.5 out of 5 stars">★★★★★</span>
+                            <span class="sr-only">Rating:</span>
+                            <span aria-hidden="true" class="nunito-semibold">(530 Visitors)</span>
+                        </div>
+                    </header>
+                </section>
+            </div>
+
+            <div
+                class="  flex flex-row justify-center items-center flex-wrap lg:flex-nowrap md:flex-nowrap gap-4 p-5 bg-transparent w-full h-auto rounded-lg">
+                <section
+                    class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:shadow-xl transition-shadow duration-200 ease-in-out">
+                    <div
+                        class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl flex-auto">
+                        <img loading="lazy"
+                            src="{{ url_for('static', filename='images/lexp_1.png') }}"
+                            class="object-contain flex-1 w-full" alt="Lotus Residency property" />
+                        <div
+                            class="flex overflow-hidden opacity-0 absolute h-full w-full bg-[#ffffff00] backdrop-blur-sm top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 hover:opacity-100 duration-500 ease-in-out">
+                            <button type="submit" id="loginBtn" data-ripple-light="true"
+                                class="btn btn-xs sm:btn-sm md:btn-md lg:btn-primary px-20 rounded-full roboto-reg ">
+                                <span>Explore</span>
+                            </button>
+                        </div>
+                    </div>
+                    <header
+                        class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-center text-black">
+                        <h2 class="text2xl font-bold text-xl playfair-bold">Lotus Residency</h2>
+                        <p class="mt-1.5 text-md nunito-semibold">Bengaluru, Karnataka</p>
+                        <div class="mt-1.5 text-md font-medium text-stone-900">
+                            <span class="text-amber-500" aria-label="4.5 out of 5 stars">★★★★★</span>
+                            <span class="sr-only">Rating:</span>
+                            <span aria-hidden="true" class="nunito-semibold">(530 Visitors)</span>
+                        </div>
+                    </header>
+                </section>
+                <!-- Component 2 -->
+                <section
+                    class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:shadow-xl transition-shadow duration-200 ease-in-out">
+                    <div
+                        class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl flex-auto">
+                        <img loading="lazy"
+                            src="{{ url_for('static', filename='images/lexp_1.png') }}"
+                            class="object-contain flex-1 w-full" alt="Lotus Residency property" />
+                        <div
+                            class="flex overflow-hidden opacity-0 absolute h-full w-full bg-[#ffffff00] backdrop-blur-sm top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 hover:opacity-100 duration-500 ease-in-out">
+                            <button type="submit" id="loginBtn" data-ripple-light="true"
+                                class="btn btn-xs sm:btn-sm md:btn-md lg:btn-primary px-20 rounded-full roboto-reg ">
+                                <span>Explore</span>
+                            </button>
+                        </div>
+                    </div>
+                    <header
+                        class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-center text-black">
+                        <h2 class="text2xl font-bold text-xl playfair-bold">Lotus Residency</h2>
+                        <p class="mt-1.5 text-md nunito-semibold">Bengaluru, Karnataka</p>
+                        <div class="mt-1.5 text-md font-medium text-stone-900">
+                            <span class="text-amber-500" aria-label="4.5 out of 5 stars">★★★★★</span>
+                            <span class="sr-only">Rating:</span>
+                            <span aria-hidden="true" class="nunito-semibold">(530 Visitors)</span>
+                        </div>
+                    </header>
+                </section>
+                <!-- Component 3 -->
+                <section
+                    class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:shadow-xl transition-shadow duration-200 ease-in-out">
+                    <div
+                        class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl flex-auto">
+                        <img loading="lazy"
+                            src="{{ url_for('static', filename='images/lexp_1.png') }}"
+                            class="object-contain flex-1 w-full" alt="Lotus Residency property" />
+                        <div
+                            class="flex overflow-hidden opacity-0 absolute h-full w-full bg-[#ffffff00] backdrop-blur-sm top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 hover:opacity-100 duration-500 ease-in-out">
+                            <button type="submit" id="loginBtn" data-ripple-light="true"
+                                class="btn btn-xs sm:btn-sm md:btn-md lg:btn-primary px-20 rounded-full roboto-reg ">
+                                <span>Explore</span>
+                            </button>
+                        </div>
+                    </div>
+                    <header
+                        class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-center text-black">
+                        <h2 class="text2xl font-bold text-xl playfair-bold">Lotus Residency</h2>
+                        <p class="mt-1.5 text-md nunito-semibold">Bengaluru, Karnataka</p>
+                        <div class="mt-1.5 text-md font-medium text-stone-900">
+                            <span class="text-amber-500" aria-label="4.5 out of 5 stars">★★★★★</span>
+                            <span class="sr-only">Rating:</span>
+                            <span aria-hidden="true" class="nunito-semibold">(530 Visitors)</span>
+                        </div>
+                    </header>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Testimonials -->
+    <div class="flex flex-col justify-center items-center bg-[#1f1f1f] p-5 text-white w-full h-auto rounded-lg">
+        <div class="flex flex-col justify-center items-center gap-1 p-5 bg-transparent w-full h-auto rounded-lg">
+            <h1 class="text-center sm:text-[6vw] md:text-[4vw] lg:text-[3.5vw] playfair-black">Voices of Trust &</h1>
+            <h1 class="text-center sm:text-[6vw] md:text-[4vw] lg:text-[3.5vw] playfair-black">Satisfaction Throughout
+                the Platform
+            </h1>
+        </div>
+        <section class="bg-trasnparent">
+            <div class="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8 lg:py-4">
+                <div class="mt-8 [column-fill:_balance] sm:columns-2 sm:gap-6 lg:columns-3 lg:gap-8">
+                    <div class="mb-8 sm:break-inside-avoid">
+                        <blockquote class="rounded-lg text-white bg-neutral-900 p-6 shadow-sm sm:p-8">
+                            <div class="flex items-center gap-4">
+                                <img alt=""
+                                    src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+                                    class="size-14 rounded-full object-cover" />
+
+                                <div>
+                                    <div class="flex justify-center gap-0.5 text-green-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    </div>
+
+                                    <p class="mt-0.5 text-lg font-medium text-[#ffffffd5]">Paul Starr</p>
+                                </div>
+                            </div>
+
+                            <p class="mt-4 text-[#ffffffa1]">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit rerum incidunt, a
+                                consequuntur recusandae ab saepe illo est quia obcaecati neque quibusdam eius accusamus
+                                error officiis atque voluptates magnam!
+                            </p>
+                        </blockquote>
+                    </div>
+
+                    <div class="mb-8 sm:break-inside-avoid">
+                        <blockquote class="rounded-lg bg-neutral-900 p-6 shadow-sm sm:p-8">
+                            <div class="flex items-center gap-4">
+                                <img alt=""
+                                    src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+                                    class="size-14 rounded-full object-cover" />
+
+                                <div>
+                                    <div class="flex justify-center gap-0.5 text-green-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    </div>
+
+                                    <p class="mt-0.5 text-lg font-medium text-[#ffffff]">Paul Starr</p>
+                                </div>
+                            </div>
+
+                            <p class="mt-4 text-[#ffffffa1]">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad mollitia rerum quo unde
+                                neque atque molestias quas pariatur! Sint, maxime?
+                            </p>
+                        </blockquote>
+                    </div>
+
+                    <div class="mb-8 sm:break-inside-avoid">
+                        <blockquote class="rounded-lg bg-neutral-900 p-6 shadow-sm sm:p-8">
+                            <div class="flex items-center gap-4">
+                                <img alt=""
+                                    src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+                                    class="size-14 rounded-full object-cover" />
+
+                                <div>
+                                    <div class="flex justify-center gap-0.5 text-green-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    </div>
+
+                                    <p class="mt-0.5 text-lg font-medium text-[#ffffff]">Paul Starr</p>
+                                </div>
+                            </div>
+
+                            <p class="mt-4 text-[#ffffffa1]">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit esse delectus,
+                                maiores fugit, reiciendis culpa inventore sint accusantium libero dolore eos quasi a ex
+                                aliquam molestiae. Tenetur hic delectus maxime.
+                            </p>
+                        </blockquote>
+                    </div>
+
+                    <div class="mb-8 sm:break-inside-avoid">
+                        <blockquote class="rounded-lg bg-neutral-900 p-6 shadow-sm sm:p-8">
+                            <div class="flex items-center gap-4">
+                                <img alt=""
+                                    src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+                                    class="size-14 rounded-full object-cover" />
+
+                                <div>
+                                    <div class="flex justify-center gap-0.5 text-green-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    </div>
+
+                                    <p class="mt-0.5 text-lg font-medium text-[#ffffff]">Paul Starr</p>
+                                </div>
+                            </div>
+
+                            <p class="mt-4 text-[#ffffffa1]">
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate officia natus
+                                blanditiis rerum incidunt ex autem repudiandae doloribus eveniet quia? Culpa commodi
+                                quae atque perspiciatis? Provident, magni beatae saepe porro aspernatur facere neque
+                                sunt possimus assumenda perspiciatis aperiam quisquam animi libero voluptatem fuga.
+                                Repudiandae, facere? Nemo reprehenderit quas ratione quis.
+                            </p>
+                        </blockquote>
+                    </div>
+
+                    <div class="mb-8 sm:break-inside-avoid">
+                        <blockquote class="rounded-lg bg-neutral-900 p-6 shadow-sm sm:p-8">
+                            <div class="flex items-center gap-4">
+                                <img alt=""
+                                    src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+                                    class="size-14 rounded-full object-cover" />
+
+                                <div>
+                                    <div class="flex justify-center gap-0.5 text-green-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    </div>
+
+                                    <p class="mt-0.5 text-lg font-medium text-[#ffffff]">Paul Starr</p>
+                                </div>
+                            </div>
+
+                            <p class="mt-4 text-[#ffffffa1]">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam numquam, unde molestiae
+                                commodi temporibus dicta.
+                            </p>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    
+    <dialog id="login_prompt" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box">
+            <h3 class="text-lg font-bold">Login Required</h3>
+            <p class="py-4">To search for services on our platform, please log in to your account. If you don't have an
+                account yet, you can sign up for free to access all the features.</p>
+            <div class="modal-action">
+                <form method="dialog" class="flex gap-2">
+                    <button class="btn">Close</button>
+                    <a href="/signin" class="btn btn-primary">Login</a>
+                </form>
+            </div>
+        </div>
+    </dialog>
+    <script src="https://kit.fontawesome.com/152ebb6ef8.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
+    <script>
+    </script>
+
+    {% endblock %}
+</body>

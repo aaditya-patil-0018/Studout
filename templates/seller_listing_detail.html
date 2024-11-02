@@ -1,0 +1,280 @@
+{% extends "seller_layout.html" %}
+
+{% block head %}
+<title>StudOut | Listing Details</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/seller_listing_detail.js') }}" defer></script>
+<style>
+    .text-overflow-custom {
+        text-overflow: ellipsis;
+    }
+
+    .title-bar {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid white;
+    }
+
+    .back-button {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        font-weight: 500;
+        color: #333;
+        text-decoration: none;
+    }
+
+    .display-image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .edit-button {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.25rem;
+    }
+
+    .gallery-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .add-image-button {
+        width: 100%;
+        height: 200px;
+        border: 2px dashed #e2e8f0;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .add-image-button:hover {
+        background-color: #f7fafc;
+    }
+
+    .gallery-item {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .gallery-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        transition: filter 0.3s ease;
+    }
+
+    .delete-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 5px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-image {
+        filter: brightness(50%);
+    }
+
+    .gallery-item:hover .delete-button {
+        opacity: 1;
+    }
+
+    .recommendations-chart {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<body class="">
+    <div id="spacer"></div>
+    <div id="contents"
+        class="flex flex-col justify-center items-center max-w-full lg:max-w-[1140px] h-auto p-3 mx-auto">
+
+        <div class="w-full mx-auto px-4 py-6">
+            <a href="{{ url_for('seller_listings') }}" class="back-button gap-2">
+                <label class="btn btn-square">
+                    <i class="fa-solid fa-angle-left text-2xl"></i>
+                </label>
+                My Listings
+            </a>
+        </div>
+
+        <div class="w-full bg-white rounded-lg shadow-md p-6 mt-4">
+            <h2 class="text-2xl font-semibold mb-4">Listing Status</h2>
+            <form id="listingStatusForm">
+                <div class="flex gap-4">
+                    <fieldset class="flex flex-wrap gap-3">
+                        <legend class="sr-only">Listing Status</legend>
+                        <div>
+                            <label for="statusActive"
+                                class="flex cursor-pointer items-center justify-center rounded-md border border-gray-100 bg-white px-3 py-2 text-gray-900 hover:border-gray-200 has-[:checked]:border-[#1f1f1f] has-[:checked]:bg-[#1f1f1f] has-[:checked]:text-white">
+                                <input type="radio" name="listingStatus" value="active" id="statusActive" class="sr-only"
+                                    checked />
+                                <p class="text-sm font-medium">Active</p>
+                            </label>
+                        </div>
+                        <div>
+                            <label for="statusPaused"
+                                class="flex cursor-pointer items-center justify-center rounded-md border border-gray-100 bg-white px-3 py-2 text-gray-900 hover:border-gray-200 has-[:checked]:border-[#1f1f1f] has-[:checked]:bg-[#1f1f1f] has-[:checked]:text-white">
+                                <input type="radio" name="listingStatus" value="paused" id="statusPaused" class="sr-only" />
+                                <p class="text-sm font-medium">Paused</p>
+                            </label>
+                        </div>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+
+        <div class="w-full bg-white rounded-lg shadow-md p-6 mt-4">
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-2xl font-semibold mb-2">Display Picture</h2>
+                    <p class="text-gray-600 mb-4">Used to show as a header image for your listing</p>
+                    <div class="flex gap-4">
+                        <button id="changeDisplayPictureBtn" class="btn bg-black text-white hover:bg-gray-800">
+                            Change picture
+                        </button>
+                        <button id="deleteDisplayPictureBtn" class="btn btn-outline text-red-500 hover:bg-red-50 hover:border-red-500">
+                            Delete picture
+                        </button>
+                        <input type="file" id="displayPictureInput" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <img src="{{ url_for('static', filename='images/default_listing_image.png') }}" alt="Listing Display Image"
+                        class="display-image">
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full bg-white rounded-lg shadow-md p-6 mt-4 relative">
+            <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                <i class="fas fa-info-circle mr-2"></i>
+                Listing Information
+                <span class="ml-auto text-sm font-normal mr-4">53 Views</span>
+                <button id="editButton" class="btn btn-outline">Edit</button>
+            </h2>
+            <form id="listingForm">
+                <div class="form-group">
+                    <label for="title" class="block mb-1">Title</label>
+                    <input type="text" id="title" name="title" class="form-control" value="Lotus Residency" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="description" class="block mb-1">Description</label>
+                    <textarea id="description" name="description" class="form-control" rows="4"
+                        disabled>Beautiful 2BHK flat in the heart of Bangalore. The flat is fully furnished and comes with a modern kitchen, a large living area, and a private terrace. It's perfect for families or groups of friends looking to explore the city. The flat is located in a quiet neighborhood close to shopping malls, restaurants, and entertainment options. The area is well-connected by public transport, and there are plenty of parks and green spaces nearby</textarea>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-group">
+                        <label for="location" class="block mb-1">Location</label>
+                        <input type="text" id="location" name="location" class="form-control"
+                            value="Bengaluru, Karnataka" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="landmark" class="block mb-1">Nearby Landmark</label>
+                        <input type="text" id="landmark" name="landmark" class="form-control" value="Sony World Signal"
+                            disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="block mb-1">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" value="abc.123@xyz.com"
+                            disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="block mb-1">Phone number</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" value="+91 9876543210" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="rent" class="block mb-1">Rent</label>
+                        <input type="text" id="rent" name="rent" class="form-control" value="₹15,000/m" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="amenities" class="block mb-1">Amenities</label>
+                        <input type="text" id="amenities" name="amenities" class="form-control"
+                            value="Semi Furnished, 24 hours water supply" disabled>
+                    </div>
+                </div>
+                <button type="submit" id="saveButton" class="btn bg-black text-white hover:bg-gray-800 mt-4 hidden">Save
+                    Changes</button>
+            </form>
+        </div>
+
+        <div class="w-full bg-white rounded-lg shadow-md p-6 mt-4">
+            <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                <i class="fas fa-images mr-2"></i>
+                Gallery
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="imageGallery">
+                <div class="gallery-item">
+                    <img src="{{ url_for('static', filename='images/gallery one.png') }}" alt="Room 1"
+                        class="gallery-image">
+                    <button class="delete-button">Delete</button>
+                </div>
+                <div class="gallery-item">
+                    <img src="{{ url_for('static', filename='images/gallery two.png') }}" alt="Room 2"
+                        class="gallery-image">
+                    <button class="delete-button">Delete</button>
+                </div>
+                <div class="gallery-item">
+                    <img src="{{ url_for('static', filename='images/gallery three.png') }}" alt="Room 3"
+                        class="gallery-image">
+                    <button class="delete-button">Delete</button>
+                </div>
+                <div class="gallery-item">
+                    <label for="addImageInput" class="add-image-button">
+                        <i class="fas fa-plus fa-2x text-gray-400"></i>
+                    </label>
+                    <input type="file" id="addImageInput" accept="image/*" style="display: none;">
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full bg-white rounded-lg shadow-md p-6 mt-4">
+            <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                <i class="fas fa-thumbs-up mr-2"></i>
+                Recommendations
+            </h2>
+            <div class="recommendations-chart max-h-[300px] flex justify-center items-center">
+                <canvas id="recommendationsChart" class="max-h-[300px] w-full"></canvas>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

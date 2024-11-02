@@ -1,0 +1,48 @@
+.active-nav-link {
+    /* background-color: #1f1f1f; */
+    background-color: transparent;
+    color: #1f1f1f !important;
+    font-family: 'Nunito', serif;
+    font-weight: 800;
+}
+.active-nav-link::after {
+    transition: all 0.3s ease;
+    content: "";
+    width: 50%;
+    height: 2px;
+    background-color: #1f1f1f;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.nav-link {
+    position: relative;
+    color: #1f1f1f75;
+    transition: color 0.3s ease;
+}
+.nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #1f1f1f;
+    transition: width 0.3s ease;
+}
+.nav-link:hover {
+    color: #1f1f1f;
+    background: transparent;
+}
+.nav-link:focus {
+    color: #1f1f1f;
+    background: transparent;
+}
+.nav-link:hover::after {
+    width: 50%;
+}
+.active-nav-link::after {
+    width: 50%;
+}

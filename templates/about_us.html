@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block head %}
+<title>About Us | StudOut</title>
+<style>
+    .text-overflow-custom {
+        text-overflow: ellipsis;
+    }
+    .gradient-bg {
+        background: linear-gradient(135deg, #1f1f1f3d, #3f3f3f27);
+    }
+    .feature-icon {
+        background-color: #f0f0f0;
+        border-radius: 50%;
+        padding: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<body>
+    <!-- Hero Section -->
+    <section class="relative w-full h-[60vh] flex items-center justify-center text-white" style="background-image: linear-gradient(135deg, #1f1f1f, #3f3f3f50), url('{{url_for('static', filename='images/students_hanging.jpg')}}'); background-size: cover; background-position: center;">
+        <div class="text-center">
+            <h1 class="text-5xl playfair-bold mb-4">Welcome to StudOut</h1>
+            <p class="text-xl max-w-2xl mx-auto">Your one-stop solution for all student needs, from accommodation to services, tailored just for you.</p>
+        </div>
+    </section>
+
+    <!-- About Us Content -->
+    <div class="container mx-auto px-4 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <h2 class="text-3xl font-bold mb-4">Our Mission</h2>
+                <p class="text-lg text-gray-700 mb-6">At StudOut, we aim to simplify the student experience by providing a comprehensive platform for finding accommodation, services, and resources. We understand the challenges students face when moving to a new city, and we're here to make that transition as smooth as possible.</p>
+                <img src="{{url_for('static', filename='images/mission.jpg')}}" alt="Our Mission" class="rounded-lg shadow-md">
+            </div>
+            <div>
+                <h2 class="text-3xl font-bold mb-4">Our Vision</h2>
+                <p class="text-lg text-gray-700 mb-6">We envision a world where students can focus on their studies and personal growth without worrying about logistics. Our platform is designed to provide everything a student might need, from housing to daily services, all in one place.</p>
+                <img src="{{url_for('static', filename='images/vision.jpg')}}" alt="Our Vision" class="rounded-lg shadow-md">
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="bg-gray-100 py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Why Choose Us?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="feature-icon mx-auto mb-4">
+                        <i class="fas fa-list text-3xl text-[#1f1f1f]"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Comprehensive Listings</h3>
+                    <p class="text-gray-600">Find the best flats, PGs, and accommodations tailored to your needs.</p>
+                </div>
+                <div class="text-center">
+                    <div class="feature-icon mx-auto mb-4">
+                        <i class="fas fa-shield-halved text-3xl text-[#1f1f1f]"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Reliable Services</h3>
+                    <p class="text-gray-600">Access trusted tiffin services, libraries, and more to support your daily life.</p>
+                </div>
+                <div class="text-center">
+                    <div class="feature-icon mx-auto mb-4">
+                        <i class="fas fa-users text-3xl text-[#1f1f1f]"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Community Support</h3>
+                    <p class="text-gray-600">Join a community of students and share experiences, tips, and support.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

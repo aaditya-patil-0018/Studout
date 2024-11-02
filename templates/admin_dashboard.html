@@ -1,0 +1,137 @@
+{% extends "admin_layout.html" %}
+
+{% block head %}
+<title>Admin Dashboard | StudOut</title>
+<style>
+    .text-overflow-custom {
+        text-overflow: ellipsis;
+    }
+    .title-bar {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<body class="">
+    <div class="container mx-auto px-4">
+        <div id="spacer"></div>
+        <!-- Title Bar -->
+        <div class="relative w-full h-[25vh] flex flex-col justify-center items-center">
+            <img src="{{url_for('static', filename='images/title_background.png')}}" alt="title_background"
+                class="h-3/5 object-cover">
+            <div class="absolute inset-0 top-[calc(100%-150px)] flex items-center justify-center">
+                    <div class="title-bar flex flex-col items-center w-1/2 space-x-4 mb-8">
+                        <div class="text-center">
+                            <h1 class="text-2xl font-bold" id="welcome-text">Welcome, Admin!</h1>
+                            <p class="text-gray-600" id="seller-profession">Wilson Hughes</p>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <div id="contents"
+            class="flex flex-col justify-center items-center max-w-full lg:max-w-[1140px] h-auto p-3 mx-auto">
+
+            <!-- Stats Section -->
+            <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col items-center justify-center">
+                    <p class="text-sm text-gray-600">Total Sellers</p>
+                    <h3 class="text-3xl font-bold text-gray-900">10</h3>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col items-center justify-center">
+                    <p class="text-sm text-gray-600">Total Customers</p>
+                    <h3 class="text-3xl font-bold text-gray-900">7</h3>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col items-center justify-center">
+                    <p class="text-sm text-gray-600">Total Listings</p>
+                    <h3 class="text-3xl font-bold text-gray-900">20</h3>
+                </div>
+                <div class="border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col items-center justify-center bg-white">
+                    <p class="text-sm text-gray-600">Total Recommendations</p>
+                    <h3 class="text-3xl font-bold text-gray-900">200</h3>
+                </div>
+            </div>
+
+            <!-- Quick Actions Section -->
+            <div class="w-full mt-8">
+                <h2 class="text-2xl font-bold mb-4">Quick Actions</h2>
+                <div class="space-y-4">
+                    <!-- Add New Admin Card -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-lg font-semibold">Add New Admin</h3>
+                                <p class="text-gray-600 text-sm">Invite a new admin to help manage your platform</p>
+                            </div>
+                            <label for="add_admin_modal" class="btn btn-primary text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                                Add
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- View Platform Analytics Card -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-lg font-semibold">View Platform Analytics</h3>
+                                <p class="text-gray-600 text-sm">See how your platform is performing with detailed analytics</p>
+                            </div>
+                            <a href="{{ url_for('admin_analytics') }}" class="btn btn-primary text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                                View
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Admin Modal -->
+            <input type="checkbox" id="add_admin_modal" class="modal-toggle" />
+            <div class="modal" role="dialog">
+                <div class="modal-box">
+                    <h3 class="text-lg font-bold">Add New Admin</h3>
+                    <div class="py-4">
+                        <form id="addAdminForm" class="space-y-4">
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text">Full Name</span>
+                                </label>
+                                <input type="text" id="adminName" class="input input-bordered" required />
+                            </div>
+                            
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text">Email</span>
+                                </label>
+                                <input type="email" id="adminEmail" class="input input-bordered" required />
+                            </div>
+                            
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text">Password</span>
+                                </label>
+                                <input type="password" id="adminPassword" class="input input-bordered" required />
+                            </div>
+                            
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text">Confirm Password</span>
+                                </label>
+                                <input type="password" id="adminConfirmPassword" class="input input-bordered" required />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-action">
+                        <button type="button" id="submitAdminForm" class="btn btn-primary">Add Admin</button>
+                        <label for="add_admin_modal" class="btn">Close</label>
+                    </div>
+                </div>
+                <label class="modal-backdrop" for="add_admin_modal">Close</label>
+            </div>
+        </div>
+        <script src="{{ url_for('static', filename='js/admin_dashboard.js') }}"></script>
+    </body>
+    {% endblock %}

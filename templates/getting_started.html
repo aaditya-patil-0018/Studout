@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block head %}
+<title>StudOut | Getting Started</title>
+<style>
+    .text-overflow-custom {
+        text-overflow: ellipsis;
+    }
+    .gradient-overlay {
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 10%, rgba(255, 255, 255, 0) 100%);
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<body class="h-screen">
+    <div class="h-full bg-cover bg-center bg-no-repeat relative" style="background-image: url('{{ url_for('static', filename='images/l4.jpg') }}')">
+        <div class="absolute inset-0 gradient-overlay flex flex-col items-center justify-center px-4 text-center">
+            <div class="text-2xl playfair-black mb-8">StudOut</div>
+            <h3 class="text-5xl nunito-extrabold mb-4">Personalize Your Experience</h3>
+            <p class="max-w-xl text-xl nunito-semibold mb-8">Your one-stop solution for all your student needs. Complete your profile to get personalized suggestions tailored to your needs in your new city.</p>
+            <button class="btn btn-primary px-4 py-2 flex items-center justify-center w-[calc(100%+20px)]">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span class="mr-2">Start</span>
+            </button>
+        </div>
+    </div>
+
+
+    <script src="https://kit.fontawesome.com/152ebb6ef8.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
+</body>
+{% endblock %}

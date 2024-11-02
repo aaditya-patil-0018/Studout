@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/output.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/layout.css')}}">
+    {% block head %}
+    {% endblock %}
+</head>
+
+<body>
+    {% if not is_landing_page and not is_auth_page and not is_profile_setup and not is_error_page %}
+    <!-- Navigation bar for logged-in users -->
+    <div id="navbar"
+        class="navbar bg-[#ffffff] backdrop-blur-md backdrop-saturate-100 fixed top-0 left-0 w-full z-20 transition-transform duration-500 ease-in-out">
+        <div class="navbar-start">
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h8m-8 6h16" />
+                    </svg>
+                </div>
+                <ul tabindex="0"
+                    class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                    <li class=""><a href="{{ url_for('admin_dashboard') }}" class="nav-link !text-[#1f1f1f75]" data-page="dashboard">Dashboard</a></li>
+                    <li class=""><a href="{{ url_for('admin_users') }}" class="nav-link !text-[#1f1f1f75]" data-page="users">Users</a></li>
+                    <li class=""><a href="{{ url_for('admin_listings') }}" class="nav-link !text-[#1f1f1f75]" data-page="listings">Listings</a></li>
+                </ul>
+            </div>
+            <a href="/" class="btn btn-ghost text-xl !playfair-black ">StudOut</a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1">
+                <li><a href="{{ url_for('admin_dashboard') }}" class="nav-link !text-[#1f1f1f75]" data-page="dashboard">Dashboard</a></li>
+                <li><a href="{{ url_for('admin_users') }}" class="nav-link !text-[#1f1f1f75]" data-page="users">Users</a></li>
+                <li><a href="{{ url_for('admin_listings') }}" class="nav-link !text-[#1f1f1f75]" data-page="listings">Listings</a></li>
+            </ul>
+        </div>
+        <div class="navbar-end gap-2">
+            <label for="admin_help_modal" class="btn btn-square">
+                <i class="fa-regular fa-circle-question text-2xl"></i>
+            </label>
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                    <div class="w-10 rounded-full">
+                        <img alt="User Profile Picture"
+                            src="{{url_for('static', filename='images/default_avatar.webp')}}" />
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                    <li>
+                        <a href="{{ url_for('admin_profile') }}" class="justify-between">
+                            Profile
+                            <span class="badge">New</span>
+                        </a>
+                    </li>
+                    <li><a href="{{ url_for('logout') }}" class="text-red-400 hover:bg-red-100">
+                            <i class="fas fa-right-from-bracket mr-2"></i>Logout
+                        </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% block body %}
+    {% endblock %}
+
+    {% if not is_auth_page and not is_products_listing and not is_profile_setup and not is_error_page %}
+    <footer class="footer relative bottom-0 w-full !place-items-start justify-between bg-base-200 text-base-content p-10">
+        <nav>
+            <h6 class="footer-title">Pages</h6>
+            <a href="{{ url_for('admin_dashboard') }}" class="link link-hover">Dashboard</a>
+            <a href="{{ url_for('admin_users') }}" class="link link-hover">Users</a>
+            <a href="{{ url_for('admin_listings') }}" class="link link-hover">Listings</a>
+        </nav>
+        <nav>
+            <h6 class="footer-title">Features</h6>
+            <a href="{{ url_for('user_testimonials') }}" class="link link-hover">Testimonials</a>
+            <a href="{{ url_for('about_us') }}" class="link link-hover">About us</a>
+            <a href="{{ url_for('contact_us') }}" class="link link-hover">Contact</a>
+        </nav>
+        <nav>
+            <h6 class="footer-title">Legal</h6>
+            <a href="/" class="link link-hover">Terms of use</a>
+            <a href="/" class="link link-hover">Privacy policy</a>
+            <a href="/" class="link link-hover">Cookie policy</a>
+        </nav>
+        <aside class="">
+            <img src="{{ url_for('static', filename='images/footer logo.svg') }}" alt="" width="100%" class="">
+        </aside>
+    </footer>
+    {% endif %}
+
+    <script src="https://kit.fontawesome.com/152ebb6ef8.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
+    <script src="{{ url_for('static', filename='js/layout.js') }}"></script>
+ 
+    <input type="checkbox" id="admin_help_modal" class="modal-toggle" />
+    <div class="modal" role="dialog">
+        <div class="modal-box">
+            <h3 class="text-lg font-bold">Welcome to StudOut Admin Platform!</h3>
+            <div class="py-4">
+                <p class="mb-2">Here's some helpful information for administrators:</p>
+                <ul class="list-disc list-inside space-y-1">
+                    <li>Monitor and manage all users from the dashboard</li>
+                    <li>Review new seller registrations</li>
+                    <li>Monitor listing quality and compliance</li>
+                    <li>Handle user reports and disputes</li>
+                    <li>Track platform metrics and analytics</li>
+                    <li>Manage featured listings and promotions</li>
+                    <li>Enforce platform policies and guidelines</li>
+                </ul>
+            </div>
+            <p class="mt-4">For more detailed guidance, please refer to our Admin Documentation in the Help Center.</p>
+        </div>
+        <label class="modal-backdrop" for="admin_help_modal">Close</label>
+    </div>
+</body>
+
+</html>

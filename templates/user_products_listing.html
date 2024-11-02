@@ -1,0 +1,114 @@
+{% extends "layout.html" %}
+{% block head %}
+<title>Products Listing | StudOut</title>
+<style>
+    .text-overflow-custom {
+        text-overflow: ellipsis;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<body>
+    <!-- Search Bar -->
+    <div class="relative w-full h-[25vh] flex flex-col justify-center items-center">
+        <img src="{{url_for('static', filename='images/title_background.png')}}" alt="title_background"
+            class="h-3/5 object-cover">
+        <div class="absolute inset-0 top-[calc(100%-150px)] flex items-center justify-center">
+            <div class="w-1/2 h-2/5 gap-3 bg-white rounded-xl shadow-md flex items-center justify-center px-6">
+                <button class=" text-primary rounded-full p-2 hover:bg-gray-300 transition-colors duration-300">
+                    <i class="fa-solid fa-magnifying-glass fa-lg opacity-60"></i>
+                </button>
+                <input type="text" placeholder="Search for services" value="{{ service|replace('_', ' ')|title if service else '' }}"
+                    class="w-full h-full bg-transparent outline-none text-slate-900 nunito-semibold text-lg" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter -->
+    <div id="filter" class="drawer lg:drawer-open p-2 rounded-xl shadow-md">
+        <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col items-center justify-center p-5">
+            <!-- Information Section -->
+            <div class="flex flex-row justify-between items-center w-full h-full text-center">
+                <label for="my-drawer-2" class="btn btn-outline btn-primary drawer-button lg:hidden">
+                    <i class="fa-solid fa-filter" style="color: #ffffff;"></i>
+                    Filter
+                </label>
+                <p class="text-lg font-bold text-center">Found <span id="itemCount">100</span> items on search</p>
+                <div class="flex flex-row justify-center items-center w-auto">
+                    <p class="text-lg font-bold w-full">Sort by</p>
+                    <select class="select select-bordered w-full bg-transparent" style="text-overflow: ellipsis;">
+                        <option selected>Most Recommended</option>
+                        <option>Most Viewed</option>
+                        <option>Least Viewed</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Cards Section -->
+            <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+                <!-- Cards will be dynamically inserted here -->
+                {% for i in range(9) %}
+                <section
+                    class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:scale-105 transition-all duration-300 hover:duration-300 ease-in-out">
+                    <div
+                        class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500  rounded-3xl flex-auto">
+                        <!-- Image -->
+                        <img loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/997dc89b78d32f085876efdc277211313eec496df259b74e64f44dd8e9fc0369?apiKey=9bd219f68dfc444683de1063449c1f1e&"
+                            class="object-contain flex-1 w-full" alt="Lotus Residency property" />
+                        <div
+                            class="flex overflow-hidden opacity-0 absolute h-full w-full bg-transparent backdrop-blur-sm top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 hover:opacity-100 duration-500 ease-in-out">
+                            <button type="submit" id="loginBtn" data-ripple-light="true"
+                                class="btn btn-primary sm:btn-sm md:btn-md lg:btn-md px-20 rounded-full roboto-reg ">
+                                <span>Explore</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Details -->
+                    <header
+                        class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-center text-black">
+                        <h2 class="text-xl font-bold">Lotus Residency</h2>
+                        <p class="mt-1.5 text-md font-semibold">Bengaluru, Karnataka</p>
+                    </header>
+                </section>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="drawer-side">
+            <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
+            <ul class="menu text-base-content min-h-full w-80 p-4 bg-[#F4F6F9] rounded-xl">
+                <!-- Sidebar content here -->
+                <div id="spacer" class="w-full h-[100px] md:h-0 lg:h-0 bg-transparent"></div>
+                <li class="text-lg font-bold">Filters</li>
+                <div class="divider"></div>
+                <div class="text-lg font-bold">
+                    Max Price
+                    <input type="range" min="0" max="70000" step="1000" value="10000"
+                        class="range hover:bg-transparent rounded-full mt-2" id="priceRange" />
+                    <div class="text-start !text-sm mt-2">
+                        Price: ₹<span id="priceValue">10000</span>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="text-lg font-bold">
+                    Select Category
+                    <select class="select select-bordered w-full max-w-xs bg-transparent mt-2">
+                        <option disabled selected>Select Category
+                        </option>
+                        <option>Flats & PGs</option>
+                        <option>Tiffin Services</option>
+                        <option>Second Hand Vehicles</option>
+                        <option>Libraries</option>
+                    </select>
+                </div>
+                <div class="divider"></div>
+                <div class="btn btn-primary w-full">Apply</div>
+            </ul>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/152ebb6ef8.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
+    <script src="{{ url_for('static', filename='js/user_products_listing.js') }}"></script>
+</body>
+{% endblock %}

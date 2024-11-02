@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>StudOut | Page Not Found</title>
+<style>
+    .not-found-container {
+        min-height: calc(100vh - 60px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 2rem;
+    }
+    .not-found-title {
+        font-size: 6rem;
+        font-weight: 700;
+        color: #1f1f1f;
+        margin-bottom: 1rem;
+        animation: bounce 2s infinite;
+    }
+    .not-found-message {
+        font-size: 1.5rem;
+        color: #4a5568;
+        margin-bottom: 2rem;
+    }
+    .home-button {
+        background-color: #1f1f1f;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.375rem;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+    .home-button:hover {
+        background-color: #2d3748;
+    }
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="not-found-container">
+    <h1 class="not-found-title">404</h1>
+    <p class="not-found-message">Oops! The page you're looking for seems to have wandered off.</p>
+    <p class="not-found-message">Don't worry, even the best explorers get lost sometimes.</p>
+    <a href="{{ url_for('landing') }}" class="home-button btn">Go Back Home</a>
+    <div class="collapse bg-base-200 mt-4">
+        <input type="checkbox" />
+        <div class="collapse-title text-xl font-medium">Click to see error details</div>
+        <div class="collapse-content">
+            <p class="not-found-message">{{ error }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

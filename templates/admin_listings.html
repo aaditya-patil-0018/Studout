@@ -1,0 +1,137 @@
+{% extends "admin_layout.html" %}
+
+{% block head %}
+<title>Admin Dashboard | StudOut</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    .text-overflow-custom {
+        text-overflow: ellipsis;
+    }
+
+    .title-bar {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .searching {
+        background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23ccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 20px 20px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<body class="">
+    <div class="container mx-auto px-4">
+        <div id="spacer"></div>
+        <!-- Title Bar -->
+        <div class="relative w-full h-[25vh] flex flex-col justify-center items-center">
+            <img src="{{url_for('static', filename='images/title_background.png')}}" alt="title_background"
+                class="h-3/5 object-cover">
+            <div class="absolute inset-0 top-[calc(100%-150px)] flex items-center justify-center">
+                <div class="title-bar flex flex-col items-center w-1/2 space-x-4 mb-8">
+                    <div class="text-center">
+                        <h1 class="text-2xl playfair-bold" id="welcome-text">List of Users</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="contents"
+            class="flex flex-col justify-center items-center max-w-full lg:max-w-[1140px] h-auto p-3 mx-auto">
+            <div class="w-full flex justify-between items-center mb-3 mt-1 pl-3">
+                <div>
+                    <h3 class="text-lg font-semibold text-slate-800">Listings Management</h3>
+                    <p class="text-slate-500">Monitor and manage all platform listings.</p>
+                </div>
+                <div class="mx-3">
+                    <div class="relativeflex flex-col items-center justify-center gap-4 md:flex-row">
+                        <div class="lg:w-1/2 md:w-full sm:w-full">
+                            <div class="relative h-10 w-full min-w-[500px]">
+                                <div class="absolute grid w-5 h-5 top-2/4 right-3 -translate-y-2/4 place-items-center text-blue-gray-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                        stroke="currentColor" aria-hidden="true" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <input class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 !pr-9 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                                    placeholder=" " type="search" autocomplete="off" />
+                                <label
+                                    class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                                    Search
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+                <table class="w-full text-left table-auto min-w-max">
+                    <thead>
+                        <tr class="border-b border-slate-300 bg-slate-50">
+                            <th class="p-4 text-sm font-normal leading-none text-slate-500">Listing</th>
+                            <th class="p-4 text-sm font-normal leading-none text-slate-500">Name</th>
+                            <th class="p-4 text-sm font-normal leading-none text-slate-500">Location</th>
+                            <th class="p-4 text-sm font-normal leading-none text-slate-500">Recommendations</th>
+                            <th class="p-4 text-sm font-normal leading-none text-slate-500">Price Monthly</th>
+                            <th class="p-4 text-sm font-normal leading-none text-slate-500"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-slate-50">
+                            <!-- Listing image -->
+                            <td class="p-4 border-b border-slate-200 py-5">
+                                <img src="https://demos.creative-tim.com/corporate-ui-dashboard-pro/assets/img/kam-idris-_HqHX3LBN18-unsplash.jpg"
+                                    alt="Product 1" class="w-16 h-16 object-cover rounded" />
+                            </td>
+                            <!-- Listing name -->
+                            <td class="p-4 border-b border-slate-200 py-5">
+                                <p class="block font-semibold text-sm text-slate-800">Green Valley Appartments</p>
+                            </td>
+                            <!-- Location -->
+                            <td class="p-4 border-b border-slate-200 py-5">
+                                <p class="text-sm text-slate-500">Pune, Maharashtra</p>
+                            </td>
+                            <!-- Recommendations count -->
+                            <td class="p-4 border-b border-slate-200 py-5">
+                                <p class="text-sm text-slate-500">520</p>
+                            </td>
+                            <!-- Monthly price -->
+                            <td class="p-4 border-b border-slate-200 py-5">
+                                <p class="text-sm text-slate-500">₹1,000</p>
+                            </td>
+                            <!-- Action button with delete icon -->
+                            <td class="p-4 border-b border-slate-200 py-5">
+                                <button
+                                    class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                    type="button" data-tip="View">
+                                    <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </span>
+                                </button>
+                                <button
+                                    class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                    type="button" data-tip="Delete">
+                                    <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                                        <i class="fa-solid fa-trash" style="color: #ff4d4d;"></i>
+                                    </span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/admin_listings.js') }}"></script>
+</body>
+{% endblock %}

@@ -1,0 +1,265 @@
+{% extends "seller_layout.html" %}
+
+{% block head %}
+<title>StudOut | Seller Profile Setup 1</title>
+<style>
+    .text-overflow-custom {
+        text-overflow: ellipsis;
+    }
+
+    /* General Styles */
+    .radio-group {
+        display: flex;
+        gap: 10px;
+    }
+
+    .radio-chip {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        background: transparent;
+        color: rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 16px;
+        user-select: none;
+        overflow: hidden;
+        height: 40px;
+    }
+
+    .radio-chip input[type="radio"] {
+        display: none;
+    }
+
+    .radio-chip input[type="radio"]:not(:checked)+span {
+        background: transparent;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+        color: rgba(0, 0, 0, 0.25);
+    }
+
+    .radio-chip input[type="radio"]:checked+span {
+        background: #1F1F1F;
+        box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<body class="h-screen">
+    <div class="flex h-full">
+        <!-- Left Section -->
+        <div class="w-1/2 h-full overflow-y-auto flex flex-col items-center justify-start px-8">
+            <h1 class="text-2xl playfair-black mb-8">StudOut</h1>
+            <form id="sellerProfileSetupForm1" class="relative flex flex-col flex-1 w-full">
+                <!-- Profile Picture -->
+                <div class="mb-8">
+                    <label for="profile-picture" class="block text-black text-md nunito-bold mb-2 cursor-pointer">Profile picture</label>
+                    <div class="flex items-center border border-gray-500 rounded-lg p-2 w-full cursor-pointer">
+                        <label for="file-upload" class="cursor-pointer flex items-center space-x-2 text-gray-400">
+                            <i class="fa-solid fa-cloud-arrow-up p-2"></i>
+                            <span id="file-name">Upload Image</span>
+                        </label>
+                        <input id="file-upload" type="file" accept="image/*" class="hidden cursor-pointer" required />
+                    </div>
+                </div>
+
+                <!-- Full Name -->
+                <div class="mb-8">
+                    <label
+                        for="full-name"
+                        class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600"
+                    >
+                        <input
+                            type="text"
+                            id="full-name"
+                            name="full-name"
+                            class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                            placeholder="Full Name"
+                            required
+                        />
+                        <span
+                            class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
+                        >
+                            Full Name
+                        </span>
+                    </label>
+                </div>
+
+                <!-- Gender -->
+                <div class="mb-8">
+                    <p class="block text-black text-md nunito-bold mb-2">Gender</p>
+                    <div class="radio-group">
+                        <label class="radio-chip flex justify-center items-center w-full">
+                            <input type="radio" name="gender" value="male">
+                            <span class="w-full h-full text-center flex items-center justify-center">Male</span>
+                        </label>
+
+                        <label class="radio-chip w-full">
+                            <input type="radio" name="gender" value="female">
+                            <span class="w-full h-full text-center flex items-center justify-center">Female</span>
+                        </label>
+
+                        <label class="radio-chip w-full">
+                            <input type="radio" name="gender" value="prefer_not_to_say" checked>
+                            <span class="w-full h-full text-center flex items-center justify-center">Prefer not to
+                                say</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Date of Birth -->
+                <div class="mb-8">
+                    <label
+                        for="dob"
+                        class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600"
+                    >
+                        <input
+                            type="date"
+                            id="dob"
+                            name="dob"
+                            class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                            placeholder="Date of Birth"
+                            required
+                        />
+                        <span
+                            class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
+                        >
+                            Date of Birth
+                        </span>
+                    </label>
+                </div>
+
+                <!-- Business Name -->
+                <div class="mb-8">
+                    <label
+                        for="business_name"
+                        class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600"
+                    >
+                        <input
+                            type="text"
+                            id="business_name"
+                            name="business_name"
+                            class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                            placeholder="Business Name"
+                            required
+                        />
+                        <span
+                            class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
+                        >
+                            Business Name
+                        </span>
+                    </label>
+                </div>
+
+                <!-- Business Description -->
+                <div class="mb-8">
+                    <label
+                        for="business_description"
+                        class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600"
+                    >
+                        <input
+                            type="text"
+                            id="business_description"
+                            name="business_description"
+                            class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                            placeholder="Business Description"
+                            required
+                        />
+                        <span
+                            class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
+                        >
+                            Business Description
+                        </span>
+                    </label>
+                </div>
+
+                <!-- Area of Residence -->
+                <div class="mb-8">
+                    <label
+                        for="area_of_residence"
+                        class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600"
+                    >
+                        <input
+                            type="text"
+                            id="area_of_residence"
+                            name="area_of_residence"
+                            class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                            placeholder="Area of Residence"
+                            required
+                        />
+                        <span
+                            class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
+                        >
+                            Area of Residence
+                        </span>
+                    </label>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-8">
+                    <label
+                        for="email"
+                        class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600"
+                    >
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                            placeholder="Email"
+                            required
+                        />
+                        <span
+                            class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
+                        >
+                            Email
+                        </span>
+                    </label>
+                </div>
+
+                <!-- Mobile Number -->
+                <div class="mb-8">
+                    <label
+                        for="mobile_number"
+                        class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600"
+                    >
+                        <input
+                            type="tel"
+                            id="mobile_number"
+                            name="mobile_number"
+                            class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                            placeholder="Mobile Number"
+                            required
+                        />
+                        <span
+                            class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
+                        >
+                            Mobile Number
+                        </span>
+                    </label>
+                </div>
+
+                <div class="mt-auto mb-3">
+                    <button type="submit" class="btn btn-primary w-full">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Right Section -->
+        <div class="w-1/2 h-full fixed top-0 right-0">
+            <img src="{{ url_for('static', filename='images/user_account_setup_back.png') }}" alt="StudOut"
+                class="w-full h-full object-cover">
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/152ebb6ef8.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/seller_profile_setup_1.js') }}"></script>
+</body>
+{% endblock %}

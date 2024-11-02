@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "start": "vite",
+    "buildcss": "npx tailwindcss -i ./static/css/style.css -o ./static/css/output.css --watch"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "daisyui": "^4.12.10",
+    "postcss": "^8.4.45",
+    "tailwindcss": "^3.4.12"
+  },
+  "dependencies": {
+    "@material-tailwind/html": "^2.3.2",
+    "vite": "^5.4.3"
+  }
+}

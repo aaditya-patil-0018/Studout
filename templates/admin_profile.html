@@ -1,0 +1,188 @@
+{% extends "admin_layout.html" %}
+
+{% block head %}
+<title>Admin Profile | StudOut</title>
+<style>
+    .text-overflow-custom {
+        text-overflow: ellipsis;
+    }
+    .title-bar {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<body class="">
+    <div class="container mx-auto px-4">
+        <div id="spacer"></div>
+        <!-- Title Bar -->
+        <div class="relative w-full h-[25vh] flex flex-col justify-center items-center">
+            <img src="{{url_for('static', filename='images/title_background.png')}}" alt="title_background"
+                class="h-3/5 object-cover">
+            <div class="absolute inset-0 top-[calc(100%-150px)] flex items-center justify-center">
+                <div class="w-1/2 h-2/5 gap-3 bg-white rounded-xl shadow-md flex items-center justify-between px-6">
+                    <p class="text-xl playfair-black w-full text-center"><i class="fa-solid fa-user mr-2"></i>Admin Profile</p>
+                    <button id="editButton" class="btn btn-circle btn-outline">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="contents"
+            class="flex flex-col justify-center items-center max-w-full lg:max-w-[1140px] h-auto p-3 mx-auto">
+
+            <!-- Profile Picture Section -->
+            <section class="w-full mt-8 px-4">
+                <h2 class="text-xl font-bold mb-4 pb-2"><i class="fa-solid fa-image"></i> Profile Picture</h2>
+                <div class="divider h-0"></div>
+                <div class="flex flex-row items-center gap-4">
+                    <div class="w-24 h-24 rounded-full overflow-hidden mb-4">
+                        <img id="profile-picture" src="{{url_for('static', filename='images/default_avatar.webp')}}" alt="Profile Picture"
+                            class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex space-x-4">
+                        <label for="change-picture" class="btn btn-primary">
+                            Change picture
+                        </label>
+                        <input type="file" id="change-picture" class="hidden" accept="image/*">
+                        <button class="btn btn-outline btn-error" id="delete-picture">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Personal Information Section -->
+            <section class="w-full mt-8 px-4">
+                <h2 class="text-xl font-bold mb-4 pb-2"><i class="fa-solid fa-user"></i> Personal Information</h2>
+                <div class="divider h-0"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="mb-4">
+                        <label for="full-name"
+                            class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                            <input type="text" id="full-name" name="full-name"
+                                class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                placeholder="Full Name" required />
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                Full Name
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="email"
+                            class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                            <input type="email" id="email" name="email"
+                                class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                placeholder="Email" required />
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                Email
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="phone"
+                            class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                            <input type="tel" id="phone" name="phone"
+                                class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
+                                placeholder="Phone Number" required />
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                Phone Number
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Security Settings Section -->
+            <section class="w-full mt-8 px-4">
+                <h2 class="text-xl font-bold mb-4 pb-2"><i class="fa-solid fa-shield-halved"></i> Security Settings</h2>
+                <div class="divider h-0"></div>
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="mb-4">
+                        <label for="current-password"
+                            class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                            <div class="relative">
+                                <input type="password" id="current-password" name="current-password"
+                                    class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 pr-10"
+                                    placeholder="Current Password" />
+                                <button type="button" class="toggle-password absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                Current Password
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="new-password"
+                            class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                            <div class="relative">
+                                <input type="password" id="new-password" name="new-password"
+                                    class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 pr-10"
+                                    placeholder="New Password" />
+                                <button type="button" class="toggle-password absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                New Password
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="confirm-password"
+                            class="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-primary-600 focus-within:ring-1 focus-within:ring-primary-600">
+                            <div class="relative">
+                                <input type="password" id="confirm-password" name="confirm-password"
+                                    class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 pr-10"
+                                    placeholder="Confirm New Password" />
+                                <button type="button" class="toggle-password absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <span
+                                class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                Confirm New Password
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Two-Factor Authentication Section -->
+            <section class="w-full mt-8 px-4">
+                <h2 class="text-xl font-bold mb-4 pb-2"><i class="fa-solid fa-lock"></i> Two-Factor Authentication</h2>
+                <div class="divider h-0"></div>
+                <div class="flex items-center justify-between p-4 bg-white rounded-lg border border-gray-200">
+                    <div>
+                        <h3 class="font-semibold">Enable Two-Factor Authentication</h3>
+                        <p class="text-sm text-gray-600">Add an extra layer of security to your account</p>
+                    </div>
+                    <input type="checkbox" class="toggle toggle-primary" />
+                </div>
+            </section>
+
+            <div class="fixed bottom-4 left-0 right-0 flex justify-center items-center z-[9999] px-4">
+                <button id="saveButton" class="btn hidden btn-primary w-full max-w-md shadow-lg">Save Changes</button>
+            </div>
+            <div class="h-16"></div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/admin_profile.js') }}"></script>
+</body>
+{% endblock %}

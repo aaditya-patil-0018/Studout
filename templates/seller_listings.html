@@ -1,0 +1,214 @@
+{% extends "seller_layout.html" %}
+
+{% block head %}
+<title>StudOut | Seller Listings</title>
+<style>
+    .text-overflow-custom {
+        text-overflow: ellipsis;
+    }
+
+    .title-bar {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid white;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<body class="">
+    <div class="container mx-auto px-4">
+        <div id="spacer"></div>
+        <!-- Title Bar -->
+        <div class="relative w-full h-[25vh] flex flex-col justify-center items-center">
+            <img src="{{url_for('static', filename='images/title_background.png')}}" alt="title_background"
+                class="h-3/5 object-cover">
+            <div class="absolute inset-0 top-[calc(100%-150px)] flex items-center justify-center">
+                <div class="w-1/2 h-2/5 gap-3 bg-white rounded-xl shadow-md flex items-center justify-between px-6">
+                    <p class="text-xl playfair-black w-full text-center"><i class="fa-solid fa-layer-group mr-2"></i>My
+                        Listings</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="contents"
+            class="flex flex-col justify-center items-center max-w-full lg:max-w-[1140px] h-auto p-3 mx-auto">
+
+            <!-- Flats & PGs -->
+            <div class="w-full mt-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold">Flats & PGs</h2>
+                    <a href="#" class="text-blue-600 hover:text-blue-800"></a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% for _ in range(2) %}
+                    <section
+                        class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out">
+                        <div
+                            class="overflow-hidden relative items-center justify-center h-48 w-full transition-transform duration-200 rounded-3xl flex-auto">
+                            <img loading="lazy" src="{{url_for('static', filename='images/las.jpg')}}"
+                                class="object-cover w-full h-full" alt="Lotus Residency property" />
+                            <div
+                                class="flex overflow-hidden opacity-0 absolute h-full w-full bg-black bg-opacity-50 top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 duration-300 ease-in-out gap-4">
+                                <!-- Edit Button -->
+                                <button type="button" data-ripple-dark="true"
+                                    class="bg-white text-black px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300">
+                                    View
+                                </button>
+                                <!-- Active/Inactive Button -->
+                                <button type="button" data-ripple-dark="true"
+                                    class="bg-white text-black text-center text-2xl flex items-center justify-center px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300">
+                                    <i class="fa-solid fa-caret-up"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <header class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-black">
+                            <h2 class="text-xl font-bold">Lotus Residency</h2>
+                            <p class="mt-1 text-md">Bengaluru, Karnataka</p>
+                            <div class="flex items-center mt-1">
+                                {% for _ in range(5) %}
+                                <i class="fa-solid fa-star text-xs" style="color: #FFD43B;"></i>
+                                {% endfor %}
+                                <span class="ml-1 text-sm text-gray-600">(530 Visitors)</span>
+                            </div>
+                        </header>
+                    </section>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Tiffin Services -->
+            <div class="w-full mt-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold">Tiffin Services</h2>
+                    <a href="#" class="text-blue-600 hover:text-blue-800"></a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% for _ in range(2) %}
+                    <section
+                        class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out">
+                        <div
+                            class="overflow-hidden relative items-center justify-center h-48 w-full transition-transform duration-200 rounded-3xl flex-auto">
+                            <img loading="lazy" src="{{url_for('static', filename='images/Tiffin_service.jpg')}}"
+                                class="object-cover w-full h-full" alt="Homely Tiffin Service" />
+                            <div
+                                class="flex overflow-hidden opacity-0 absolute h-full w-full bg-black bg-opacity-50 top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 duration-300 ease-in-out gap-4">
+                                <!-- Edit Button -->
+                                <button type="button" data-ripple-dark="true"
+                                    class="bg-white text-black px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300">
+                                    View
+                                </button>
+                                <!-- Active/Inactive Button -->
+                                <button type="button" data-ripple-dark="true"
+                                    class="bg-white text-black text-center text-2xl flex items-center justify-center px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300">
+                                    <i class="fa-solid fa-caret-up"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <header class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-black">
+                            <h2 class="text-xl font-bold">Homely Tiffin Service</h2>
+                            <p class="mt-1 text-md">Bengaluru, Karnataka</p>
+                            <div class="flex items-center mt-1">
+                                {% for _ in range(5) %}
+                                <i class="fa-solid fa-star text-xs" style="color: #FFD43B;"></i>
+                                {% endfor %}
+                                <span class="ml-1 text-sm text-gray-600">(320 Visitors)</span>
+                            </div>
+                        </header>
+                    </section>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Libraries -->
+            <div class="w-full mt-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold">Libraries</h2>
+                    <a href="#" class="text-blue-600 hover:text-blue-800"></a>
+                </div>
+                <section
+                    class="flex group overflow-hidden flex-col justify-center items-center p-3 w-full h-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out bg-gray-100 cursor-pointer"
+                    onclick='window.location.href="/seller/add-listing"'>
+                    <div class="text-2xl text-primary opacity-50">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-600">Add Library Service</h2>
+                    <p class="mt-2 text-sm text-gray-500">Click to add a new library service listing</p>
+                </section>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Add Library Service Card -->
+                </div>
+            </div>
+
+            <!-- Second Hand Vehicles -->
+            <div class="w-full mt-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold">Second Hand Vehicles</h2>
+                    <a href="#" class="text-blue-600 hover:text-blue-800"></a>
+                </div>
+                <section
+                    class="flex group overflow-hidden flex-col justify-center items-center p-3 w-full h-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out bg-gray-100 cursor-pointer"
+                    onclick='window.location.href="/seller/add-listing"'>
+                    <div class="text-2xl text-primary opacity-50">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-600">Add Second Hand Vehicle</h2>
+                    <p class="mt-2 text-sm text-gray-500">Click to add a new second hand vehicle listing</p>
+                </section>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Add Second Hand Vehicle Card -->
+                </div>
+            </div>
+
+            <!-- Books -->
+            <div class="w-full mt-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold">Books</h2>
+                    <a href="#" class="text-blue-600 hover:text-blue-800"></a>
+                </div>
+                <section
+                    class="flex group overflow-hidden flex-col justify-center items-center p-3 w-full h-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out bg-gray-100 cursor-pointer"
+                    onclick='window.location.href="/seller/add-listing"'>
+                    <div class="text-2xl text-primary opacity-50">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-600">Add Book</h2>
+                    <p class="mt-2 text-sm text-gray-500">Click to add a new book listing</p>
+                </section>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Add Book Card -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set the height of the spacer
+            function setSpacerHeight() {
+                const navbar = document.getElementById('navbar');
+                const spacer = document.getElementById('spacer');
+                if (navbar && spacer) {
+                    spacer.style.height = navbar.offsetHeight + 'px';
+                }
+            }
+
+            // Call the function initially
+            setSpacerHeight();
+
+            // Add event listener for window resize
+            window.addEventListener('resize', setSpacerHeight);
+        });
+    </script>
+</body>
+{% endblock %}

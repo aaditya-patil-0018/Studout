@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>StudOut | Budget Preferences</title>
+<style>
+    input[type="range"] {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 2px;
+        background: #ddd;
+        outline: none;
+        opacity: 0.7;
+        transition: opacity .2s;
+    }
+
+    input[type="range"]:hover {
+        opacity: 1;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: #1F1F1F;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background: #1F1F1F;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    input[type="radio"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        padding: 2px;
+        background-clip: content-box;
+        border: 2px solid #1F1F1F;
+        background-color: #ffffff;
+        border-radius: 50%;
+    }
+
+    input[type="radio"]:checked {
+        background-color: #1F1F1F;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<body class="h-screen">
+    <div class="flex h-full">
+        <!-- Left Section -->
+        <div class="w-1/2 h-full overflow-y-auto flex flex-col items-center justify-start px-8">
+            <h1 class="text-2xl playfair-black mb-8 mt-8">StudOut</h1>
+            <form id="budgetPreferencesForm" class="relative flex flex-col flex-1 w-full max-w-md">
+                <h2 class="text-2xl font-bold mb-2">Budget Preferences</h2>
+                <p class="text-gray-600 mb-6">We'll use this to generate personalized recommendations for you!</p>
+
+                <!-- Radio buttons -->
+                <div class="mb-6 space-y-4">
+                    <label class="flex items-center space-x-3">
+                        <input type="radio" name="budgetPreference" value="all" class="form-radio h-5 w-5 text-primary" required>
+                        <span class="text-gray-700">I am open to recommendations for all budgets.</span>
+                    </label>
+                    <label class="flex items-center space-x-3">
+                        <input type="radio" name="budgetPreference" value="custom" class="form-radio h-5 w-5 text-primary" required>
+                        <span class="text-gray-700">I would like to set a budget preference.</span>
+                    </label>
+                </div>
+
+                <!-- Budget slider -->
+                <div id="budgetSliderContainer" class="mb-6 hidden">
+                    <label for="budgetSlider" class="block text-sm font-medium text-gray-700 mb-2">Set your budget preference</label>
+                    <input type="range" id="budgetSlider" name="budgetSlider" min="0" max="100000" step="1000" class="w-full" required>
+                    <div class="flex justify-between mt-2">
+                        <span class="text-sm text-gray-500">₹0</span>
+                        <span id="budgetValue" class="text-sm font-medium text-gray-700">₹50,000</span>
+                        <span class="text-sm text-gray-500">₹1,00,000</span>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" name="terms" class="form-checkbox" required>
+                        <span class="ml-2 text-sm">I agree to the <a href="#" class="text-indigo-600 hover:text-indigo-500">Terms and Conditions</a></span>
+                    </label>
+                </div>
+
+                <div class="mt-auto mb-10">
+                    <button type="submit" class="btn btn-primary w-full mb-10">
+                        Complete Setup
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Right Section -->
+        <div class="w-1/2 h-full fixed top-0 right-0">
+            <img src="{{ url_for('static', filename='images/user_account_setup_back.png') }}" alt="StudOut" class="w-full h-full object-cover">
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/user_profile_setup_3.js') }}"></script>
+</body>
+{% endblock %}

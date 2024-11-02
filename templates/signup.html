@@ -1,0 +1,142 @@
+{% extends 'layout.html' %}
+{% block head %}
+<title>StudOut | Register</title>
+{% endblock %}
+{% block body %}
+
+<body>
+    <section class="flex flex-col lg:flex-row overflow-hidden bg-white">
+        <!-- Background image -->
+        <img loading="lazy" src="../static/images/l4.jpg" alt=""
+            class="object-cover absolute inset-0 w-full h-full lg:object-cover" />
+        <div class="absolute w-screen h-screen bg-gradient-to-br from-[#000000a7]"></div>
+        <!-- Logo Text -->
+        <div class="hidden lg:flex relative w-1/2">
+            <h1 class="m-10 absolute top-0 left-0 text-5xl font-bold text-white lg:text-4xl">
+                StudOut
+            </h1>
+        </div>
+
+        <!-- Form Container -->
+        <div
+            class="lg:flex overflow-hidden relative lg:px-32 flex-col items-center justify-center md:w-full lg:w-1/2 h-screen px-5 py-16 text-lg lg:text-2xl font-semibold backdrop-blur-sm bg-[#ffffff] lg:bg-white bg-opacity-100 shadow-lg rounded-none lg:rounded-l-3xl">
+            <h2 class="text-3xl lg:text-4xl font-roboto text-center text-primary">
+                Create an account
+            </h2>
+            <div class="flex text-base lg:text-xl mt-4 mb-4 w-full justify-center lg:justify-center lg:gap-2">
+                <p class="text-[#1f1f1f] text-opacity-80 roboto-med">Already have an acount?</p>
+                <a href="/signin"
+                    class="text-[#F09D00] font-bold hover:text-opacity-50 ml-2 lg:ml-0 transform transition-transform duration-200 ease-in-out active:scale-90">Login</a>
+            </div>
+            <form class="flex flex-col items-end w-full">
+                <!-- Email Input -->
+                <div
+                    class="flex flex-col h-12 lg:h-12 mt-7 w-full text-sm font-medium text-primary overflow-hidden whitespace-nowrap rounded-xl">
+                    <label for="signupEmail" class="sr-only">Email</label>
+                    <input id="signupEmail" type="email" placeholder="Enter your email" required
+                        class="w-full h-full px-4 py-3 lg:px-8 placeholder:text-sm placeholder:font-normal bg-[#F4F4F4] border border-[#F4F4F4] hover:outline-none hover:bg-opacity-50 focus:border focus:bg-transparent focus:border-[#1f1f1f] focus:outline-none rounded-xl" />
+                </div>
+                <!-- New Password Input -->
+                <div
+                    class="flex flex-col h-12 lg:h-12 mt-3 w-full text-sm font-medium text-primary overflow-hidden whitespace-nowrap rounded-xl relative">
+                    <label for="newPassword" class="sr-only">Enter new password</label>
+                    <input id="newPassword" type="password" placeholder="Enter new password" required
+                        class="ww-full h-full px-4 py-3 lg:px-8 placeholder:text-sm placeholder:font-normal bg-[#F4F4F4] border border-[#F4F4F4] hover:outline-none hover:bg-opacity-50 focus:border focus:bg-transparent focus:border-[#1f1f1f] focus:outline-none rounded-xl" />
+                    <!-- Toggle Password Visibility Button -->
+                    <button type="button" onclick="togglePasswordVisibility('newPassword','eyeIcon-1')"
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600">
+                        <svg id="eyeIcon-1" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 011.517-3.275m5.825-5.825A9.978 9.978 0 0112 5c4.478 0 8.268 2.943 9.542 7-.272 1.39-.834 2.69-1.615 3.795M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />
+                        </svg>
+                    </button>
+                </div>
+                <!-- Confirm Password Input -->
+                <div
+                    class="flex flex-col h-12 lg:h-12 mt-3 w-full text-sm font-medium text-primary overflow-hidden whitespace-nowrap rounded-xl relative">
+                    <label for="signupPassword" class="sr-only">Confirm password</label>
+                    <input id="signupPassword" type="password" placeholder="Confirm password" required
+                        class="ww-full h-full px-4 py-3 lg:px-8 placeholder:text-sm placeholder:font-normal bg-[#F4F4F4] border border-[#F4F4F4] hover:outline-none hover:bg-opacity-50 focus:border focus:bg-transparent focus:border-[#1f1f1f] focus:outline-none rounded-xl" />
+                    <!-- Toggle Password Visibility Button -->
+                    <button type="button" onclick="togglePasswordVisibility('signupPassword','eyeIcon-2')"
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600">
+                        <svg id="eyeIcon-2" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 011.517-3.275m5.825-5.825A9.978 9.978 0 0112 5c4.478 0 8.268 2.943 9.542 7-.272 1.39-.834 2.69-1.615 3.795M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />
+                        </svg>
+                    </button>
+                </div>
+                <span id="passwordError" class="text-red-500 text-xs font-normal"></span>
+                <div class="flex items-center mt-2">
+                    <input type="checkbox" id="agreeTerms" class="mr-2" required>
+                    <label for="agreeTerms" class="text-sm text-gray-500">
+                        By creating an account, you agree to our
+                        <a href="#" class="text-gray-700 underline">terms and conditions</a>
+                        and
+                        <a href="#" class="text-gray-700 underline">privacy policy</a>.
+                    </label>
+                </div>
+                <!-- Sign Up Button  -->
+                <button type="submit" id="signupBtn" data-ripple-light="true" disabled
+                    class="flex items-center justify-center mt-7 w-full h-12 lg:h-12 lg:text-lg text-center whitespace-nowrap rounded-xl bg-[#1F1F1F] opacity-50 text-white transform transition-transform duration-200 ease-in-out hover:shadow-gray-900/20 roboto-reg">
+                    <span>Sign Up</span>
+                </button>
+            </form>
+            <div class="flex items-center mt-7 w-full text-base text-primary whitespace-nowrap">
+                <div class="h-px w-full bg-[#1F1F1F]"></div>
+                <p class="px-4">Or register with</p>
+                <div class="h-px w-full bg-[#1F1F1F]"></div>
+            </div>
+            <!-- <div class="divider">OR Register with</div> -->
+            <div
+                class="flex flex-row w-full gap-3 lg:gap-5 justify-center mt-5 text-center whitespace-nowrap rounded-xl text-stone-900">
+                <!-- Google Login  -->
+                <a href="#"
+                    class="group flex flex-auto h-12 lg:h-14 items-center justify-center border border-[#1f1f1f50] gap-2.5 bg-transparent rounded-xl transform transition-all duration-200 ease-in-out hover:border-[#1f1f1f] hover:bg-[#1f1f1f0d] active:scale-95">
+                    <img loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/3ad7ec13def20b2f40e015088f5e176c1b29fb16f5f8f3ed254c68720c732729?placeholderIfAbsent=true&apiKey=9bd219f68dfc444683de1063449c1f1e"
+                        alt="Google logo"
+                        class="object-contain w-6 lg:w-7 transform transition-transform duration-200 ease-in-out " />
+                    <p class="text-lg">Google</p>
+                </a>
+
+                <!-- Facebook Login  -->
+                <a href="#"
+                    class="group flex flex-auto h-12 lg:h-14 items-center justify-center border border-[#1f1f1f50] gap-2.5 bg-transparent rounded-xl transform transition-all duration-200 ease-in-out hover:border-[#1f1f1f] hover:bg-[#1f1f1f0d] active:scale-95">
+                    <img loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/0a8f47a26f6b9ca64ac558e1fc04415ad20b168a78a7ff1a3e57cf75172c90f7?placeholderIfAbsent=true&apiKey=9bd219f68dfc444683de1063449c1f1e"
+                        alt="Facebook logo"
+                        class="object-contain w-6 lg:w-7 transform transition-transform duration-200 ease-in-out " />
+                    <p class="text-lg ">Facebook</p>
+                </a>
+            </div>
+        </div>
+    </section>
+    <script src="../static/js/auth.js"></script>
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
+    <script>
+        // Password visibility toggle
+        function togglePasswordVisibility(pwd, icon) {
+            const passwordField = document.getElementById(pwd);
+            const eyeIcon = document.getElementById(icon);
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.478 0-8.268-2.943-9.542-7z" />
+                `;
+            } else {
+                passwordField.type = 'password';
+                eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 011.517-3.275m5.825-5.825A9.978 9.978 0 0112 5c4.478 0 8.268 2.943 9.542 7-.272 1.39-.834 2.69-1.615 3.795M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />
+                `;
+            }
+        }
+    </script>
+</body>
+{% endblock %}

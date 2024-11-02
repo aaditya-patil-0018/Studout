@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+{% block head %}
+<title>StudOut | User Profile Setup 1</title>
+<style>
+     .radio-group {
+        display: flex;
+        gap: 10px;
+    }
+
+    .radio-chip {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        background: transparent;
+        color: rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 16px;
+        user-select: none;
+        overflow: hidden;
+        height: 40px;
+    }
+
+    .radio-chip input[type="radio"] {
+        display: none;
+    }
+
+    .radio-chip input[type="radio"]:not(:checked)+span {
+        background: transparent;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+        color: rgba(0, 0, 0, 0.25);
+    }
+
+    .radio-chip input[type="radio"]:checked+span {
+        background: #1F1F1F;
+        box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+        color: white;
+    }
+</style>
+{{ edit_1 }}
+{% endblock %}
+
+{% block body %}
+<body>
+    <div class="flex h-screen">
+        <!-- Left Section -->
+        <div class="w-1/2 flex flex-col items-center justify-center bg-gray-100 p-4">
+            <h1 class="text-2xl playfair-black mb-8">StudOut</h1>
+            <form class="relative flex flex-col flex-1 w-full overflow-y-auto" action="/user-profile-setup-1" method="GET">
+                <div class="radio-group">
+                    <label class="radio-chip w-full">
+                        <input type="radio" name="usertype" value="UserAccount" checked>
+                        <span class="w-full h-full text-center flex items-center justify-center">User Account</span>
+                    </label>
+
+                    <label class="radio-chip w-full">
+                        <input type="radio" name="usertype" value="SellerAccount">
+                        <span class="w-full h-full text-center flex items-center justify-center">Seller Account</span>
+                    </label>
+                </div>
+                <div class="mt-auto mb-10 absolute w-full bottom-0">
+                    <button type="submit" class="btn btn-primary w-full mb-10">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Right Section -->
+        <div class="w-1/2">
+            <!-- Image -->
+            <img src="{{ url_for('static', filename='images/user_account_setup_back.png') }}" alt="StudOut"
+                class="w-full h-full object-cover">
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/152ebb6ef8.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
+    <script>
+        // Handle form submission: save user type and redirect
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const usertype = document.querySelector('input[name="usertype"]:checked').value;
+            sessionStorage.setItem('usertype', usertype);
+            document.cookie = 'usertype=' + usertype + '; path=/';
+            window.location.href = '/user-profile-setup-1';
+        });
+    </script>
+</body>
+{% endblock %}

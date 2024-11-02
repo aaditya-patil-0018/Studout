@@ -1,0 +1,101 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Nunito', 'sans-serif';
+  }
+/* Playfair display Fonts */
+  .playfair-reg {
+    font-family: "Playfair Display", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .playfair-med {
+    font-family: "Playfair Display", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  .playfair-semibold {
+    font-family: "Playfair Display", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  .playfair-bold {
+    font-family: "Playfair Display", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  .playfair-extrabold {
+    font-family: "Playfair Display", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+  }
+
+  .playfair-black {
+    font-family: "Playfair Display", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+  }
+
+
+/* Nunito Fonts */
+
+  .nunito-extralight {
+    font-family: "Nunito", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+  }
+
+  .nunito-light {
+    font-family: "Nunito", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  .nunito-reg {
+    font-family: "Nunito", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .nunito-med {
+    font-family: "Nunito", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  .nunito-semibold {
+    font-family: "Nunito", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  .nunito-bold {
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  .nunito-extrabold {
+    font-family: "Nunito", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+  }
+
+  .nunito-black {
+    font-family: "Nunito", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+  }
+
+
+}
