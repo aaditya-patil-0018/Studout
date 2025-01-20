@@ -41,12 +41,17 @@
                 <a href="/signup"
                     class="text-[#F09D00] font-bold hover:text-opacity-50 ml-2 lg:ml-0 transform transition-transform duration-200 ease-in-out active:scale-90">Register</a>
             </div>
-            <form id="loginForm" class="flex flex-col items-end w-full" method="post" action="#">
+            <form id="loginForm" class="flex flex-col items-end w-full" method="post" action="/signin">
+                {% if msg!="" %}
+                    <div class="w-full p-4 rounded-md bg-red-400" id="msg-div">
+                        <p class="text-white text-sm">{{msg}}</p>
+                    </div>
+                {% endif %}
                 <!-- Email Input -->
                 <div
                     class="flex flex-col h-12 lg:h-12 mt-7 w-full text-sm font-medium text-primary overflow-hidden whitespace-nowrap rounded-xl">
                     <label for="email" class="sr-only">Email</label>
-                    <input id="email" type="email" required placeholder="Enter your email"
+                    <input id="email" name="email" type="email" required placeholder="Enter your email"
                         class="w-full h-full px-4 py-3 lg:px-8 placeholder:text-sm placeholder:font-normal bg-[#F4F4F4] border border-[#F4F4F4] hover:outline-none hover:bg-opacity-50 focus:border focus:bg-transparent focus:border-[#1f1f1f] focus:outline-none rounded-xl" />
                 </div>
 
@@ -54,7 +59,7 @@
                 <div
                     class="flex flex-col h-12 lg:h-12 mt-3 w-full text-sm font-medium text-primary overflow-hidden whitespace-nowrap rounded-xl relative">
                     <label for="password" class="sr-only">Password</label>
-                    <input id="password" type="password" required placeholder="Enter your password"
+                    <input id="password" name="password" type="password" required placeholder="Enter your password"
                         class="w-full h-full px-4 py-3 lg:px-8 placeholder:text-sm placeholder:font-normal bg-[#F4F4F4] border border-[#F4F4F4] hover:outline-none hover:bg-opacity-50 focus:border focus:bg-transparent focus:border-[#1f1f1f] focus:outline-none rounded-xl" />
                 </div>
 
@@ -63,7 +68,7 @@
                     class="text-left text-sm mt-3 active:text-[#1f1f1f49] hover:text-[#1f1f1f9d] roboto-med">
                     Forgot your password?</a>
                 <!-- Login Button -->
-                <button type="submit" id="loginBtn" data-ripple-light="true" disabled
+                <button type="submit" id="loginBtn" data-ripple-light="true"
                     class="flex items-center justify-center mt-7 w-full h-12 lg:h-12 lg:text-lg text-center whitespace-nowrap rounded-xl bg-[#1F1F1F] opacity-50 text-white transform transition-transform duration-200 ease-in-out hover:shadow-gray-900/20 roboto-reg">
                     <span>Login</span>
                 </button>
@@ -120,6 +125,10 @@
                 `;
             }
         }
+        // showing errors message only for 3 seconds
+        setTimeout(() => {
+            document.getElementById('msg-div').style.display = 'none';
+        }, 3000);
     </script>
 </body>
 {% endblock %}

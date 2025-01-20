@@ -94,7 +94,20 @@ document.addEventListener('DOMContentLoaded', function () {
         document.cookie = `seller_mobile_number=${mobileNumber}; path=/; max-age=${maxAge}`;
         document.cookie = `seller_profile_picture=${profilePicture}; path=/; max-age=${maxAge}`;
 
-        alert('Profile data updated');
+        // alert('Profile data updated');
+
+        fetch("/seller-profile-setup-1", {
+            method: "POST",
+            body: formData,
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+            // alert(data); // Alert the user upon successful form submission
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
         window.location.href = '/seller-profile-setup-2';
     });
 });

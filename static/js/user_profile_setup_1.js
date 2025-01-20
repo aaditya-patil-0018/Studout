@@ -86,7 +86,43 @@ document.addEventListener('DOMContentLoaded', function () {
         document.cookie = `mobile_number=${mobileNumber}; path=/; max-age=${maxAge}`;
         document.cookie = `profile_picture=${profilePicture}; path=/; max-age=${maxAge}`;
 
-        alert('Profile data updated');
-        window.location.href = '/user-profile-setup-2';
+        const data = {
+            "full-name": formData.get('full-name'),
+            "dob": formData.get('dob'),
+            "gender": formData.get('gender'),
+            "college": formData.get('college'),
+            "area_of_residence": formData.get('area_of_residence'),
+            "email": formData.get('email'),
+            "mobile_number": formData.get('mobile_number'),
+            "profilePicture": sessionStorage.getItem('profilePicture')
+        }
+
+        try {
+            // Send the POST request
+            const response = await fetch('/user-profile-setup-1', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+    
+            // Handle the response
+            if (response.ok) {
+                const result = await response.json();
+                alert('Data submitted successfully!');
+                console.log('Response:', result);
+            } else {
+                const error = await response.json();
+                alert('Error submitting data.');
+                console.error('Error:', error);
+            }
+        } catch (error) {
+            alert('Failed to send data. Please try again later.');
+            console.error('Error:', error);
+        }
+
+    //     // alert('Profile data updated');
+    //     // window.location.href = '/user-profile-setup-2';
     });
 });

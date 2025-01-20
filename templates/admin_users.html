@@ -125,164 +125,151 @@
                                 <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
                                     <p
                                         class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                                        Registered Date
-                                    </p>
-                                </th>
-                                <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
-                                    <p
-                                        class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
                                     </p>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <!-- User Profile Information -->
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg"
-                                            alt="John Michael"
-                                            class="relative inline-block h-9 w-9 !rounded-full object-cover object-center" />
+
+                            {% for u in user %}
+                                <tr>
+                                    <!-- User Profile Information -->
+                                    <td class="p-4 border-b border-blue-gray-50">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg"
+                                                alt="John Michael"
+                                                class="relative inline-block h-9 w-9 !rounded-full object-cover object-center" />
+                                            <div class="flex flex-col">
+                                                <p
+                                                    class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                                                    {{user[u]["full_name"]}}
+                                                </p>
+                                                <p
+                                                    class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900 opacity-70">
+                                                    {{user[u]["email"]}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <!-- User Role Information -->
+                                    <td class="p-4 border-b border-blue-gray-50">
                                         <div class="flex flex-col">
                                             <p
                                                 class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                                                John Michael
-                                            </p>
-                                            <p
-                                                class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900 opacity-70">
-                                                john@creative-tim.com
+                                                User
                                             </p>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <!-- User Role Information -->
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <div class="flex flex-col">
-                                        <p
-                                            class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                                            User
-                                        </p>
-                                    </div>
-                                </td>
+                                    <!-- User Status Badge -->
+                                    <td class="p-4 border-b border-blue-gray-50">
+                                        <div class="w-max">
+                                            <div
+                                                class="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-green-900 uppercase rounded-md select-none whitespace-nowrap bg-green-500/20">
+                                                <span class="">Active</span>
+                                            </div>
+                                        </div>
+                                    </td>
 
-                                <!-- User Status Badge -->
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <div class="w-max">
-                                        <div
-                                            class="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-green-900 uppercase rounded-md select-none whitespace-nowrap bg-green-500/20">
+                                    <!-- Action Buttons -->
+                                    <td class="p-4 border-b border-blue-gray-50">
+                                        <!-- Edit Status Button -->
+                                        <button
+                                            class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                            type="button" data-tip="Change Status">
+                                            <span
+                                                class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </span>
+                                        </button>
+                                        <!-- View Details Button -->
+                                        <button
+                                            class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                            type="button" data-tip="View">
+                                            <span
+                                                class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </span>
+                                        </button>
+                                        <!-- Delete User Button -->
+                                        <button
+                                            class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                            type="button" data-tip="Delete User">
+                                            <span
+                                                class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                                                <i class="fa-solid fa-trash" style="color: #ff4d4d;"></i>
+                                            </span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            {% for s in seller %}
+                                <tr>
+                                    <td class="p-4 border-b border-blue-gray-50">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg"
+                                                alt="Alexa Liras"
+                                                class="relative inline-block h-9 w-9 !rounded-full object-cover object-center" />
+                                            <div class="flex flex-col">
+                                                <p
+                                                    class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                                                    {{seller[s]["full_name"]}}
+                                                </p>
+                                                <p
+                                                    class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900 opacity-70">
+                                                    {{seller[s]["email"]}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 border-b border-blue-gray-50">
+                                        <div class="flex flex-col">
+                                            <p
+                                                class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                                                Seller
+                                            </p>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 border-b border-blue-gray-50">
+                                        <div class="w-max">
+                                            <div
+                                                class="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-green-900 uppercase rounded-md select-none whitespace-nowrap bg-green-500/20">
                                             <span class="">Active</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
+                                    <td class="p-4 border-b border-blue-gray-50">
+                                        <button
+                                            class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                            type="button" data-tip="Change Status">
+                                            <span
+                                                class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </span>
+                                        </button>
+                                        <button
+                                            class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                            type="button" data-tip="View">
+                                            <span
+                                                class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </span>
+                                        </button>
+                                        <button
+                                            class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                            type="button" data-tip="Delete User">
+                                            <span
+                                                class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                                                <i class="fa-solid fa-trash" style="color: #ff4d4d;"></i>
+                                            </span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
 
-                                <!-- Registration Date -->
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <p
-                                        class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                                        23/04/18
-                                    </p>
-                                </td>
-
-                                <!-- Action Buttons -->
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <!-- Edit Status Button -->
-                                    <button
-                                        class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                        type="button" data-tip="Change Status">
-                                        <span
-                                            class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </span>
-                                    </button>
-                                    <!-- View Details Button -->
-                                    <button
-                                        class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                        type="button" data-tip="View">
-                                        <span
-                                            class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </span>
-                                    </button>
-                                    <!-- Delete User Button -->
-                                    <button
-                                        class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                        type="button" data-tip="Delete User">
-                                        <span
-                                            class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                                            <i class="fa-solid fa-trash" style="color: #ff4d4d;"></i>
-                                        </span>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <div class="flex items-center gap-3">
-                                        <img src="https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg"
-                                            alt="Alexa Liras"
-                                            class="relative inline-block h-9 w-9 !rounded-full object-cover object-center" />
-                                        <div class="flex flex-col">
-                                            <p
-                                                class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                                                Alexa Liras
-                                            </p>
-                                            <p
-                                                class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900 opacity-70">
-                                                alexa@creative-tim.com
-                                            </p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <div class="flex flex-col">
-                                        <p
-                                            class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                                            User
-                                        </p>
-                                    </div>
-                                </td>
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <div class="w-max">
-                                        <div
-                                            class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-md select-none whitespace-nowrap bg-blue-gray-500/20 text-blue-gray-900">
-                                            <span class="">Suspended</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <p
-                                        class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                                        23/04/18
-                                    </p>
-                                </td>
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <button
-                                        class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                        type="button" data-tip="Change Status">
-                                        <span
-                                            class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </span>
-                                    </button>
-                                    <button
-                                        class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                        type="button" data-tip="View">
-                                        <span
-                                            class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </span>
-                                    </button>
-                                    <button
-                                        class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                        type="button" data-tip="Delete User">
-                                        <span
-                                            class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                                            <i class="fa-solid fa-trash" style="color: #ff4d4d;"></i>
-                                        </span>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td class="p-4 border-b border-blue-gray-50">
                                     <div class="flex items-center gap-3">
                                         <img src="https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg"
@@ -415,7 +402,7 @@
                                         </span>
                                     </button>
                                 </td>
-                            </tr>
+                            </tr> -->
                             
                         </tbody>
                     </table>

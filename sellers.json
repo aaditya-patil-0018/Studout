@@ -1,0 +1,16 @@
+{
+    "1": {
+        "full_name": "SellerExample",
+        "gender": "prefer_not_to_say",
+        "dob": "2000-01-01",
+        "business_name": "LondonEye",
+        "business_description": "Rental service",
+        "area_of_residence": "Nashik",
+        "email": "example@gmail.com",
+        "mobile_number": "9876543210",
+        "profile_picture": "static/uploads/london.jpg",
+        "government_id": "national-id",
+        "terms_conditions": true,
+        "id_image": "static/uploads/Fuel_in.png"
+    }
+}

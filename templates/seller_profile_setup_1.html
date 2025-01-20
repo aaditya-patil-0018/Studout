@@ -55,7 +55,7 @@
         <!-- Left Section -->
         <div class="w-1/2 h-full overflow-y-auto flex flex-col items-center justify-start px-8">
             <h1 class="text-2xl playfair-black mb-8">StudOut</h1>
-            <form id="sellerProfileSetupForm1" class="relative flex flex-col flex-1 w-full">
+            <form id="sellerProfileSetupForm1" action="/seller-profile-setup-1" method="post" class="relative flex flex-col flex-1 w-full">
                 <!-- Profile Picture -->
                 <div class="mb-8">
                     <label for="profile-picture" class="block text-black text-md nunito-bold mb-2 cursor-pointer">Profile picture</label>
@@ -64,7 +64,7 @@
                             <i class="fa-solid fa-cloud-arrow-up p-2"></i>
                             <span id="file-name">Upload Image</span>
                         </label>
-                        <input id="file-upload" type="file" accept="image/*" class="hidden cursor-pointer" required />
+                        <input id="file-upload" name="profile_picture" type="file" accept="image/*" class="hidden cursor-pointer" required />
                     </div>
                 </div>
 

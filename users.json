@@ -1,0 +1,37 @@
+{
+    "1": {
+        "started": true,
+        "full_name": "example",
+        "gender": "prefer_not_to_say",
+        "dob": "2000-01-01",
+        "college": "Guru Gobind Singh Polytechnic",
+        "area_of_residence": "Indira Nagar, Nashik",
+        "email": "example@gmail.com",
+        "mobile_number": "9876543210",
+        "profile_picture": "static/uploads/1_inhousetech.png",
+        "services": [
+            "second_hand_vehicles",
+            "used_books",
+            "library"
+        ],
+        "buget_preference": "custom",
+        "budget": "24000"
+    },
+    "2": {
+        "started": true,
+        "full_name": "Example User",
+        "gender": "male",
+        "dob": "2006-06-06",
+        "college": "GGSP",
+        "area_of_residence": "NASHIK",
+        "email": "example2@gmail.com",
+        "mobile_number": "9867452310",
+        "profile_picture": "static/uploads/2_5 years plan over 50 years plan.png",
+        "services": [
+            "rental_flats",
+            "library"
+        ],
+        "buget_preference": "custom",
+        "budget": "100000"
+    }
+}

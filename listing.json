@@ -1,0 +1,28 @@
+{
+    "1": [
+        {
+            "listing_type": null,
+            "title": "Testing",
+            "description": "testing purpose",
+            "location": "Latop",
+            "landmark": "infront of screen",
+            "email": "contactmatkaro@gmail.com",
+            "phone": "98076543521",
+            "price": "90909090",
+            "amenities": "9090"
+        }
+    ],
+    "1": [
+        {
+            "listing_type": null,
+            "title": "Testing",
+            "description": "testing",
+            "location": "tesrgin",
+            "landmark": "teiarhdflkas",
+            "email": "sadfhlk2fm@gmail.com",
+            "phone": "9358485888",
+            "price": "1234",
+            "amenities": "1"
+        }
+    ]
+}

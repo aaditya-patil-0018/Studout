@@ -54,7 +54,7 @@
         <!-- Left Section -->
         <div class="w-1/2 h-full overflow-y-auto flex flex-col items-center justify-start px-8">
             <h1 class="text-2xl playfair-black mb-8">StudOut</h1>
-            <form id="profileSetupForm" class="relative flex flex-col flex-1 w-full">
+            <form id="profileSetupForm" class="relative flex flex-col flex-1 w-full" action="/user-profile-setup-1" method="post" enctype="multipart/form-data">
                 <!-- Profile Picture -->
                 <div class="mb-8">
                     <label for="profile-picture" class="block text-black text-md nunito-bold mb-2 cursor-pointer">Profile picture</label>
@@ -63,7 +63,7 @@
                             <i class="fa-solid fa-cloud-arrow-up p-2"></i>
                             <span id="file-name">Upload Image</span>
                         </label>
-                        <input id="file-upload" type="file" accept="image/*" class="hidden cursor-pointer" required />
+                        <input id="file-upload" name="profile_picture" type="file" accept="image/*" class="hidden cursor-pointer" required />
                     </div>
                 </div>
 
@@ -76,7 +76,7 @@
                         <input
                             type="text"
                             id="full-name"
-                            name="full-name"
+                            name="full_name"
                             class="peer w-full px-3 py-2 border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"
                             placeholder="Full Name"
                             required

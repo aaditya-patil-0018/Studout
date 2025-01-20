@@ -71,19 +71,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(elements.form);
-
+    
         try {
+            const token = localStorage.getItem('auth_token');  // Or get it from a cookie/session
             const response = await fetch('/seller/add-listing', {
                 method: 'POST',
-                body: formData
+                body: formData,
+                headers: {
+                    'Authorization': `Bearer ${token}`,  // Attach the token in the headers
+                }
             });
             const data = await response.json();
-
+    
             if (data.success) {
                 alert('Listing added successfully!');
-                window.location.href = '/seller/listings';
-            } else {
-                alert(`Error adding listing: ${data.message}`);
+                window.location.href = '/seller/listings';  // Redirect to the listings page
+            } else if (data.error) {
+                alert(`Error adding listing: ${data.error}`);
             }
         } catch (error) {
             console.error('Error:', error);

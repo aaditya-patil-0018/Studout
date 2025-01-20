@@ -28,19 +28,24 @@
                 <a href="/signin"
                     class="text-[#F09D00] font-bold hover:text-opacity-50 ml-2 lg:ml-0 transform transition-transform duration-200 ease-in-out active:scale-90">Login</a>
             </div>
-            <form class="flex flex-col items-end w-full">
+            <form action="/signup" method="post" class="flex flex-col items-end w-full">
+                {% if msg!="" %}
+                    <div class="w-full p-4 rounded-md bg-red-400" id="msg-div">
+                        <p class="text-white text-sm">{{msg}}</p>
+                    </div>
+                {% endif %}
                 <!-- Email Input -->
                 <div
                     class="flex flex-col h-12 lg:h-12 mt-7 w-full text-sm font-medium text-primary overflow-hidden whitespace-nowrap rounded-xl">
                     <label for="signupEmail" class="sr-only">Email</label>
-                    <input id="signupEmail" type="email" placeholder="Enter your email" required
+                    <input id="signupEmail" name="signupEmail" type="email" placeholder="Enter your email" required
                         class="w-full h-full px-4 py-3 lg:px-8 placeholder:text-sm placeholder:font-normal bg-[#F4F4F4] border border-[#F4F4F4] hover:outline-none hover:bg-opacity-50 focus:border focus:bg-transparent focus:border-[#1f1f1f] focus:outline-none rounded-xl" />
                 </div>
                 <!-- New Password Input -->
                 <div
                     class="flex flex-col h-12 lg:h-12 mt-3 w-full text-sm font-medium text-primary overflow-hidden whitespace-nowrap rounded-xl relative">
                     <label for="newPassword" class="sr-only">Enter new password</label>
-                    <input id="newPassword" type="password" placeholder="Enter new password" required
+                    <input id="newPassword" name="password" type="password" placeholder="Enter new password" required
                         class="ww-full h-full px-4 py-3 lg:px-8 placeholder:text-sm placeholder:font-normal bg-[#F4F4F4] border border-[#F4F4F4] hover:outline-none hover:bg-opacity-50 focus:border focus:bg-transparent focus:border-[#1f1f1f] focus:outline-none rounded-xl" />
                     <!-- Toggle Password Visibility Button -->
                     <button type="button" onclick="togglePasswordVisibility('newPassword','eyeIcon-1')"
@@ -81,7 +86,7 @@
                     </label>
                 </div>
                 <!-- Sign Up Button  -->
-                <button type="submit" id="signupBtn" data-ripple-light="true" disabled
+                <button type="submit" id="signupBtn" data-ripple-light="true" 
                     class="flex items-center justify-center mt-7 w-full h-12 lg:h-12 lg:text-lg text-center whitespace-nowrap rounded-xl bg-[#1F1F1F] opacity-50 text-white transform transition-transform duration-200 ease-in-out hover:shadow-gray-900/20 roboto-reg">
                     <span>Sign Up</span>
                 </button>
@@ -137,6 +142,10 @@
                 `;
             }
         }
+        // showing errors message only for 3 seconds
+        setTimeout(() => {
+            document.getElementById('msg-div').style.display = 'none';
+        }, 3000);
     </script>
 </body>
 {% endblock %}

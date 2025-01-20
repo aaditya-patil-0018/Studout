@@ -15,7 +15,7 @@
         <!-- Left Section -->
         <div class="w-1/2 h-full overflow-y-auto flex flex-col items-center justify-start px-8">
             <h1 class="text-2xl playfair-black mb-8 mt-8">StudOut</h1>
-            <form id="profileSetupForm" class="relative flex flex-col flex-1 w-full max-w-full">
+            <form id="profileSetupForm" class="relative flex flex-col flex-1 w-full max-w-full" action="/user-profile-setup-2" method="post">
                 
                 <div class="max-w-2xl mx-auto p-6">
                     <h2 class="text-2xl font-bold mb-2">Personalized Recommendations</h2>
@@ -24,7 +24,7 @@
                     <div class="grid grid-cols-2 gap-4">
                       <!-- Rental Flats Checkbox -->
                       <label class="relative cursor-pointer">
-                        <input type="checkbox" class="peer sr-only" name="service" value="rental_flats">
+                        <input type="checkbox" class="peer sr-only" name="service1" value="rental_flats">
                         <div class="rounded-lg border-2 border-gray-200 peer-checked:border-gray-700 p-4 flex flex-col items-center">
                           <div class="absolute top-2 right-2 w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center peer-checked:border-gray-700 peer-checked:bg-gray-700">
                             <i class="fa-regular fa-circle"></i>
@@ -36,7 +36,7 @@
                   
                       <!-- Tiffin Service Checkbox -->
                       <label class="relative cursor-pointer">
-                        <input type="checkbox" class="peer sr-only" name="service" value="tiffin_service">
+                        <input type="checkbox" class="peer sr-only" name="service2" value="tiffin_service">
                         <div class="rounded-lg border-2 border-gray-200 peer-checked:border-gray-700 p-4 flex flex-col items-center">
                           <div class="absolute top-2 right-2 w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center peer-checked:border-gray-700 peer-checked:bg-gray-700">
                             <i class="fa-regular fa-circle"></i>
@@ -48,7 +48,7 @@
 
                       <!-- Second-hand Vehicles Checkbox -->
                       <label class="relative cursor-pointer">
-                        <input type="checkbox" class="peer sr-only" name="service" value="second_hand_vehicles">
+                        <input type="checkbox" class="peer sr-only" name="service3" value="second_hand_vehicles">
                         <div class="rounded-lg border-2 border-gray-200 peer-checked:border-gray-700 p-4 flex flex-col items-center">
                           <div class="absolute top-2 right-2 w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center peer-checked:border-gray-700 peer-checked:bg-gray-700">
                             <i class="fa-regular fa-circle"></i>
@@ -60,7 +60,7 @@
 
                       <!-- Used Books Checkbox -->
                       <label class="relative cursor-pointer">
-                        <input type="checkbox" class="peer sr-only" name="service" value="used_books">
+                        <input type="checkbox" class="peer sr-only" name="service4" value="used_books">
                         <div class="rounded-lg border-2 border-gray-200 peer-checked:border-gray-700 p-4 flex flex-col items-center">
                           <div class="absolute top-2 right-2 w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center peer-checked:border-gray-700 peer-checked:bg-gray-700">
                             <i class="fa-regular fa-circle"></i>
@@ -72,7 +72,7 @@
 
                       <!-- Library Checkbox -->
                       <label class="relative cursor-pointer">
-                        <input type="checkbox" class="peer sr-only" name="service" value="library">
+                        <input type="checkbox" class="peer sr-only" name="service5" value="library">
                         <div class="rounded-lg border-2 border-gray-200 peer-checked:border-gray-700 p-4 flex flex-col items-center">
                           <div class="absolute top-2 right-2 w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center peer-checked:border-gray-700 peer-checked:bg-gray-700">
                             <i class="fa-regular fa-circle"></i>
@@ -84,7 +84,7 @@
 
                       <!-- Others Checkbox -->
                       <label class="relative cursor-pointer">
-                        <input type="checkbox" class="peer sr-only" name="service" value="others">
+                        <input type="checkbox" class="peer sr-only" name="service6" value="others">
                         <div class="rounded-lg border-2 border-gray-200 peer-checked:border-gray-700 p-4 flex flex-col items-center">
                           <div class="absolute top-2 right-2 w-5 h-5 border-2 border-gray-300 rounded-full flex items-center justify-center peer-checked:border-gray-700 peer-checked:bg-gray-700">
                             <i class="fa-regular fa-circle"></i>
