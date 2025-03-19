@@ -273,94 +273,99 @@
             <p class="text-center nunito-extralight text-overflow-custom">to make your life easier.</p>
         </div>
 
-        <div class="  flex flex-col justify-center items-center gap-4 bg-transparent w-full h-auto rounded-lg">
-            <div
-                class="flex flex-row flex-wrap lg:flex-nowrap md:flex-nowrap justify-center items-center gap-4 p-5 bg-transparent w-full h-auto rounded-lg">
-                <section
-                    class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:shadow-xl transition-shadow duration-200 ease-in-out">
-                    <div
-                        class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl flex-auto">
-                        <img loading="lazy"
-                            src="{{ url_for('static', filename='images/lexp_1.png') }}"
-                            class="object-contain flex-1 w-full" alt="Lotus Residency property" />
-                        <div
-                            class="flex overflow-hidden opacity-0 absolute h-full w-full bg-[#ffffff00] backdrop-blur-sm top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 hover:opacity-100 duration-500 ease-in-out">
-                            <button type="submit" id="loginBtn" data-ripple-light="true"
-                                class="btn btn-xs sm:btn-sm md:btn-md lg:btn-primary px-20 rounded-full roboto-reg ">
-                                <span>Explore</span>
-                            </button>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 bg-transparent w-full h-auto rounded-lg p-5">
+            {% for d in data %}
+                {% for j in data[d] %}
+                    <section class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:shadow-xl transition-shadow duration-200 ease-in-out">
+                        <div class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl flex-auto">
+                            <img loading="lazy" src="/{{j['display_picture']}}" class="object-contain flex-1 w-full" alt="Lotus Residency property" />
+                            <div class="flex overflow-hidden opacity-0 absolute h-full w-full bg-[#ffffff00] backdrop-blur-sm top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 hover:opacity-100 duration-500 ease-in-out">
+                                <button type="submit" id="loginBtn" data-ripple-light="true" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-primary px-20 rounded-full roboto-reg ">
+                                    <span>Explore</span>
+                                </button>
+                            </div>
                         </div>
+                        <header class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-center text-black">
+                            <h2 class="text2xl font-bold text-xl playfair-bold">{{j['title']}}</h2>
+                            <p class="mt-1.5 text-md nunito-semibold">{{j['landmark']}}, {{j['location']}}</p>
+                            <div class="mt-1.5 text-md font-medium text-stone-900">
+                                <span class="text-amber-500" aria-label="4.5 out of 5 stars">★★★★★</span>
+                                <span class="sr-only">Rating:</span>
+                                <span aria-hidden="true" class="nunito-semibold">(530 Visitors)</span>
+                            </div>
+                        </header>
+                    </section>
+                {% endfor %}
+            {% endfor %}
+            
+            <!-- Component 1 -->
+            <!-- <section class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:shadow-xl transition-shadow duration-200 ease-in-out">
+                <div class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl flex-auto">
+                    <img loading="lazy" src="{{ url_for('static', filename='images/lexp_1.png') }}" class="object-contain flex-1 w-full" alt="Lotus Residency property" />
+                    <div class="flex overflow-hidden opacity-0 absolute h-full w-full bg-[#ffffff00] backdrop-blur-sm top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 hover:opacity-100 duration-500 ease-in-out">
+                        <button type="submit" id="loginBtn" data-ripple-light="true" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-primary px-20 rounded-full roboto-reg ">
+                            <span>Explore</span>
+                        </button>
                     </div>
-                    <header
-                        class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-center text-black">
-                        <h2 class="text2xl font-bold text-xl playfair-bold">Lotus Residency</h2>
-                        <p class="mt-1.5 text-md nunito-semibold">Bengaluru, Karnataka</p>
-                        <div class="mt-1.5 text-md font-medium text-stone-900">
-                            <span class="text-amber-500" aria-label="4.5 out of 5 stars">★★★★★</span>
-                            <span class="sr-only">Rating:</span>
-                            <span aria-hidden="true" class="nunito-semibold">(530 Visitors)</span>
-                        </div>
-                    </header>
-                </section>
-                <!-- Component 2 -->
-                <section
-                    class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:shadow-xl transition-shadow duration-200 ease-in-out">
-                    <div
-                        class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl flex-auto">
-                        <img loading="lazy"
-                            src="{{ url_for('static', filename='images/lexp_1.png') }}"
-                            class="object-contain flex-1 w-full" alt="Lotus Residency property" />
-                        <div
-                            class="flex overflow-hidden opacity-0 absolute h-full w-full bg-[#ffffff00] backdrop-blur-sm top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 hover:opacity-100 duration-500 ease-in-out">
-                            <button type="submit" id="loginBtn" data-ripple-light="true"
-                                class="btn btn-xs sm:btn-sm md:btn-md lg:btn-primary px-20 rounded-full roboto-reg ">
-                                <span>Explore</span>
-                            </button>
-                        </div>
+                </div>
+                <header class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-center text-black">
+                    <h2 class="text2xl font-bold text-xl playfair-bold">Lotus Residency</h2>
+                    <p class="mt-1.5 text-md nunito-semibold">Bengaluru, Karnataka</p>
+                    <div class="mt-1.5 text-md font-medium text-stone-900">
+                        <span class="text-amber-500" aria-label="4.5 out of 5 stars">★★★★★</span>
+                        <span class="sr-only">Rating:</span>
+                        <span aria-hidden="true" class="nunito-semibold">(530 Visitors)</span>
                     </div>
-                    <header
-                        class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-center text-black">
-                        <h2 class="text2xl font-bold text-xl playfair-bold">Lotus Residency</h2>
-                        <p class="mt-1.5 text-md nunito-semibold">Bengaluru, Karnataka</p>
-                        <div class="mt-1.5 text-md font-medium text-stone-900">
-                            <span class="text-amber-500" aria-label="4.5 out of 5 stars">★★★★★</span>
-                            <span class="sr-only">Rating:</span>
-                            <span aria-hidden="true" class="nunito-semibold">(530 Visitors)</span>
-                        </div>
-                    </header>
-                </section>
-                <!-- Component 3 -->
-                <section
-                    class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:shadow-xl transition-shadow duration-200 ease-in-out">
-                    <div
-                        class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl flex-auto">
-                        <img loading="lazy"
-                            src="{{ url_for('static', filename='images/lexp_1.png') }}"
-                            class="object-contain flex-1 w-full" alt="Lotus Residency property" />
-                        <div
-                            class="flex overflow-hidden opacity-0 absolute h-full w-full bg-[#ffffff00] backdrop-blur-sm top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 hover:opacity-100 duration-500 ease-in-out">
-                            <button type="submit" id="loginBtn" data-ripple-light="true"
-                                class="btn btn-xs sm:btn-sm md:btn-md lg:btn-primary px-20 rounded-full roboto-reg ">
-                                <span>Explore</span>
-                            </button>
-                        </div>
+                </header>
+            </section> -->
+        
+            <!-- Component 2 -->
+            <!-- <section class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:shadow-xl transition-shadow duration-200 ease-in-out">
+                <div class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl flex-auto">
+                    <img loading="lazy" src="{{ url_for('static', filename='images/lexp_1.png') }}" class="object-contain flex-1 w-full" alt="Lotus Residency property" />
+                    <div class="flex overflow-hidden opacity-0 absolute h-full w-full bg-[#ffffff00] backdrop-blur-sm top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 hover:opacity-100 duration-500 ease-in-out">
+                        <button type="submit" id="loginBtn" data-ripple-light="true" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-primary px-20 rounded-full roboto-reg ">
+                            <span>Explore</span>
+                        </button>
                     </div>
-                    <header
-                        class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-center text-black">
-                        <h2 class="text2xl font-bold text-xl playfair-bold">Lotus Residency</h2>
-                        <p class="mt-1.5 text-md nunito-semibold">Bengaluru, Karnataka</p>
-                        <div class="mt-1.5 text-md font-medium text-stone-900">
-                            <span class="text-amber-500" aria-label="4.5 out of 5 stars">★★★★★</span>
-                            <span class="sr-only">Rating:</span>
-                            <span aria-hidden="true" class="nunito-semibold">(530 Visitors)</span>
-                        </div>
-                    </header>
-                </section>
-            </div>
+                </div>
+                <header class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-center text-black">
+                    <h2 class="text2xl font-bold text-xl playfair-bold">Lotus Residency</h2>
+                    <p class="mt-1.5 text-md nunito-semibold">Bengaluru, Karnataka</p>
+                    <div class="mt-1.5 text-md font-medium text-stone-900">
+                        <span class="text-amber-500" aria-label="4.5 out of 5 stars">★★★★★</span>
+                        <span class="sr-only">Rating:</span>
+                        <span aria-hidden="true" class="nunito-semibold">(530 Visitors)</span>
+                    </div>
+                </header>
+            </section> -->
+        
+            <!-- Component 3 -->
+            <!-- <section class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:shadow-xl transition-shadow duration-200 ease-in-out">
+                <div class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl flex-auto">
+                    <img loading="lazy" src="{{ url_for('static', filename='images/lexp_1.png') }}" class="object-contain flex-1 w-full" alt="Lotus Residency property" />
+                    <div class="flex overflow-hidden opacity-0 absolute h-full w-full bg-[#ffffff00] backdrop-blur-sm top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 hover:opacity-100 duration-500 ease-in-out">
+                        <button type="submit" id="loginBtn" data-ripple-light="true" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-primary px-20 rounded-full roboto-reg ">
+                            <span>Explore</span>
+                        </button>
+                    </div>
+                </div>
+                <header class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-center text-black">
+                    <h2 class="text2xl font-bold text-xl playfair-bold">Lotus Residency</h2>
+                    <p class="mt-1.5 text-md nunito-semibold">Bengaluru, Karnataka</p>
+                    <div class="mt-1.5 text-md font-medium text-stone-900">
+                        <span class="text-amber-500" aria-label="4.5 out of 5 stars">★★★★★</span>
+                        <span class="sr-only">Rating:</span>
+                        <span aria-hidden="true" class="nunito-semibold">(530 Visitors)</span>
+                    </div>
+                </header>
+            </section> -->
 
+        </div>
+<!-- 
             <div
-                class="  flex flex-row justify-center items-center flex-wrap lg:flex-nowrap md:flex-nowrap gap-4 p-5 bg-transparent w-full h-auto rounded-lg">
-                <section
+                class="  flex flex-row justify-center items-center flex-wrap lg:flex-nowrap md:flex-nowrap gap-4 p-5 bg-transparent w-full h-auto rounded-lg"> -->
+                <!-- <section
                     class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:shadow-xl transition-shadow duration-200 ease-in-out">
                     <div
                         class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl flex-auto">
@@ -385,9 +390,9 @@
                             <span aria-hidden="true" class="nunito-semibold">(530 Visitors)</span>
                         </div>
                     </header>
-                </section>
+                </section> -->
                 <!-- Component 2 -->
-                <section
+                <!-- <section
                     class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:shadow-xl transition-shadow duration-200 ease-in-out">
                     <div
                         class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl flex-auto">
@@ -412,9 +417,9 @@
                             <span aria-hidden="true" class="nunito-semibold">(530 Visitors)</span>
                         </div>
                     </header>
-                </section>
+                </section> -->
                 <!-- Component 3 -->
-                <section
+                <!-- <section
                     class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:shadow-xl transition-shadow duration-200 ease-in-out">
                     <div
                         class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl flex-auto">
@@ -439,8 +444,8 @@
                             <span aria-hidden="true" class="nunito-semibold">(530 Visitors)</span>
                         </div>
                     </header>
-                </section>
-            </div>
+                </section> -->
+            <!-- </div> -->
         </div>
     </div>
 

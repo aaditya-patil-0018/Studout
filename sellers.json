@@ -11,6 +11,37 @@
         "profile_picture": "static/uploads/london.jpg",
         "government_id": "national-id",
         "terms_conditions": true,
-        "id_image": "static/uploads/Fuel_in.png"
+        "id_image": "static/uploads/Fuel_in.png",
+        "status": "active"
+    },
+    "3": {
+        "full_name": "StudSeller",
+        "gender": "female",
+        "dob": "2010-10-10",
+        "business_name": "StudBusiness",
+        "business_description": "We help studout",
+        "area_of_residence": "Nashik",
+        "email": "studbusiness@gmail.com",
+        "mobile_number": "9867452310",
+        "profile_picture": "static/uploads/london.jpg",
+        "government_id": "national-id",
+        "terms_conditions": true,
+        "id_image": "static/uploads/LC.jpg",
+        "status": "pause"
+    },
+    "4": {
+        "full_name": "New User",
+        "gender": "male",
+        "dob": "2000-01-01",
+        "business_name": "NewUserBusiness",
+        "business_description": "NothingMuch",
+        "area_of_residence": "Nashik",
+        "email": "newuser@gmail.com",
+        "mobile_number": "8970563412",
+        "profile_picture": "static/uploads/guardians_of_originality_logo.png",
+        "government_id": "national-id",
+        "terms_conditions": true,
+        "id_image": "static/uploads/INQUIRO_LOGO.png",
+        "status": "active"
     }
 }

@@ -27,8 +27,8 @@
                 </div>
                 <ul tabindex="0"
                     class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                    <li><a href="{{ url_for('user_products_listing', service='flats_pgs') }}" class="nav-link" data-page="flats_pgs">Flats & PGs</a></li>
-                    <li><a href="{{ url_for('user_products_listing', service='tiffin_services') }}" class="nav-link" data-page="tiffin_services">Tiffin Services</a></li>
+                    <li><a href="{{ url_for('user_products_listing', service='flat_pg') }}" class="nav-link" data-page="flats_pgs">Flats & PGs</a></li>
+                    <li><a href="{{ url_for('user_products_listing', service='tiffin') }}" class="nav-link" data-page="tiffin_services">Tiffin Services</a></li>
                     <li><a href="{{ url_for('user_products_listing', service='second_hand') }}" class="nav-link" data-page="second_hand">Second Hand</a></li>
                     <li><a href="{{ url_for('user_products_listing', service='libraries') }}" class="nav-link" data-page="libraries">Libraries</a></li>
                 </ul>
@@ -37,8 +37,8 @@
         </div>
         <div class="navbar-center hidden lg:flex">
             <ul class="menu menu-horizontal px-1">
-                <li><a href="{{ url_for('user_products_listing', service='flats_pgs') }}" class="nav-link" data-page="flats_pgs">Flats & PGs</a></li>
-                <li><a href="{{ url_for('user_products_listing', service='tiffin_services') }}" class="nav-link" data-page="tiffin_services">Tiffin Services</a></li>
+                <li><a href="{{ url_for('user_products_listing', service='flat_pg') }}" class="nav-link" data-page="flats_pgs">Flats & PGs</a></li>
+                <li><a href="{{ url_for('user_products_listing', service='tiffin') }}" class="nav-link" data-page="tiffin_services">Tiffin Services</a></li>
                 <li><a href="{{ url_for('user_products_listing', service='second_hand') }}" class="nav-link" data-page="second_hand">Second Hand</a></li>
                 <li><a href="{{ url_for('user_products_listing', service='libraries') }}" class="nav-link" data-page="libraries">Libraries</a></li>
             </ul>
@@ -57,6 +57,11 @@
                         <a href="/user-profile" class="justify-between">
                             Profile
                             <span class="badge">New</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/seller/dashboard" class="justify-between">
+                            Seller Profile
                         </a>
                     </li>
                     <li><a href="/logout" class="text-red-400 hover:bg-red-100">

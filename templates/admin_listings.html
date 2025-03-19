@@ -118,6 +118,7 @@
                                         <i class="fa-solid fa-eye"></i>
                                     </span>
                                 </button>
+
                                 <button
                                     class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                     type="button" data-tip="Delete">
@@ -127,6 +128,58 @@
                                 </button>
                             </td>
                         </tr>
+                        
+                        {% for i in d %}
+                            {% for j in d[i] %}
+                                <tr class="hover:bg-slate-50">
+                                    <!-- Listing image -->
+                                    <td class="p-4 border-b border-slate-200 py-5">
+                                        <img src="/{{j['display_picture']}}"
+                                            alt="Product 1" class="w-16 h-16 object-cover rounded" />
+                                    </td>
+                                    <!-- Listing name -->
+                                    <td class="p-4 border-b border-slate-200 py-5">
+                                        <p class="block font-semibold text-sm text-slate-800">{{ j['title'] }}</p>
+                                    </td>
+                                    <!-- Location -->
+                                    <td class="p-4 border-b border-slate-200 py-5">
+                                        <p class="text-sm text-slate-500">{{ j['location'] }}</p>
+                                    </td>
+                                    <!-- Recommendations count -->
+                                    <td class="p-4 border-b border-slate-200 py-5">
+                                        <p class="text-sm text-slate-500">520</p>
+                                    </td>
+                                    <!-- Monthly price -->
+                                    <td class="p-4 border-b border-slate-200 py-5">
+                                        <p class="text-sm text-slate-500">₹{{j["price"]}}</p>
+                                    </td>
+                                    <!-- Action button with delete icon -->
+                                    <td class="p-4 border-b border-slate-200 py-5">
+                                        <button
+                                            class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                            type="button" data-tip="View">
+                                            <a href="/admin/listings/tweak/{{i}}/{{loop.index}}">
+                                                <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                                                    {% if j["status"] == "show" %}
+                                                    <i class="fa-solid fa-eye"></i>
+                                                    {% else %}
+                                                    <i class="fa-solid fa-eye-slash"></i>
+                                                    {% endif %}
+                                                </span>
+                                            </a>
+                                        </button>
+                                        <button
+                                            class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                            type="button" data-tip="Delete">
+                                            <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                                                <i class="fa-solid fa-trash" style="color: #ff4d4d;"></i>
+                                            </span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+
                     </tbody>
                 </table>
             </div>

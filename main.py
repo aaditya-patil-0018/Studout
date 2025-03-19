@@ -34,6 +34,10 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 "budget": "12000"
 '''
 
+####################
+# HELPER FUNCTIONS #
+####################
+
 def get_user_from_json(userid):
     userid=str(userid)
     with open('users.json', 'r') as rfile:
@@ -99,6 +103,10 @@ def save_to_json(user_id, data):
 # );
 '''
 
+##############
+# BASE PAGES #
+##############
+
 # landing page, that we see first when we access the website
 @app.route("/")
 def landing():
@@ -109,7 +117,9 @@ def landing():
             session["user-in"] = False
     except:
         session["user-in"] = False
-    return render_template("landing.html", is_landing_page=not session["user-in"])
+    with open("listing.json", 'r') as f:
+        data = json.load(f)
+    return render_template("landing.html", is_landing_page=not session["user-in"], data=data)
 
 # trail home page
 '''
@@ -169,6 +179,22 @@ def signup():
 @app.route("/forgotPassword")
 def forgot_password():
     return render_template("forgetPassword.html", is_auth_page=True)
+
+@app.route("/logout")
+def logout():
+    session["started"] = False
+    session["user-in"] = False
+    session["email"] = ""
+    return redirect(url_for("landing"))
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html", is_error_page=True, error=e), 404
+
+
+#######################
+# USERS FUNCTIONALITY #
+#######################
 
 # trail onboarding
 '''
@@ -320,22 +346,55 @@ def user_profile_setup_3():
     else:
         return redirect(url_for("user_profile_setup_1"))
 
-@app.route("/user-products-listing")
+@app.route("/user-products-listing", methods=["GET", "POST"])
 def user_products_listing():
-    service = request.args.get("service", "")
-    return render_template("user_products_listing.html", service=service, is_products_listing=True)
+    if request.method == "GET":
+        service = request.args.get("service", "")
+        print(service)
+        with open("listing.json", "r") as f:
+            ndata = json.load(f)
+        data = {}
+        if service != "":
+            for d in ndata:
+                for j in ndata[d]:
+                    if j["listing_type"] == service:
+                        if d not in data:
+                            data[d] = []
+                        data[d].append(j)
+        else:
+            data=ndata
+        return render_template("user_products_listing.html", service=service, data=data, is_products_listing=True)
+    else:
+        max_price = request.form.get('max_price')
+        category = request.form.get('category')
+        return f"Max Price: {max_price}, Selected Category: {category}"
 
+@app.route("/user-product-details/<userid>/<listing>", methods=["GET", "POST"])
 @app.route("/user-product-details", methods=["GET", "POST"])
-def user_product_details():
+def user_product_details(userid='', listingid=''):
     if request.method == "POST":
         return jsonify({"success": True})
-    return render_template("user_product_details.html")
+    with open("listing.json", "r") as f:
+        data = json.load(f)["1"][int(listingid)]
+
+    db = DatabaseManager()
+    user_data = db.search_user(session["email"])
+    user_id = user_data[0]
+    print(user_id)
+    if "started" in session:
+        if has_started(user_id):
+            sdata = get_user_from_json(user_id)
+            # print(sdata)
+    print(data["gallery_images"])
+    gdata=data["gallery_images"]
+    return render_template("user_product_details.html", data=data, sdata=sdata, gdata=gdata)
 
 @app.route("/user-profile")
 def user_profile():
     db = DatabaseManager()
     user_data = db.search_user(session["email"])
     user_id = user_data[0]
+    print(user_id)
     if "started" in session:
         if has_started(user_id):
             data = get_user_from_json(user_id)
@@ -359,11 +418,9 @@ def contact_us():
 def about_us():
     return render_template("about_us.html")
 
-
-
-
-
-
+##########################
+# SELLER FUNCTIONALITIES #
+##########################
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 # Function to check allowed file extensions
@@ -464,7 +521,22 @@ def seller_profile_setup_2():
 
 @app.route("/seller/dashboard")
 def seller_dashboard():
-    return render_template("seller_dashboard.html")
+    # check if the email is present in the seller list
+    with open('sellers.json', 'r') as rfile:
+        sd = json.load(rfile)
+        sellerdata = [sd[i]['email'] for i in sd]
+    # check if the user is present in seller data or not
+    if session["email"] in sellerdata:
+        c = 0
+        for i in sd:
+            if sd[i]["email"] == session["email"]:
+                c = i
+                break
+        return render_template("seller_dashboard.html", sd=sd[str(c)])
+    # if not then we return a page with a message do you want to signup for seller
+    else:
+        # return "<div style='margin: 5%;'><center><h1>Do you want to sign up for seller account?</h1><a href='/seller-profile-setup-1' style='font-size: 24px;'>Click here</a></center></div>"
+        return render_template("seller_get_started.html")
 
 @app.route("/seller/listings")
 def seller_listings():
@@ -487,7 +559,6 @@ def seller_listing_detail():
 def seller_profile():
     return render_template("seller_profile.html")
 
-
 @app.route("/seller/add-listing", methods=["GET", "POST"])
 def add_listing():
     if request.method == "GET":
@@ -496,12 +567,12 @@ def add_listing():
     elif request.method == "POST":
         db = DatabaseManager()
         user_data = db.search_user(session['email'])
-        user_id = user_data[0]  # Assuming the user ID is stored in session
+        user_id = str(user_data[0])  # Assuming the user ID is stored in session
         if not user_id:
             return jsonify({"error": "User not logged in"}), 401  # Return error as JSON
         
         listing_data = {
-            "listing_type": request.form.get("listing_type"),
+            "listing_type": request.form.get("listingType"),
             "title": request.form.get("title"),
             "description": request.form.get("description"),
             "location": request.form.get("location"),
@@ -510,19 +581,20 @@ def add_listing():
             "phone": request.form.get("phone"),
             "price": request.form.get("price"),
             "amenities": request.form.get("amenities", ""),
+            "status": "show",
         }
 
         # Handle file uploads
-        if 'display_picture' in request.files:
-            file = request.files['display_picture']
+        if 'displayPicture' in request.files:
+            file = request.files['displayPicture']
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
                 file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 file.save(file_path)
                 listing_data["display_picture"] = file_path
 
-        if 'gallery_images' in request.files:
-            gallery_files = request.files.getlist('gallery_images')
+        if 'galleryImages' in request.files:
+            gallery_files = request.files.getlist('galleryImages')
             gallery_paths = []
             for gallery_file in gallery_files:
                 if gallery_file and allowed_file(gallery_file.filename):
@@ -542,10 +614,10 @@ def add_listing():
                 listings_data = {}
 
             # Add new listing under the user ID key
-            if user_id not in listings_data:
+            if str(user_id) not in listings_data:
                 listings_data[user_id] = []
 
-            listings_data[user_id].append(listing_data)
+            listings_data[str(user_id)].append(listing_data)
 
             # Save updated listings data back to the JSON file
             with open("listing.json", "w") as file:
@@ -557,7 +629,9 @@ def add_listing():
             return jsonify({"error": "An error occurred while adding the listing."}), 500  # Return error as JSON
 
 
-
+#########################
+# ADMIN FUNCTIONALITIES #
+#########################
 
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
@@ -609,12 +683,44 @@ def admin_users():
     else:
         return redirect(url_for("admin"))
 
+@app.route("/admin/<usertype>/<userid>/changestatus")
+def admin_user_change_status(usertype, userid):
+    with open(f'{usertype}.json', 'r') as file:
+        data = json.load(file)
+    
+    if userid in data:
+        if data[userid]['status'] == "active":
+            data[userid]['status'] = "pause"
+        else:
+            data[userid]['status'] = "active"
+        with open(f"{usertype}.json", 'w') as file:
+            json.dump(data, file, indent=4)
+        print(f"Status updated successfully for user {userid}.")
+    else:
+        print("User ID not found.")
+    return redirect(url_for("admin_users"))
+
+@app.route("/admin/listings/tweak/<idn>/<int:number>")
+def admin_listings_tweak(idn, number):
+    with open("listing.json", "r") as f:
+        data = json.load(f)
+    if data[idn][number-1]["status"] == "show":
+        data[idn][number-1]["status"] = "pause"
+    else:
+        data[idn][number-1]["status"] = "show"
+    with open("listing.json", "w") as f:
+        json.dump(data, f, indent=4)
+    return redirect(url_for("admin_listings"))
+
 @app.route("/admin/listings")
 def admin_listings():
     if "admin" not in session:
         session["admin"] = False
     if session["admin"] == True:
-        return render_template("admin_listings.html")
+        with open("listing.json", "r") as f:
+            data = json.load(f)
+            data_len = len(data)
+        return render_template("admin_listings.html", d=data, dl=data_len)
     else:
         return render_template(url_for("admin"))
 
@@ -637,22 +743,9 @@ def admin_analytics():
         return render_template(url_for("admin"))
 
 
-
-
-@app.route("/logout")
-def logout():
-    session["started"] = False
-    session["user-in"] = False
-    session["email"] = ""
-    return redirect(url_for("landing"))
-
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template("404.html", is_error_page=True, error=e), 404
-
-
-
-
+##################
+# RUNNING SERVER #
+##################
 
 if __name__ == "__main__":
     app.run(debug=True)

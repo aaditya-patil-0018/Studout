@@ -177,10 +177,14 @@
                                         <!-- Edit Status Button -->
                                         <button
                                             class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                            type="button" data-tip="Change Status">
+                                            type="button" data-tip="Change Status" onclick="location.href='/admin/users/{{u}}/changestatus'">
                                             <span
                                                 class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                                                <i class="fa-solid fa-pen"></i>
+                                                {% if user[u]["status"] == "active" %}
+                                                    <i class="fa-solid fa-check"></i>
+                                                {% else %}
+                                                    <i class="fa-solid fa-close"></i>
+                                                {% endif %}
                                             </span>
                                         </button>
                                         <!-- View Details Button -->
@@ -243,10 +247,14 @@
                                     <td class="p-4 border-b border-blue-gray-50">
                                         <button
                                             class="relative tooltip h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                            type="button" data-tip="Change Status">
+                                            type="button" data-tip="Change Status" onclick="location.href='/admin/sellers/{{s}}/changestatus'">
                                             <span
                                                 class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                                                <i class="fa-solid fa-pen"></i>
+                                                {% if seller[s]["status"] == "pause" %}
+                                                    <i class="fa-solid fa-close"></i>
+                                                {% else %}
+                                                    <i class="fa-solid fa-check"></i>
+                                                {% endif %}
                                             </span>
                                         </button>
                                         <button

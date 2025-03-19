@@ -15,7 +15,8 @@
             "library"
         ],
         "buget_preference": "custom",
-        "budget": "24000"
+        "budget": "24000",
+        "status": "active"
     },
     "2": {
         "started": true,
@@ -32,6 +33,42 @@
             "library"
         ],
         "buget_preference": "custom",
-        "budget": "100000"
+        "budget": "100000",
+        "status": "active"
+    },
+    "3": {
+        "started": true,
+        "full_name": "User1",
+        "gender": "male",
+        "dob": "2000-01-01",
+        "college": "GGSP",
+        "area_of_residence": "NASHIK",
+        "email": "userid@gmail.com",
+        "mobile_number": "9876543210",
+        "profile_picture": "static/uploads/3_my pic.jpg",
+        "services": [
+            "rental_flats",
+            "used_books",
+            "library"
+        ],
+        "buget_preference": "custom",
+        "budget": "80000",
+        "status": "pause"
+    },
+    "4": {
+        "started": true,
+        "full_name": "New User",
+        "gender": "male",
+        "dob": "2001-01-01",
+        "college": "GGSF",
+        "area_of_residence": "Nashik",
+        "email": "newuser@gmail.com",
+        "mobile_number": "7894561230",
+        "profile_picture": "static/uploads/4_my pic.jpg",
+        "services": [
+            "rental_flats"
+        ],
+        "buget_preference": "all",
+        "status": "active"
     }
 }
