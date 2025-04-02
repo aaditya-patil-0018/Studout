@@ -29,16 +29,18 @@
         <div id="spacer"></div>
         <!-- Title Bar -->
         <div class="relative w-full h-[25vh] flex flex-col justify-center items-center">
-            <img src="{{url_for('static', filename='images/title_background.png')}}" alt="title_background"
+            <img src="/{{sd.profile_picture}}" alt="title_background"
                 class="h-3/5 object-cover">
             <div class="absolute inset-0 top-[calc(100%-150px)] flex items-center justify-center">
-                    <div class="title-bar flex flex-col items-center w-1/2 space-x-4 mb-8">
-                        <img src="{{ url_for('static', filename='images/default_avatar.webp') }}" alt="Profile Picture" class="profile-image" id="seller-profile-image">
-                        <div class="text-center">
-                            <h1 class="text-2xl font-bold" id="welcome-text">Welcome, Jack Willington!</h1>
-                            <p class="text-gray-600" id="seller-profession">Property Manager</p>
-                        </div>
+                <div class="title-bar flex flex-col items-center w-1/2 space-x-4 mb-8">
+                    <img src="/{{ sd.profile_picture }}" 
+                         alt="Profile Picture" 
+                         class="profile-image">
+                    <div class="text-center">
+                        <h1 class="text-2xl font-bold">Welcome, {{ sd.full_name }}!</h1>
+                        <p class="text-gray-600">{{ sd.business_name }}</p>
                     </div>
+                </div>
             </div>
         </div>
 
@@ -46,7 +48,7 @@
             class="flex flex-col justify-center items-center max-w-full lg:max-w-[1140px] h-auto p-3 mx-auto">
             
             <!-- Account Verification Section -->
-            {% if sd["status"] == "pause" %}
+            {% if sd.status == "pause" %}
                 <div class="w-full max-w-full bg-white border border-gray-200 rounded-lg shadow-md p-6 mt-8">
                     <div class="flex items-center space-x-4">
                         <div class="flex-shrink-0">
@@ -64,11 +66,11 @@
                 <!-- Stats Section -->
                 <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col items-center justify-center">
-                        <h3 class="text-3xl font-bold text-gray-900">10</h3>
+                        <h3 class="text-3xl font-bold text-gray-900">{{ sd.total_listings }}</h3>
                         <p class="text-sm text-gray-600">Total Listings</p>
                     </div>
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col items-center justify-center">
-                        <h3 class="text-3xl font-bold text-gray-900">7</h3>
+                        <h3 class="text-3xl font-bold text-gray-900">{{ sd.active_listings }}</h3>
                         <p class="text-sm text-gray-600">Active Listings</p>
                     </div>
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col items-center justify-center">
@@ -78,6 +80,40 @@
                     <div class="border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col items-center justify-center bg-yellow-50">
                         <h3 class="text-3xl font-bold text-gray-900">200</h3>
                         <p class="text-sm text-gray-600">Total Recommendations</p>
+                    </div>
+                </div>
+                
+                <!-- Your Listings Section -->
+                <div class="w-full mt-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-bold">Your Active Listings</h2>
+                        <a href="{{ url_for('seller_listings') }}" class="text-blue-600 hover:text-blue-800">See all</a>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {% for listing in sd.listings %}
+                            {% if listing.status == "show" %}
+                            <section class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out">
+                                <div class="overflow-hidden relative items-center justify-center h-48 w-full transition-transform duration-200 rounded-3xl flex-auto">
+                                    <img loading="lazy" src="/{{listing.display_picture}}" class="object-cover w-full h-full" alt="{{ listing.title }}" />
+                                    <div class="flex overflow-hidden opacity-0 absolute h-full w-full bg-black bg-opacity-50 top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 duration-300 ease-in-out">
+                                        <button type="button" data-ripple-dark="true" class="bg-white text-black px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300">
+                                            Edit
+                                        </button>
+                                    </div>
+                                </div>
+                                <header class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-black">
+                                    <h2 class="text-xl font-bold">{{ listing.title }}</h2>
+                                    <p class="mt-1 text-md">{{ listing.location }}</p>
+                                    <div class="flex items-center mt-1">
+                                        {% for _ in range(5) %}
+                                            <i class="fa-solid fa-star text-xs" style="color: #FFD43B;"></i>
+                                        {% endfor %}
+                                        <span class="ml-1 text-sm text-gray-600">(₹{{ listing.price }})</span>
+                                    </div>
+                                </header>
+                            </section>
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
 
@@ -90,39 +126,6 @@
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
                         <h3 class="text-lg font-semibold mb-4">Recommendations</h3>
                         <canvas id="recommendationsChart"></canvas>
-                    </div>
-                </div>
-                
-                <!-- Your Listings Section -->
-                <div class="w-full mt-8">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-2xl font-bold">Your Active Listings</h2>
-                        <a href="{{ url_for('seller_listings') }}" class="text-blue-600 hover:text-blue-800">See all</a>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Listing Card 1 -->
-                        {% for _ in range(2) %}
-                        <section class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out">
-                            <div class="overflow-hidden relative items-center justify-center h-48 w-full transition-transform duration-200 rounded-3xl flex-auto">
-                                <img loading="lazy" src="{{url_for('static', filename='images/las.jpg')}}" class="object-cover w-full h-full" alt="Lotus Residency property" />
-                                <div class="flex overflow-hidden opacity-0 absolute h-full w-full bg-black bg-opacity-50 top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 duration-300 ease-in-out">
-                                    <button type="button" data-ripple-dark="true" class="bg-white text-black px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300">
-                                        Edit
-                                    </button>
-                                </div>
-                            </div>
-                            <header class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-black">
-                                <h2 class="text-xl font-bold">Lotus Residency</h2>
-                                <p class="mt-1 text-md">Bengaluru, Karnataka</p>
-                                <div class="flex items-center mt-1">
-                                    {% for _ in range(5) %}
-                                        <i class="fa-solid fa-star text-xs" style="color: #FFD43B;"></i>
-                                    {% endfor %}
-                                    <span class="ml-1 text-sm text-gray-600">(530 Visitors)</span>
-                                </div>
-                            </header>
-                        </section>
-                        {% endfor %}
                     </div>
                 </div>
             {% endif %}

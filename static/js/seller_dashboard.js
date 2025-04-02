@@ -1,16 +1,3 @@
-function loadSellerInfo() {
-    const sellerFullName = sessionStorage.getItem('seller_full_name') || 'Jack Willington'
-    const sellerProfession = sessionStorage.getItem('seller_business_name') || 'Property Manager'
-    const sellerProfilePicture = sessionStorage.getItem('seller_profile_picture')
-
-    document.getElementById('welcome-text').textContent = `Welcome, ${sellerFullName}!`
-    document.getElementById('seller-profession').textContent = sellerProfession
-
-    if (sellerProfilePicture) {
-        document.getElementById('seller-profile-image').src = `data:image/jpeg;base64,${sellerProfilePicture}`
-    }
-}
-
 function createViewsChart() {
     const viewsCtx = document.getElementById('viewsChart').getContext('2d')
     new Chart(viewsCtx, {
@@ -98,7 +85,6 @@ function setSpacerHeight() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadSellerInfo()
     createViewsChart()
     createRecommendationsChart()
     setSpacerHeight()

@@ -76,29 +76,33 @@
             <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
                 <!-- Cards will be dynamically inserted here -->
                 {% for i in data %}
-                    {% for j in data[i] %}
+                    {% for j in range(data[i]|length) %}
                         <section
                             onclick="window.location='/user-product-details/{{i}}/{{j}}'"
                             class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-none hover:scale-105 transition-all duration-300 hover:duration-300 ease-in-out">
                             <div
-                                class="overflow-hidden relative items-center justify-center h-full w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500  rounded-3xl flex-auto">
+                                class="overflow-hidden relative items-center justify-center h-[300px] w-full transition-transform duration-200 hover:duration-500 group-hover:duration-500 rounded-3xl">
                                 <!-- Image -->
-                                <img loading="lazy"
-                                    src="/{{j['display_picture']}}"
-                                    class="object-contain flex-1 w-full" alt="" />
+                                <div class="w-full h-full">
+                                    <img loading="lazy"
+                                        src="/{{data[i][j]['display_picture']}}"
+                                        class="h-full w-full object-cover object-center" 
+                                        style="aspect-ratio: 16/9;"
+                                        alt="" />
+                                </div>
                                 <div
                                     class="flex overflow-hidden opacity-0 absolute h-full w-full bg-transparent backdrop-blur-sm top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 hover:opacity-100 duration-500 ease-in-out">
-                                    <button type="submit" id="loginBtn" data-ripple-light="true"
-                                        class="btn btn-primary sm:btn-sm md:btn-md lg:btn-md px-20 rounded-full roboto-reg ">
+                                    <a href="/user-product-details/{{i}}/{{j}}"
+                                        class="btn btn-primary sm:btn-sm md:btn-md lg:btn-md px-20 rounded-full roboto-reg">
                                         <span>Explore</span>
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                             <!-- Details -->
                             <header
                                 class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-center text-black">
-                                <h2 class="text-xl font-bold">{{ j["title"] }}</h2>
-                                <p class="mt-1.5 text-md font-semibold">{{ j['landmark'] }}, {{ j['location'] }}</p>
+                                <h2 class="text-xl font-bold">{{ data[i][j]["title"] }}</h2>
+                                <p class="mt-1.5 text-md font-semibold">{{ data[i][j]['landmark'] }}, {{ data[i][j]['location'] }}</p>
                             </header>
                         </section>
                     {% endfor %}

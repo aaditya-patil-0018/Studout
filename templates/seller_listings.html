@@ -25,7 +25,6 @@
 {% endblock %}
 
 {% block body %}
-
 <body class="">
     <div class="container mx-auto px-4">
         <div id="spacer"></div>
@@ -41,6 +40,21 @@
             </div>
         </div>
 
+        <!-- Add this modal outside your main listing grid -->
+        <div id="listingModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+            <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+                <h2 id="modalTitle" class="text-xl font-bold mb-2"></h2>
+                <p id="modalDescription" class="text-gray-700 mb-2"></p>
+                <p><strong>Location:</strong> <span id="modalLocation"></span></p>
+                <p><strong>Landmark:</strong> <span id="modalLandmark"></span></p>
+                <p><strong>Price:</strong> ₹<span id="modalPrice"></span></p>
+                <p><strong>Contact:</strong> <span id="modalContact"></span></p>
+                <p><strong>Email:</strong> <span id="modalEmail"></span></p>
+                <img id="modalImage" class="w-full h-48 object-cover mt-3 rounded-lg" src="" alt="Listing Image">
+                <button onclick="closeModal()" class="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Close</button>
+            </div>
+        </div>
+
         <div id="contents"
             class="flex flex-col justify-center items-center max-w-full lg:max-w-[1140px] h-auto p-3 mx-auto">
 
@@ -48,38 +62,30 @@
             <div class="w-full mt-8">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-2xl font-bold">Flats & PGs</h2>
-                    <a href="#" class="text-blue-600 hover:text-blue-800"></a>
+                    <a href="{{ url_for('add_listing') }}?type=flat_pg" class="text-blue-600 hover:text-blue-800">Add New</a>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {% for _ in range(2) %}
-                    <section
-                        class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out">
-                        <div
-                            class="overflow-hidden relative items-center justify-center h-48 w-full transition-transform duration-200 rounded-3xl flex-auto">
-                            <img loading="lazy" src="{{url_for('static', filename='images/las.jpg')}}"
-                                class="object-cover w-full h-full" alt="Lotus Residency property" />
-                            <div
-                                class="flex overflow-hidden opacity-0 absolute h-full w-full bg-black bg-opacity-50 top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 duration-300 ease-in-out gap-4">
-                                <!-- Edit Button -->
-                                <button type="button" data-ripple-dark="true"
-                                    class="bg-white text-black px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300">
-                                    View
-                                </button>
-                                <!-- Active/Inactive Button -->
-                                <button type="button" data-ripple-dark="true"
-                                    class="bg-white text-black text-center text-2xl flex items-center justify-center px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300">
+                    {% for listing in listings_by_type.flat_pg %}
+                    <section class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out">
+                        <div class="overflow-hidden relative items-center justify-center h-48 w-full transition-transform duration-200 rounded-3xl flex-auto">
+                            <img loading="lazy" src="/{{listing.display_picture}}" class="object-cover w-full h-full" alt="{{ listing.title }}" />
+                            <div class="flex overflow-hidden opacity-0 absolute h-full w-full bg-black bg-opacity-50 top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 duration-300 ease-in-out gap-4">
+                                <!-- Modify your existing button inside listings to trigger the modal -->
+                                <button type="button" class="view-button bg-white text-black px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300" 
+                                data-listing='{{ listing | tojson | safe }}'>View</button>
+                                <button type="button" data-ripple-dark="true" class="bg-white text-black text-center text-2xl flex items-center justify-center px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300">
                                     <i class="fa-solid fa-caret-up"></i>
                                 </button>
                             </div>
                         </div>
                         <header class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-black">
-                            <h2 class="text-xl font-bold">Lotus Residency</h2>
-                            <p class="mt-1 text-md">Bengaluru, Karnataka</p>
+                            <h2 class="text-xl font-bold">{{ listing.title }}</h2>
+                            <p class="mt-1 text-md">{{ listing.location }}</p>
                             <div class="flex items-center mt-1">
                                 {% for _ in range(5) %}
                                 <i class="fa-solid fa-star text-xs" style="color: #FFD43B;"></i>
                                 {% endfor %}
-                                <span class="ml-1 text-sm text-gray-600">(530 Visitors)</span>
+                                <span class="ml-1 text-sm text-gray-600">(₹{{ listing.price }})</span>
                             </div>
                         </header>
                     </section>
@@ -88,85 +94,37 @@
             </div>
 
             <!-- Tiffin Services -->
-            <!-- <div class="w-full mt-8">
+            <div class="w-full mt-8">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-2xl font-bold">Tiffin Services</h2>
-                    <a href="#" class="text-blue-600 hover:text-blue-800"></a>
+                    <a href="{{ url_for('add_listing') }}?type=tiffin" class="text-blue-600 hover:text-blue-800">Add New</a>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {% for _ in range(2) %}
-                    <section
-                        class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out">
-                        <div
-                            class="overflow-hidden relative items-center justify-center h-48 w-full transition-transform duration-200 rounded-3xl flex-auto">
-                            <img loading="lazy" src="{{url_for('static', filename='images/Tiffin_service.jpg')}}"
-                                class="object-cover w-full h-full" alt="Homely Tiffin Service" />
-                            <div
-                                class="flex overflow-hidden opacity-0 absolute h-full w-full bg-black bg-opacity-50 top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 duration-300 ease-in-out gap-4">
-
-                                <button type="button" data-ripple-dark="true"
-                                    class="bg-white text-black px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300">
-                                    View
-                                </button>
-
-                                <button type="button" data-ripple-dark="true"
-                                    class="bg-white text-black text-center text-2xl flex items-center justify-center px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300">
+                    {% for listing in listings_by_type.tiffin %}
+                    <section class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out">
+                        <div class="overflow-hidden relative items-center justify-center h-48 w-full transition-transform duration-200 rounded-3xl flex-auto">
+                            <img loading="lazy" src="/{{listing.display_picture}}" class="object-cover w-full h-full" alt="{{ listing.title }}" />
+                            <div class="flex overflow-hidden opacity-0 absolute h-full w-full bg-black bg-opacity-50 top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 duration-300 ease-in-out gap-4">
+                                <!-- Modify your existing button inside listings to trigger the modal -->
+                                <button type="button" class="view-button bg-white text-black px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300" 
+                                data-listing='{{ listing | tojson | safe }}'>View</button>
+                                <button type="button" data-ripple-dark="true" class="bg-white text-black text-center text-2xl flex items-center justify-center px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300">
                                     <i class="fa-solid fa-caret-up"></i>
                                 </button>
                             </div>
                         </div>
                         <header class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-black">
-                            <h2 class="text-xl font-bold">Homely Tiffin Service</h2>
-                            <p class="mt-1 text-md">Bengaluru, Karnataka</p>
+                            <h2 class="text-xl font-bold">{{ listing.title }}</h2>
+                            <p class="mt-1 text-md">{{ listing.location }}</p>
                             <div class="flex items-center mt-1">
                                 {% for _ in range(5) %}
                                 <i class="fa-solid fa-star text-xs" style="color: #FFD43B;"></i>
                                 {% endfor %}
-                                <span class="ml-1 text-sm text-gray-600">(320 Visitors)</span>
+                                <span class="ml-1 text-sm text-gray-600">(₹{{ listing.price }})</span>
                             </div>
                         </header>
                     </section>
                     {% endfor %}
-                </div>
-            </div> -->
-
-            <!-- Libraries -->
-            <div class="w-full mt-8">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl font-bold">Libraries</h2>
-                    <a href="#" class="text-blue-600 hover:text-blue-800"></a>
-                </div>
-                <section
-                    class="flex group overflow-hidden flex-col justify-center items-center p-3 w-full h-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out bg-gray-100 cursor-pointer"
-                    onclick='window.location.href="/seller/add-listing"'>
-                    <div class="text-2xl text-primary opacity-50">
-                        <i class="fas fa-plus-circle"></i>
-                    </div>
-                    <h2 class="text-xl font-bold text-gray-600">Add Library Service</h2>
-                    <p class="mt-2 text-sm text-gray-500">Click to add a new library service listing</p>
-                </section>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Add Library Service Card -->
-                </div>
-            </div>
-
-            <!-- Second Hand Vehicles -->
-            <div class="w-full mt-8">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl font-bold">Second Hand Vehicles</h2>
-                    <a href="#" class="text-blue-600 hover:text-blue-800"></a>
-                </div>
-                <section
-                    class="flex group overflow-hidden flex-col justify-center items-center p-3 w-full h-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out bg-gray-100 cursor-pointer"
-                    onclick='window.location.href="/seller/add-listing"'>
-                    <div class="text-2xl text-primary opacity-50">
-                        <i class="fas fa-car"></i>
-                    </div>
-                    <h2 class="text-xl font-bold text-gray-600">Add Second Hand Vehicle</h2>
-                    <p class="mt-2 text-sm text-gray-500">Click to add a new second hand vehicle listing</p>
-                </section>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Add Second Hand Vehicle Card -->
                 </div>
             </div>
 
@@ -174,19 +132,104 @@
             <div class="w-full mt-8">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-2xl font-bold">Books</h2>
-                    <a href="#" class="text-blue-600 hover:text-blue-800"></a>
+                    <a href="{{ url_for('add_listing') }}?type=book" class="text-blue-600 hover:text-blue-800">Add New</a>
                 </div>
-                <section
-                    class="flex group overflow-hidden flex-col justify-center items-center p-3 w-full h-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out bg-gray-100 cursor-pointer"
-                    onclick='window.location.href="/seller/add-listing"'>
-                    <div class="text-2xl text-primary opacity-50">
-                        <i class="fas fa-plus-circle"></i>
-                    </div>
-                    <h2 class="text-xl font-bold text-gray-600">Add Book</h2>
-                    <p class="mt-2 text-sm text-gray-500">Click to add a new book listing</p>
-                </section>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Add Book Card -->
+                    {% for listing in listings_by_type.book %}
+                    <section class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out">
+                        <div class="overflow-hidden relative items-center justify-center h-48 w-full transition-transform duration-200 rounded-3xl flex-auto">
+                            <img loading="lazy" src="/{{listing.display_picture}}" class="object-cover w-full h-full" alt="{{ listing.title }}" />
+                            <div class="flex overflow-hidden opacity-0 absolute h-full w-full bg-black bg-opacity-50 top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 duration-300 ease-in-out gap-4">
+                                <!-- Modify your existing button inside listings to trigger the modal -->
+                                <button type="button" class="view-button bg-white text-black px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300" 
+                                data-listing='{{ listing | tojson | safe }}'>View</button>
+                                <button type="button" data-ripple-dark="true" class="bg-white text-black text-center text-2xl flex items-center justify-center px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300">
+                                    <i class="fa-solid fa-caret-up"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <header class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-black">
+                            <h2 class="text-xl font-bold">{{ listing.title }}</h2>
+                            <p class="mt-1 text-md">{{ listing.location }}</p>
+                            <div class="flex items-center mt-1">
+                                {% for _ in range(5) %}
+                                <i class="fa-solid fa-star text-xs" style="color: #FFD43B;"></i>
+                                {% endfor %}
+                                <span class="ml-1 text-sm text-gray-600">(₹{{ listing.price }})</span>
+                            </div>
+                        </header>
+                    </section>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Libraries -->
+            <div class="w-full mt-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold">Libraries</h2>
+                    <a href="{{ url_for('add_listing') }}?type=library" class="text-blue-600 hover:text-blue-800">Add New</a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% for listing in listings_by_type.library %}
+                    <section class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out">
+                        <div class="overflow-hidden relative items-center justify-center h-48 w-full transition-transform duration-200 rounded-3xl flex-auto">
+                            <img loading="lazy" src="/{{listing.display_picture}}" class="object-cover w-full h-full" alt="{{ listing.title }}" />
+                            <div class="flex overflow-hidden opacity-0 absolute h-full w-full bg-black bg-opacity-50 top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 duration-300 ease-in-out gap-4">
+                                <!-- Modify your existing button inside listings to trigger the modal -->
+                                <button type="button" class="view-button bg-white text-black px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300" 
+                                data-listing='{{ listing | tojson | safe }}'>View</button>
+                                <button type="button" data-ripple-dark="true" class="bg-white text-black text-center text-2xl flex items-center justify-center px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300">
+                                    <i class="fa-solid fa-caret-up"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <header class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-black">
+                            <h2 class="text-xl font-bold">{{ listing.title }}</h2>
+                            <p class="mt-1 text-md">{{ listing.location }}</p>
+                            <div class="flex items-center mt-1">
+                                {% for _ in range(5) %}
+                                <i class="fa-solid fa-star text-xs" style="color: #FFD43B;"></i>
+                                {% endfor %}
+                                <span class="ml-1 text-sm text-gray-600">(₹{{ listing.price }})</span>
+                            </div>
+                        </header>
+                    </section>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Second Hand Vehicles -->
+            <div class="w-full mt-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold">Second Hand Vehicles</h2>
+                    <a href="{{ url_for('add_listing') }}?type=vehicle" class="text-blue-600 hover:text-blue-800">Add New</a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% for listing in listings_by_type.vehicle %}
+                    <section class="flex group overflow-hidden flex-col justify-between p-3 w-full rounded-3xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out">
+                        <div class="overflow-hidden relative items-center justify-center h-48 w-full transition-transform duration-200 rounded-3xl flex-auto">
+                            <img loading="lazy" src="/{{listing.display_picture}}" class="object-cover w-full h-full" alt="{{ listing.title }}" />
+                            <div class="flex overflow-hidden opacity-0 absolute h-full w-full bg-black bg-opacity-50 top-0 left-0 p-[20px] items-center justify-center rounded-3xl group-hover:opacity-100 duration-300 ease-in-out gap-4">
+                                <!-- Modify your existing button inside listings to trigger the modal -->
+                                <button type="button" class="view-button bg-white text-black px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300" 
+                                data-listing='{{ listing | tojson | safe }}'>   View</button>
+                                <button type="button" data-ripple-dark="true" class="bg-white text-black text-center text-2xl flex items-center justify-center px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition duration-300">
+                                    <i class="fa-solid fa-caret-up"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <header class="flex flex-col justify-center h-auto items-start self-start mt-2.5 text-black">
+                            <h2 class="text-xl font-bold">{{ listing.title }}</h2>
+                            <p class="mt-1 text-md">{{ listing.location }}</p>
+                            <div class="flex items-center mt-1">
+                                {% for _ in range(5) %}
+                                <i class="fa-solid fa-star text-xs" style="color: #FFD43B;"></i>
+                                {% endfor %}
+                                <span class="ml-1 text-sm text-gray-600">(₹{{ listing.price }})</span>
+                            </div>
+                        </header>
+                    </section>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -208,6 +251,29 @@
 
             // Add event listener for window resize
             window.addEventListener('resize', setSpacerHeight);
+        });
+
+        function openModal(title, description, location, landmark, price, contact, email, image) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDescription').textContent = description;
+            document.getElementById('modalLocation').textContent = location;
+            document.getElementById('modalLandmark').textContent = landmark;
+            document.getElementById('modalPrice').textContent = price;
+            document.getElementById('modalContact').textContent = contact;
+            document.getElementById('modalEmail').textContent = email;
+            document.getElementById('modalImage').src = '/' + image;
+            document.getElementById('listingModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('listingModal').classList.add('hidden');
+        }
+
+        document.querySelectorAll(".view-button").forEach(button => {
+            button.addEventListener("click", function() {
+                let listing = JSON.parse(this.getAttribute("data-listing"));
+                openModal(listing.title, listing.description, listing.location, listing.landmark, listing.price, listing.phone, listing.email, listing.display_picture);
+            });
         });
     </script>
 </body>

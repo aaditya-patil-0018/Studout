@@ -119,7 +119,9 @@ def landing():
         session["user-in"] = False
     with open("listing.json", 'r') as f:
         data = json.load(f)
-    return render_template("landing.html", is_landing_page=not session["user-in"], data=data)
+    with open("reviews.json", "r") as rf:
+        reviews = json.load(rf)
+    return render_template("landing.html", is_landing_page=not session["user-in"], data=data, reviews=reviews)
 
 # trail home page
 '''
@@ -350,6 +352,10 @@ def user_profile_setup_3():
 def user_products_listing():
     if request.method == "GET":
         service = request.args.get("service", "")
+        if service == "libraries":
+            service = "book"
+        if service == "second_hand":
+            service = "vehicle"
         print(service)
         with open("listing.json", "r") as f:
             ndata = json.load(f)
@@ -367,26 +373,47 @@ def user_products_listing():
     else:
         max_price = request.form.get('max_price')
         category = request.form.get('category')
+        print(category)
+        with open("listing.json", "r") as f:
+            ndata = json.load(f)
+        data = {}
+        if str(category) == "None":
+            for d in ndata:
+                for j in ndata[d]:
+                    if int(j["price"]) <= int(max_price):
+                        if d not in data:
+                            data[d] = []
+                        data[d].append(j)
+        else:
+            if category == "Tiffin Services":
+                category = "tiffin"
+            elif category == "Flats & PGs":
+                category = "flat_pg"
+            elif category == "Libraries":
+                category = "book"
+            for d in ndata:
+                for j in ndata[d]:
+                    if int(j["price"]) <= int(max_price) and j["listing_type"] == category:
+                        if d not in data:
+                            data[d] = []
+                        data[d].append(j)
+        # return data
+        return render_template("user_products_listing.html", service=category, data=data, is_products_listing=True)
         return f"Max Price: {max_price}, Selected Category: {category}"
 
-@app.route("/user-product-details/<userid>/<listing>", methods=["GET", "POST"])
+@app.route("/user-product-details/<userid>/<listingid>", methods=["GET", "POST"])
 @app.route("/user-product-details", methods=["GET", "POST"])
 def user_product_details(userid='', listingid=''):
     if request.method == "POST":
         return jsonify({"success": True})
     with open("listing.json", "r") as f:
-        data = json.load(f)["1"][int(listingid)]
+        data = json.load(f)[str(userid)][int(listingid)]
 
-    db = DatabaseManager()
-    user_data = db.search_user(session["email"])
-    user_id = user_data[0]
-    print(user_id)
-    if "started" in session:
-        if has_started(user_id):
-            sdata = get_user_from_json(user_id)
-            # print(sdata)
+    # Get seller data based on userid from URL
+    sdata = get_user_from_json(userid)
+    
     print(data["gallery_images"])
-    gdata=data["gallery_images"]
+    gdata = data["gallery_images"]
     return render_template("user_product_details.html", data=data, sdata=sdata, gdata=gdata)
 
 @app.route("/user-profile")
@@ -525,6 +552,7 @@ def seller_dashboard():
     with open('sellers.json', 'r') as rfile:
         sd = json.load(rfile)
         sellerdata = [sd[i]['email'] for i in sd]
+    
     # check if the user is present in seller data or not
     if session["email"] in sellerdata:
         c = 0
@@ -532,24 +560,67 @@ def seller_dashboard():
             if sd[i]["email"] == session["email"]:
                 c = i
                 break
+        
+        # Get seller's listings
+        with open('listing.json', 'r') as lfile:
+            listings_data = json.load(lfile)
+            seller_listings = listings_data.get(str(c), [])
+        
+        # Calculate dashboard stats
+        total_listings = len(seller_listings)
+        active_listings = len([l for l in seller_listings if l['status'] == 'show'])
+        
+        # Add stats to seller data
+        sd[str(c)]['total_listings'] = total_listings
+        sd[str(c)]['active_listings'] = active_listings
+        sd[str(c)]['listings'] = seller_listings
+        
         return render_template("seller_dashboard.html", sd=sd[str(c)])
-    # if not then we return a page with a message do you want to signup for seller
     else:
-        # return "<div style='margin: 5%;'><center><h1>Do you want to sign up for seller account?</h1><a href='/seller-profile-setup-1' style='font-size: 24px;'>Click here</a></center></div>"
         return render_template("seller_get_started.html")
 
 @app.route("/seller/listings")
 def seller_listings():
-    # Open and read the user's listings.json file (Assuming the file is named 'listings.json')
-    try:
-        with open("listings.json", "r") as f:
-            listings_data = json.load(f)  # Parse JSON data
-    except FileNotFoundError:
-        listings_data = []  # If file not found, use empty list as fallback
+    # check if the email is present in the seller list
+    with open('sellers.json', 'r') as rfile:
+        sd = json.load(rfile)
+        sellerdata = [sd[i]['email'] for i in sd]
     
-    # Pass the listings data to the template
-    return render_template("seller_listings.html", listings=listings_data)
-    # return render_template("seller_listings.html")
+    # check if the user is present in seller data or not
+    if session["email"] in sellerdata:
+        c = 0
+        for i in sd:
+            if sd[i]["email"] == session["email"]:
+                c = i
+                break
+        
+        # Get seller's listings
+        with open('listing.json', 'r') as lfile:
+            listings_data = json.load(lfile)
+            seller_listings = listings_data.get(str(c), [])
+        
+        # Group listings by type
+        listings_by_type = {
+            'flat_pg': [],
+            'tiffin': [],
+            'book': [],
+            'library': [],
+            'vehicle': []
+        }
+        
+        for listing in seller_listings:
+            listing_type = listing.get('listing_type', '')
+            if listing_type in listings_by_type:
+                listings_by_type[listing_type].append(listing)
+        
+        print(listings_by_type)
+        print(sd[str(c)])
+
+        return render_template("seller_listings.html",
+                             listings_by_type=listings_by_type,
+                             seller_data=sd[str(c)])
+    else:
+        return render_template("seller_get_started.html")
 
 @app.route("/seller/listing-detail")
 def seller_listing_detail():

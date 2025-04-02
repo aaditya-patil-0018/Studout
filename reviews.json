@@ -1,0 +1,29 @@
+{
+    "reviews": [
+      {
+        "stars": 5,
+        "name": "Rahul Sharma",
+        "description": "StudOut made my relocation so much easier! Found a great PG within my budget. Highly recommended!"
+      },
+      {
+        "stars": 4,
+        "name": "Sneha Verma",
+        "description": "The platform is very helpful, but I wish there were more rental options in my area. Overall, a great experience!"
+      },
+      {
+        "stars": 5,
+        "name": "Amit Patel",
+        "description": "Loved the second-hand books section! Got my semester books at an amazing price. Thanks, StudOut!"
+      },
+      {
+        "stars": 3,
+        "name": "Priya Nair",
+        "description": "Good platform, but the UI can be improved a bit. Sometimes, it feels a bit slow."
+      },
+      {
+        "stars": 4,
+        "name": "Vikram Joshi",
+        "description": "Tiffin service recommendations were spot on! Found a great service near my hostel. Would love more filtering options."
+      }
+    ]
+  }
